@@ -41,7 +41,7 @@ export const ProductCard = (props: CardProps) => {
   return (
     <div className={cn(styles.wrapper, styles[view])}>
       <Link className={styles.link} href={'/'}>
-        <Image className={cn(styles.img, styles[view])} src={test} alt={text} />
+      <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
 
         <div className={cn(styles.contentWrapper, styles[view])}>
           <div>
