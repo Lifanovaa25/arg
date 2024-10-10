@@ -8,7 +8,7 @@ import {
 
 const getSearchResults = async ({ Page, PageSize, SearchString }: ISearchRequestParams): Promise<TSearchResponse | IError> => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/GetCategory?Page=${Page}&PageSize=${PageSize}&SearchString=${SearchString}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/GetSearchResult?Page=${Page}&PageSize=${PageSize}&SearchString=${SearchString}`;
     const response = await axios.get(url);
     const result = await response.data;
 

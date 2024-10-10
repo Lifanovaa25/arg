@@ -1,6 +1,8 @@
 import type { ProductCard } from '@/src/shared/types/productCard';
-
 export interface CardProps extends ProductCard {
+  image: string,
+  manufacturer: string,
+  link:string,
   view: 'list' | 'grid';
 }
 
@@ -13,3 +15,4 @@ export interface ICartStore {
   onRemoveCard: (id: number) => void;
   onClearCart: () => void;
 }
+

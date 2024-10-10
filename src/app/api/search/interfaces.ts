@@ -14,8 +14,8 @@ export interface ISearchResponse2numbernumber {
     Description: string;
     Type: string;
   };
-  Value: {
-    Items: {
+  value: {
+    items: {
       Id: number;
       Image: string;
       Label: string;
