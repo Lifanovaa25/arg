@@ -1,0 +1,14 @@
+.line {
+  height: 1px;
+  margin: 10px 0 20px;
+  background-color: var(--medium-gray);
+}
+
+.text {
+  max-width: 350px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--black);
+  font-family: var(--font-mont);
+}

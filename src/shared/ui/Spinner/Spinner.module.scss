@@ -1,0 +1,30 @@
+.wrapper {
+  margin: 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
+/* TODO: доделать спинер */
+.spinner {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: solid 2px transparent;
+  border-top-color: var(--emerald-green);
+  border-left-color: var(--emerald-green);
+  border-radius: 100%;
+  -webkit-animation: progress-spinner 900ms linear infinite;
+  animation: progress-spinner 900ms linear infinite;
+}
+
+@keyframes progress-spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(1turn);
+    transform: rotate(1turn);
+  }
+}

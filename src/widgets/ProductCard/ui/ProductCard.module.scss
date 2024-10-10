@@ -1,0 +1,193 @@
+.wrapper {
+  transition: all 0.3s;
+
+  &.grid {
+    width: 325px;
+    height: 385px;
+  }
+
+  &.list {
+    width: 100%;
+    height: 240px;
+  }
+}
+
+.link {
+  width: 100%;
+  height: 100%;
+  padding: 30px 37px;
+  display: flex;
+  align-items: center;
+  border-radius: 11px;
+  background-color: var(--white);
+  color: var(--black);
+  position: relative;
+}
+
+.contentWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &.list {
+    max-width: 265px;
+    margin: 0 auto;
+  }
+}
+
+.manufacturers {
+  font-size: 14px;
+  color: var(--ash-gray);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  margin-top: 7px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: var(--golden-sand);
+  }
+
+  &.list {
+    font-size: 22px !important;
+    line-height: 27px !important;
+  }
+}
+
+.img {
+  height: 182px;
+  width: fit-content;
+
+  &.grid {
+    position: absolute;
+    top: 127px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.list {
+    position: initial;
+  }
+}
+
+.bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price {
+  color: var(--ash-gray);
+  font-size: 16px;
+}
+
+.btnsWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.btnCount,
+.btnIncrease {
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 22px;
+  color: var(--black);
+}
+
+.btnAdd:hover,
+.btnCount:hover {
+  color: var(--golden-sand);
+}
+
+.spanIncrease {
+  margin-right: 3px;
+  transform: translateY(2px);
+  display: inline-block;
+  font-size: 22px;
+  line-height: 22px;
+}
+
+.spanQuantity {
+  min-width: 11px;
+  display: inline-block;
+  font-size: 18px;
+}
+
+.btnIncrease {
+  .btnCount:first-child {
+    padding-right: 5px;
+  }
+
+  .btnCount:last-child {
+    padding-left: 5px;
+    transform: translateY(1px);
+  }
+}
+
+.information {
+  position: absolute;
+  right: 30px;
+  bottom: 29px;
+  font-size: 15px;
+  transition: all 0.3s;
+
+  &:hover {
+    color: var(--golden-sand);
+  }
+}
+
+@media (max-width: 1008px) {
+  .information {
+    display: none;
+  }
+
+  .contentWrapper {
+    margin: 0 0 0 auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper.list {
+    height: 134px;
+  }
+
+  .link {
+    height: 134px;
+    padding: 32px 26px 16px 36px;
+    gap: 30px;
+
+    .title {
+      font-size: 13px !important;
+      line-height: 16px !important;
+    }
+  }
+
+  .img {
+    height: 61px;
+  }
+
+  .manufacturers,
+  .price,
+  .spanAdd {
+    font-size: 9px;
+    line-height: 11px;
+  }
+
+  .btnAdd {
+    display: flex;
+    align-items: center;
+  }
+
+  .spanAdd {
+    transform: translateY(1px);
+  }
+}

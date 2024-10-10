@@ -1,0 +1,35 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  background-color: var(--golden-sand);
+  z-index: 200;
+  transition: all 0.3s;
+  transform: translateX(-101%);
+  font-size: 16px;
+  padding: 105px 0 0 38px;
+
+  &.menuOpen {
+    transform: translateX(0);
+  }
+}
+
+.li {
+  margin-bottom: 12px;
+
+  &.black {
+    color: var(--black);
+  }
+}
+
+.btn {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  border-radius: 100%;
+  position: absolute;
+  top: 26px;
+  right: 26px;
+}

@@ -1,0 +1,27 @@
+:root {
+  --black: #000;
+  --white: #fff;
+  --light-black: #262626;
+  --snow-white: #f7faf9;
+  --pearl-white: #f8f8f8;
+  --light-gray: #cbcbcb;
+  --silver-gray: #c1c1c1;
+  --charcoal-gray: #3e3e3e;
+  --graphite-gray: #575858;
+  --medium-gray: #808080;
+  --soft-gray: #d9d9d9;
+  --steel-gray: #737373;
+  --slate-gray: #5b5b5b;
+  --cloud-gray: #b8b6b6;
+  --ash-gray: #6a6a6a;
+  --smoke-gray: #655e5e;
+  --forest-green: #2f4f3d;
+  --emerald-green: #016538;
+  --light-green: #9ddeb9;
+  --golden-sand: #dead5b;
+  --dark-red: #c5292a;
+  --light-blue: #729df2;
+
+  --font-mont: 'Mont', sans-serif;
+  --font-onest: 'Onest', sans-serif;
+}

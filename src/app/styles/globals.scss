@@ -1,0 +1,163 @@
+@import 'theme.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 360px;
+  font-size: 18px;
+  line-height: 23px;
+  overflow-x: hidden;
+  color: var(--white);
+  background-color: var(--snow-white);
+  font-family: var(--font-onest);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 10px;
+    background-color: var(--cloud-gray);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--medium-gray);
+    border-radius: 10px;
+  }
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+input {
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+}
+
+input,
+button,
+textarea {
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.3s;
+}
+
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+button,
+a,
+svg,
+svg path,
+svg stroke {
+  transition: all 0.3s;
+}
+
+ul {
+  list-style: none;
+}
+
+h1 {
+  margin: 0 !important;
+}
+
+.container {
+  max-width: 1338px;
+  width: 100%;
+  margin: 0 calc((100% - 1338px) / 2 + 32px);
+  padding: 0 38px;
+}
+
+.big-container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 calc((100% - 1400px) / 2 + 32px);
+  padding: 0 38px;
+}
+
+.ReactModal__Overlay {
+  background-color: rgba(47, 79, 61, 0.8) !important;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+
+  &--after-open {
+    opacity: 1;
+  }
+
+  &--before-close {
+    opacity: 0;
+  }
+}
+
+.ReactModal__Content {
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-right: -50% !important;
+  transform: translate(-50%, -50%) !important;
+  transition: all 0.3s !important;
+  opacity: 0 !important;
+  border-radius: 11px !important;
+  padding: 40px 45px !important;
+
+  h4 + button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  &.ReactModal__Content--after-open {
+    opacity: 1 !important;
+  }
+}
+
+@media (max-width: 1716px) {
+  .container,
+  .big-container {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .container,
+  .big-container {
+    padding: 0 16px;
+  }
+}

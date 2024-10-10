@@ -1,0 +1,14 @@
+.main {
+  min-height: calc(100vh - 574px);
+  margin: 200px 0 100px;
+}
+
+.noMarginTop {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin: 125px 0 60px;
+  }
+}

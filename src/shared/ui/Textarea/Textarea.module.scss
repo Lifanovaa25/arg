@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+}
+
+.textarea {
+  width: 100% !important;
+  height: 70px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  line-height: 16px;
+  background-color: transparent;
+  color: var(--black);
+  font-family: var(--font-mont);
+  border-radius: 0;
+  resize: none;
+
+  &::placeholder {
+    color: rgba(133, 133, 133, 0.7);
+  }
+
+  &:focus {
+    appearance: none;
+    -moz-appearance: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 2px;
+    background-color: var(--soft-gray);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--medium-gray);
+    border-radius: 2px;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:hover {
+    -webkit-text-fill-color: var(--black) !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}

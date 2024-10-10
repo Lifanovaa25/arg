@@ -1,0 +1,43 @@
+.swiper {
+  overflow: visible;
+
+  &-slide {
+    transition: all 0.3s;
+  }
+}
+
+.swiper-button-prev:after,
+.swiper-button-next:after {
+  display: none;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 54px;
+  height: 54px;
+  background: url('/svg/arrow-short.svg') no-repeat center;
+  background-color: var(--cloud-gray);
+  border-radius: 100%;
+  top: -82px;
+  left: initial;
+}
+
+.swiper-button-next {
+  transform: rotate(180deg);
+}
+
+.swiper-button-prev {
+  right: 73px;
+}
+
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+
+  .swiper {
+    overflow: hidden;
+    padding: 0 16px;
+  }
+}
