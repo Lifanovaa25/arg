@@ -2,7 +2,6 @@
 const nextConfig = {
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
-
     config.module.rules.push(
       {
         ...fileLoaderRule,
@@ -21,6 +20,14 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'royal-equipment.ae',
+      port: '',
+      pathname: '/media/**'
+    }]
+  }
 };
 
 export default nextConfig;
