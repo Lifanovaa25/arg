@@ -2,18 +2,16 @@
 
 import { useState } from 'react';
 import Title from '@/src/shared/ui/Title/Title';
-import { onClearCart, onRemoveCard } from '@/src/widgets/ProductCard/model/slice';
-import { useAppSelector, useAppDispatch } from '@/src/shared/lib/hooks/store/useStore';
 import { Card } from '../Card/Card';
 import { CartModal } from '../Modal/Modal';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './Details.module.scss';
 
 export const Details = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idProduct, setIdProduct] = useState<number | null>(null);
 
-  const dispatch = useAppDispatch();
-  const cart = useAppSelector(({ cart }) => cart.cart);
+  const { cart, onRemoveCard, onClearCart } = productCartStore();
 
   const handleOpenModal = (id: number) => {
     setIsModalOpen(true);
@@ -21,13 +19,15 @@ export const Details = () => {
   };
 
   const handleRemoveCart = () => {
-    dispatch(onRemoveCard(idProduct));
-    setIsModalOpen(false);
-    setIdProduct(null);
+    if (idProduct) {
+      onRemoveCard(idProduct);
+      setIsModalOpen(false);
+      setIdProduct(null);
+    }
   };
 
   const handleClearCart = () => {
-    dispatch(onClearCart());
+    onClearCart()
     setIsModalOpen(false);
     setIdProduct(null);
   };
@@ -39,22 +39,22 @@ export const Details = () => {
           Checkout details
         </Title>
 
-        {cart.length > 0 && (
+        {(cart && cart.length > 0) && (
           <button className={styles.btn} onClick={() => setIsModalOpen(true)}>
             Clear cart
           </button>
         )}
       </div>
 
-      {cart.length < 1 && <p className={styles.empty}>Cart is empty</p>}
+      {(cart && cart.length < 1) && <p className={styles.empty}>Cart is empty</p>}
 
       <div className={styles.list}>
-        {cart.map((card) => (
+        {(cart && cart.length) && cart.map((card) => (
           <Card key={card.id} {...card} handleOpenModal={handleOpenModal} />
         ))}
       </div>
 
-      {cart.length > 0 && (
+      {cart && cart.length > 0 && (
         <div className={styles.total}>
           <span className={styles.price}>Total price:</span>
           <span className={styles.request}>On request</span>

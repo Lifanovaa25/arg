@@ -6,7 +6,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
-import { useAppSelector } from '@/src/shared/lib/hooks/store/useStore';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 import { getTotalQuantityCards } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
 import Title from '@/src/shared/ui/Title/Title';
 import Button from '@/src/shared/ui/Button/Button';
@@ -25,7 +25,7 @@ export const Order = () => {
   const [captchaError, setCaptchaError] = useState(false);
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-  const cart = useAppSelector(({ cart }) => cart.cart);
+  const { cart } = productCartStore();
 
   const {
     register,
@@ -101,7 +101,7 @@ export const Order = () => {
           Your order
         </Title>
         <div className={styles.items}>
-          <span className={styles.count}>(</span>
+          <span className={styles.count}>({getTotalQuantityCards(cart)}</span>
           <span>items)</span>
         </div>
       </div>

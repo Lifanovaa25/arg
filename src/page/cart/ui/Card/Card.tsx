@@ -1,7 +1,8 @@
+'use client';
+
 import Image from 'next/image';
-import { onPlusCard, onMinusCard } from '@/src/widgets/ProductCard/model/slice';
 import Title from '@/src/shared/ui/Title/Title';
-import { useAppDispatch } from '@/src/shared/lib/hooks/store/useStore';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 import { CardProps } from './types';
 import Trash from '/public/svg/trash.svg';
 import test from '/public/images/test.png';
@@ -10,17 +11,16 @@ import styles from './Card.module.scss';
 //TODO: долелать когда будет готов бек
 export const Card = (props: CardProps) => {
   const { title, price, id, quantity, handleOpenModal } = props;
-
-  const dispatch = useAppDispatch();
+  const { onPlusCard, onMinusCard } = productCartStore();
 
   const handleIncreaceQuantity = () => {
-    dispatch(onPlusCard(id));
+    onPlusCard(id)
   };
 
   const handleDecreaceQuantity = () => {
     if (quantity === 1) return;
 
-    dispatch(onMinusCard(id));
+    onMinusCard(id);
   };
 
   return (

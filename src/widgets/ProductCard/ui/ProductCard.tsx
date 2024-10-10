@@ -5,53 +5,49 @@ import Image from 'next/image';
 import Link from 'next/link';
 import cn from 'classnames';
 import Title from '@/src/shared/ui/Title/Title';
-import { useAppDispatch, useAppSelector } from '@/src/shared/lib/hooks/store/useStore';
-import {
-  onAddCard,
-  onMinusCard,
-  onPlusCard,
-  onRemoveCard,
-} from '../../ProductCard/model/slice';
 import test from '/public/images/test.png';
 import { CardProps } from '../model/types';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './ProductCard.module.scss';
 
 export const ProductCard = (props: CardProps) => {
-  const { id, title: text, link, image, manufacturer, price, view } = props;
+  const { id, title: text, price, view } = props;
+  const { cart, onAddCard, onPlusCard, onRemoveCard, onMinusCard } = productCartStore();
 
-  const dispatch = useAppDispatch();
-  const card = useAppSelector(({ cart }) => cart.cart.find((obj) => obj.id === id));
+  const card = cart && cart.length && cart.find((obj) => obj.id === id);
 
   const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(onAddCard(props));
+    onAddCard(props);
   };
 
   const handleIncreaseCount = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    dispatch(onPlusCard(id));
+    onPlusCard(id);
   };
 
   const handleDecreaseCount = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    if (card?.quantity === 1) {
-      dispatch(onRemoveCard(id));
-    } else {
-      dispatch(onMinusCard(id));
+    if (card) {
+      if (card.quantity === 1) {
+        onRemoveCard(id);
+      } else {
+        onMinusCard(id);
+      }
     }
   };
 
   return (
     <div className={cn(styles.wrapper, styles[view])}>
-      <Link className={styles.link} href={props.link ? 'https://royal-equipment.ae' + props.link : "/"}>
-        <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+      <Link className={styles.link} href={'/'}>
+        <Image className={cn(styles.img, styles[view])} src={test} alt={text} />
 
         <div className={cn(styles.contentWrapper, styles[view])}>
           <div>
             <div className={styles.manufacturers}>
               <span>Manufacturers: </span>
-              <span>{props.manufacturer}</span>
+              <span>{'GRUNDFOS'}</span>
             </div>
             <Title
               className={cn(styles.title, styles[view])}
@@ -60,14 +56,14 @@ export const ProductCard = (props: CardProps) => {
               font="onest"
               weight="bold"
             >
-              {props.title}
+              {'Junction box Mettler Toledo AJB941M'}
             </Title>
           </div>
 
           <div className={styles.bottom}>
             <div className={styles.price}>
               <span>Price: </span>
-              <span>{props.price}</span>
+              <span>{price}</span>
             </div>
             <div className={styles.btnsWrapper}>
               {!card ? (

@@ -1,5 +1,4 @@
 import { TanstackQuery } from '@/src/app/providers/TanStackQuery';
-import { StoreProvider } from '@/src/app/providers/Store';
 import { ToastProvider } from '@/src/app/providers/Toast';
 import { MainProvider } from '@/src/app/providers/MainContainer';
 import { Header } from '@/src/widgets/Header';
@@ -26,19 +25,17 @@ export default function RootLayout({
       </head>
       <body className={`${mont.variable} ${onest.variable}`}>
         <div id="__next">
-          <StoreProvider>
-            <TanstackQuery>
-              <ToastProvider>
-                <Header />
+          <TanstackQuery>
+            <ToastProvider>
+              <Header />
 
-                <Aside />
+              <Aside />
 
-                <MainProvider>{children}</MainProvider>
+              <MainProvider>{children}</MainProvider>
 
-                <Footer />
-              </ToastProvider>
-            </TanstackQuery>
-          </StoreProvider>
+              <Footer />
+            </ToastProvider>
+          </TanstackQuery>
         </div>
       </body>
     </html>

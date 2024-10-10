@@ -1,26 +1,47 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import cartSlice from '@/src/widgets/ProductCard/model/slice';
-import { storage } from './storage';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { LOCAL_STORAGE_STORE_NAME } from "./config";
+import { getLocalStore } from "@/src/shared/lib/utils/localeStorage/localStorage";
 
-const persistConfig = {
-  key: 'cart',
-  storage,
-};
+import type { ICartStore } from "@/src/widgets/ProductCard/model/types";
+import type { CardProps } from "@/src/widgets/ProductCard/model/types";
+import type { ProductCard } from "@/src/shared/types/productCard";
 
-const persistedReducer = persistReducer(persistConfig, cartSlice);
-
-export const store = configureStore({
-  reducer: {
-    cart: persistedReducer,
+export const productCartStore = create<ICartStore>()(persist((set, get) => ({
+  cart: getLocalStore(LOCAL_STORAGE_STORE_NAME)
+    ? getLocalStore(LOCAL_STORAGE_STORE_NAME)
+    : [],
+  onAddCard: (props: CardProps) => {
+    set({ cart: [...get().cart, { ...props, quantity: 1 }] });
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
-});
+  onMinusCard: (id: number) => {
+    const cart = JSON.parse(JSON.stringify(get().cart));
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+    cart.forEach((item: ProductCard) => {
+      if (item.id === id && item.quantity) {
+        item.quantity = item.quantity - 1;
+      }
+    });
 
-export const persistor = persistStore(store);
+    set({ cart });
+  },
+  onPlusCard: (id: number) => {
+    const cart = JSON.parse(JSON.stringify(get().cart));
+
+    cart.forEach((item: ProductCard) => {
+      if (item.id === id && item.quantity) {
+        item.quantity = item.quantity + 1;
+      }
+    });
+
+    set({ cart });
+  },
+  onRemoveCard: (id: number) => {
+    set({ cart: get().cart.filter(obj => obj.id !== id) });
+  },
+  onClearCart: () => {
+    set({ cart: [] });
+  }
+}), {
+  name: LOCAL_STORAGE_STORE_NAME
+}));

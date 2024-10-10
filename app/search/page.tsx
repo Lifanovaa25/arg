@@ -1,5 +1,6 @@
 import { NextPage, Metadata } from 'next';
 import { Search } from '@/src/page/search'; 
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Search',
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
 };
 
 const SearchPage: NextPage = () => {
-  return <Search />;
+  return (
+    <Suspense>
+      <Search />
+    </Suspense>
+  );
 };
 
 export default SearchPage;

@@ -1,6 +1,6 @@
 export interface ProductCard {
   title: string;
-  price: string | number;
+  price: string;
   id: number;
   quantity?: number;
 }

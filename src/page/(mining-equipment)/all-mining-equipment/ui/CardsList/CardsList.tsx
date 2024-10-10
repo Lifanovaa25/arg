@@ -75,12 +75,7 @@ export const CardsList = () => {
 
       <div className={styles.list}>
         {arr.map((item) => (
-          <ProductCard
-            image={''}
-            manufacturer={''}
-            link={''}
-            key={item.id} {...item}
-            view={view} />
+          <ProductCard key={item.id} {...item} view={view} />
         ))}
       </div>
 
