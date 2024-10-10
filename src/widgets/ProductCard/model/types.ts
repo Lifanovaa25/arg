@@ -16,3 +16,11 @@ export interface ICartStore {
   onClearCart: () => void;
 }
 
+export interface ICategoryStore {
+  path:string;
+  onAddPathName:(pathName: string) => void;
+}
+export interface ISearchStore {
+  query:string;
+  onAddSearchRequest:(query: string) => void;
+}

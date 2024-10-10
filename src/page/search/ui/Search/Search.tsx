@@ -10,6 +10,7 @@ import { FormProps } from '../../model/types';
 import styles from './Search.module.scss';
 import { getSearchResults } from '@/src/app/api/search/searchAPI';
 import { ISearchResponse2numbernumber } from '@/src/app/api/search/interfaces';
+import { searchStore } from '@/src/app/providers/Store/config/store';
 
 interface Product {
   id: number;
@@ -26,11 +27,12 @@ interface Product {
 export const Search = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
+  const {query, onAddSearchRequest } = searchStore();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1)
-  const [searchRequest, setSearchRequest] = useState('')
+  const [searchRequest, setSearchRequest] = useState(query)
   const { register, handleSubmit, getValues } = useForm<FormProps>({
     defaultValues: {
       search: searchParams.get('q') || '',

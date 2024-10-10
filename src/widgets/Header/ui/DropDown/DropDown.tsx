@@ -8,6 +8,7 @@ import { DropDownProps, MenuItem, ItemType } from './types';
 import Close from '/public/svg/close.svg';
 import Chevron from '/public/svg/chevron.svg';
 import styles from './Dropwodn.module.scss';
+import { categoryStore } from '@/src/app/providers/Store/config/store';
 
 const tabs = ['Equipment', 'Industry'];
 
@@ -18,6 +19,8 @@ export const DropDown = (props: DropDownProps) => {
   const [activeTypes, setActiveTypes] = useState<ItemType[]>([]);
   const [showTypes, setShowTypes] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const {path, onAddPathName } = categoryStore();
+
 
   const { data } = useMenuItems();
   useBodyOverflow(isDropDown);
@@ -35,12 +38,15 @@ export const DropDown = (props: DropDownProps) => {
   const handleChangeCategory = ({ categoryName, types }: MenuItem) => {
     setActiveName(categoryName);
     setActiveTypes(types);
-
+ 
     if (isMobile) {
       setShowTypes(true);
     }
   };
-
+const handlerSavePath=(path:string)=>{
+  onAddPathName(path)
+  // alert(path)
+}
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };
@@ -114,7 +120,7 @@ export const DropDown = (props: DropDownProps) => {
         <ul className={styles.ul}>
           {activeTypes.map(({ typeName, typeUrl }) => (
             <li key={typeName} className={styles.typeName}>
-              <Link href={typeUrl}>{typeName}</Link>
+              <Link href={typeUrl} onClick={()=>handlerSavePath(typeUrl)}>{typeName}</Link>
             </li>
           ))}
         </ul>
@@ -157,7 +163,7 @@ export const DropDown = (props: DropDownProps) => {
             <ul className={styles.ul}>
               {activeTypes.map(({ typeName, typeUrl }) => (
                 <li key={typeName} className={styles.typeName}>
-                  <Link href={typeUrl}>{typeName}</Link>
+                  <Link href={typeUrl} >{typeName}</Link>
                 </li>
               ))}
             </ul>
