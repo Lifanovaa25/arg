@@ -15,14 +15,14 @@ const cartSlice = createSlice({
       const findCard = state.cart.find((obj) => obj.id === action.payload);
 
       if (findCard) {
-        findCard.quantity--;
+        // findCard.quantity--;
       }
     },
     onPlusCard(state, action) {
       const findCard = state.cart.find((obj) => obj.id === action.payload);
 
       if (findCard) {
-        findCard.quantity++;
+        // findCard.quantity++;
       }
     },
     onRemoveCard(state, action) {

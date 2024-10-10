@@ -101,7 +101,7 @@ export const Order = () => {
           Your order
         </Title>
         <div className={styles.items}>
-          <span className={styles.count}>({getTotalQuantityCards(cart)}</span>
+          <span className={styles.count}>(</span>
           <span>items)</span>
         </div>
       </div>

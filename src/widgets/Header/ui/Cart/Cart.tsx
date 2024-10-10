@@ -16,7 +16,7 @@ export const Cart = (props: CartProps) => {
     <Link className={styles.cart} href="/cart">
       <Button className={styles.cartButton}>
         <Bag width="16" height="16" color="var(--white)" />
-        <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>
+        <div className={styles.mobileCount}>{}</div>
       </Button>
       <div className={styles.wrapper}>
         <span
@@ -25,7 +25,7 @@ export const Cart = (props: CartProps) => {
             [styles.gray]: !isCatalogRoute || (isCatalogRoute && isScrolledFar),
           })}
         >
-          {getTotalQuantityCards(cart)}
+          {}
         </span>
         <span
           className={cn(styles.text, {

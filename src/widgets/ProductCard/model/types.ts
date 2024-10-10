@@ -5,5 +5,8 @@ export interface CartSliceProps {
 }
 
 export interface CardProps extends ProductCard {
+  image: string,
+  manufacturer: string,
+  link:string,
   view: 'list' | 'grid';
 }

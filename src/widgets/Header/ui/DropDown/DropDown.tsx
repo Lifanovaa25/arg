@@ -1,40 +1,89 @@
+// DropDown.tsx
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
 import Title from '@/src/shared/ui/Title/Title';
 import { useBodyOverflow } from '@/src/shared/lib/hooks/useBodyOverflow/useBodyOverflow';
-import { useMenuItems } from '../../model/hooks/useMenuItems';
-import { DropDownProps, MenuItem, ItemType } from './types';
+import { DropDownProps, MenuTab, MenuCategory, MenuType, ApiResponse } from './types';
 import Close from '/public/svg/close.svg';
 import Chevron from '/public/svg/chevron.svg';
-import styles from './Dropwodn.module.scss';
+import styles from './DropDown.module.scss'; // Исправлено название файла
 
-const tabs = ['Equipment', 'Industry'];
+export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
+  const [activeTab, setActiveTab] = useState<string>('');
+  const [activeName, setActiveName] = useState<string>('');
+  const [activeTypes, setActiveTypes] = useState<MenuType[]>([]);
+  const [showTypes, setShowTypes] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [menuData, setMenuData] = useState<MenuTab[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-export const DropDown = (props: DropDownProps) => {
-  const { isDropDown, setIsDropDown } = props;
-  const [activeTab, setActiveTab] = useState(tabs[0]);
-  const [activeName, setActiveName] = useState('');
-  const [activeTypes, setActiveTypes] = useState<ItemType[]>([]);
-  const [showTypes, setShowTypes] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const { data } = useMenuItems();
   useBodyOverflow(isDropDown);
-  console.log({ data })
-  const currentCategories: MenuItem[] =
-    data?.[activeTab === 'Equipment' ? 0 : 1]?.categories || [];
 
-  const handleTabChange = (tabIndex: number) => {
-    const selectedTabData = data[tabIndex];
-    setActiveTab(tabs[tabIndex]);
-    setActiveName(selectedTabData.categories[0].categoryName);
-    setActiveTypes(selectedTabData.categories[0].types);
+  // Функция для запроса данных из API
+  const fetchMenuItems = async () => {
+    try {
+      const response = await fetch('https://royal-equipment.ae/api/GetMenuItems');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const result: ApiResponse = await response.json();
+
+      if (result.isSuccess && result.value) {
+        const formattedData: MenuTab[] = result.value.map((tabData) => ({
+          tabName: tabData.catalogTabName,
+          categories: tabData.categories.map((category) => ({
+            categoryName: category.categoryName,
+            categoryUrl: category.categoryUrl,
+            types: category.types.map((type) => ({
+              typeName: type.typeName,
+              typeUrl: type.typeUrl,
+            })),
+          })),
+        }));
+
+        setMenuData(formattedData);
+        if (formattedData.length > 0) {
+          setActiveTab(formattedData[0].tabName);
+          if (formattedData[0].categories.length > 0) {
+            setActiveName(formattedData[0].categories[0].categoryName);
+            setActiveTypes(formattedData[0].categories[0].types);
+          }
+        }
+      } else {
+        console.error('Error fetching menu items:', result.error);
+        setError(result.error.description || 'Ошибка при загрузке меню');
+      }
+    } catch (error: any) {
+      console.error('Failed to fetch menu items:', error);
+      setError(error.message || 'Неизвестная ошибка');
+    }
   };
 
-  const handleChangeCategory = ({ categoryName, types }: MenuItem) => {
-    setActiveName(categoryName);
-    setActiveTypes(types);
+  // Запрашиваем данные при первом рендере
+  useEffect(() => {
+    fetchMenuItems();
+  }, []);
+
+  const handleTabChange = (tabName: string) => {
+    const selectedTabData = menuData.find((tab) => tab.tabName === tabName);
+    if (selectedTabData) {
+      setActiveTab(selectedTabData.tabName);
+      if (selectedTabData.categories.length > 0) {
+        setActiveName(selectedTabData.categories[0].categoryName);
+        setActiveTypes(selectedTabData.categories[0].types);
+      } else {
+        setActiveName('');
+        setActiveTypes([]);
+      }
+      setShowTypes(false); // Скрываем подкатегории при смене вкладки
+    }
+  };
+
+  const handleChangeCategory = (category: MenuCategory) => {
+    setActiveName(category.categoryName);
+    setActiveTypes(category.types);
 
     if (isMobile) {
       setShowTypes(true);
@@ -44,14 +93,6 @@ export const DropDown = (props: DropDownProps) => {
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };
-
-  useEffect(() => {
-    if (data) {
-      const initialTabData = data[0];
-      setActiveName(initialTabData.categories[0].categoryName);
-      setActiveTypes(initialTabData.categories[0].types);
-    }
-  }, [data]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -66,6 +107,12 @@ export const DropDown = (props: DropDownProps) => {
     };
   }, []);
 
+  // Получаем категории для активной вкладки
+  const currentTabData = menuData.find((tab) => tab.tabName === activeTab);
+  const currentCategories: MenuCategory[] = currentTabData
+    ? currentTabData.categories
+    : [];
+
   return (
     <div
       className={cn(styles.wrapper, {
@@ -76,45 +123,49 @@ export const DropDown = (props: DropDownProps) => {
         Catalog
       </Title>
 
+      {error && <div className={styles.error}>{error}</div>}
+
       <div className={styles.tabs}>
-        {tabs.map((tab, index) => (
+        {menuData.map((tab) => (
           <div
-            key={tab}
-            className={cn(styles.tab, { [styles.tabActive]: activeTab === tab })}
-            onClick={() => handleTabChange(index)}
+            key={tab.tabName}
+            className={cn(styles.tab, { [styles.tabActive]: activeTab === tab.tabName })}
+            onClick={() => handleTabChange(tab.tabName)}
           >
-            {tab}
+            {tab.tabName}
           </div>
         ))}
       </div>
 
       <div className={styles.ulWrapper}>
-        {
-          <ul className={styles.ul}>
-            {currentCategories.map(({ categoryName, types }) => (
-              <li
-                key={categoryName}
-                className={cn(styles.category, {
-                  [styles.active]: categoryName === activeName,
-                })}
-                onClick={() => handleChangeCategory({ categoryName, types })}
-              >
-                {categoryName}
-                <Chevron
-                  className={styles.icon}
-                  width="18"
-                  height="18"
-                  color="var(--white)"
-                />
-              </li>
-            ))}
-          </ul>
-        }
+        <ul className={styles.ul}>
+          {currentCategories.map((category) => (
+            <li
+              key={category.categoryName}
+              className={cn(styles.category, {
+                [styles.active]: category.categoryName === activeName,
+              })}
+              onClick={() => handleChangeCategory(category)}
+            >
+              <Link className={styles.categoryLink} href={category.categoryUrl}>
+                {category.categoryName}
+              </Link>
+              <Chevron
+                className={styles.icon}
+                width="18"
+                height="18"
+                color="var(--white)"
+              />
+            </li>
+          ))}
+        </ul>
 
         <ul className={styles.ul}>
-          {activeTypes.map(({ typeName, typeUrl }) => (
-            <li key={typeName} className={styles.typeName}>
-              <Link href={typeUrl}>{typeName}</Link>
+          {activeTypes.map((type) => (
+            <li key={type.typeName} className={styles.typeName}>
+              <Link href={type.typeUrl}>
+                {type.typeName}
+              </Link>
             </li>
           ))}
         </ul>
@@ -123,15 +174,17 @@ export const DropDown = (props: DropDownProps) => {
       <div className={styles.mobileUlWrapper}>
         {!showTypes && (
           <ul className={styles.ul}>
-            {currentCategories.map(({ categoryName, types }) => (
+            {currentCategories.map((category) => (
               <li
-                key={categoryName}
+                key={category.categoryName}
                 className={cn(styles.category, {
-                  [styles.active]: categoryName === activeName,
+                  [styles.active]: category.categoryName === activeName,
                 })}
-                onClick={() => handleChangeCategory({ categoryName, types })}
+                onClick={() => handleChangeCategory(category)}
               >
-                {categoryName}
+                <Link className={styles.categoryLink} href={category.categoryUrl}>
+                  {category.categoryName}
+                </Link>
                 <Chevron
                   className={styles.icon}
                   width="18"
@@ -152,12 +205,15 @@ export const DropDown = (props: DropDownProps) => {
                 height="18"
                 color="var(--white)"
               />
+              Назад
             </button>
 
             <ul className={styles.ul}>
-              {activeTypes.map(({ typeName, typeUrl }) => (
-                <li key={typeName} className={styles.typeName}>
-                  <Link href={typeUrl}>{typeName}</Link>
+              {activeTypes.map((type) => (
+                <li key={type.typeName} className={styles.typeName}>
+                  <Link href={type.typeUrl}>
+                    {type.typeName}
+                  </Link>
                 </li>
               ))}
             </ul>
