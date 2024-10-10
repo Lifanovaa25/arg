@@ -4,13 +4,14 @@ import Image from 'next/image';
 import Title from '@/src/shared/ui/Title/Title';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
 import { CardProps } from './types';
+import cn from 'classnames';
 import Trash from '/public/svg/trash.svg';
 import test from '/public/images/test.png';
 import styles from './Card.module.scss';
 
-//TODO: долелать когда будет готов бек
+//TODO: долелать форму, когда будет бэк
 export const Card = (props: CardProps) => {
-  const { title, price, id, quantity, handleOpenModal } = props;
+  const { title, price, id, quantity, handleOpenModal,view,image } = props;
   const { onPlusCard, onMinusCard } = productCartStore();
 
   const handleIncreaceQuantity = () => {
@@ -18,14 +19,21 @@ export const Card = (props: CardProps) => {
   };
 
   const handleDecreaceQuantity = () => {
-    if (quantity === 1) return;
+    if (quantity === 1) {
+      handleOpenModal(id)
+    } else {
+      onMinusCard(id);
+    }
 
-    onMinusCard(id);
+    
   };
+
+ 
 
   return (
     <div className={styles.wrapper}>
-      <Image className={styles.img} src={test} alt={title} />
+      {/* <Image className={styles.img} src={test} alt={title} /> */}
+      <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={title} />
 
       <div className={styles.content}>
         <div className={styles.manufacturers}>
