@@ -24,14 +24,22 @@ export const DropDown = (props: DropDownProps) => {
 
   const { data } = useMenuItems();
   useBodyOverflow(isDropDown);
-  console.log({ data })
+
   const currentCategories: MenuItem[] =
     data?.[activeTab === 'Equipment' ? 0 : 1]?.categories || [];
+
+  //преобразование ссылки
   function capitalizeFirstLetter(string: string) {
 
     string = string.replace(' ', '-')
-    console.log(string)
+    string = string.replace(' ', '-')
+
     return string.charAt(0).toLowerCase() + string.slice(1);
+  }
+
+  function handlerMenuClose() {
+    setIsDropDown(false)
+
   }
   const handleTabChange = (tabIndex: number) => {
     const selectedTabData = data[tabIndex];
@@ -43,6 +51,7 @@ export const DropDown = (props: DropDownProps) => {
   const handleChangeCategory = ({ categoryName, types }: MenuItem) => {
     setActiveName(categoryName);
     setActiveTypes(types);
+
 
     if (isMobile) {
       setShowTypes(true);
@@ -108,10 +117,14 @@ export const DropDown = (props: DropDownProps) => {
                 className={cn(styles.category, {
                   [styles.active]: categoryName === activeName,
                 })}
-              // onClick={() => handleChangeCategory({ categoryName, types })}
+                onMouseEnter={() => handleChangeCategory({ categoryName, types })}
               >
 
-                <Link href={`/catalog/${capitalizeFirstLetter(activeTab)}/${capitalizeFirstLetter(categoryName)}`} > {categoryName}</Link>
+                <Link
+                  href={`/catalog/${capitalizeFirstLetter(activeTab)}/${capitalizeFirstLetter(categoryName)}`}
+                  onClick={() => handlerMenuClose()}>
+                  {categoryName}
+                </Link>
 
                 <Chevron
                   className={styles.icon}
