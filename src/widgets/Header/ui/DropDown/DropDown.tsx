@@ -154,7 +154,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               className={cn(styles.category, {
                 [styles.active]: category.categoryName === activeName,
               })}
-              onMouseEnter={() => handleChangeCategory(category)}
+              // onMouseEnter={() => handleChangeCategory(category)}
             >
               <Link className={styles.categoryLink} href={category.categoryUrl} onClick={() => handlerMenuClose(category.categoryUrl)} >
                 {category.categoryName}
