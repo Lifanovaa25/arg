@@ -69,7 +69,7 @@ const EquipmentCategoryPage: React.FC = () => {
       
           <Top title={data.label} />
           <Description text={data.text} />
-          <CardsList subcategories={data.subcategories} />
+          <CardsList key={data.label} subcategories={data.subcategories} />
         </>
       )}
     </>
