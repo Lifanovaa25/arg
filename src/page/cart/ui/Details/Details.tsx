@@ -49,7 +49,7 @@ export const Details = () => {
       {(cart && cart.length < 1) && <p className={styles.empty}>Cart is empty</p>}
 
       <div className={styles.list}>
-        {(cart && cart.length) && cart.map((card) => (
+        {(cart && cart.length > 0) && cart.map((card) => (
           <Card 
           image={''} 
           manufacturer={''} 
