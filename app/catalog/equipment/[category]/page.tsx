@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Top } from './Top/Top';
 import { Description } from './Description/Description';
 import { CardsList } from './CardsList/CardsList';
-import { ICategoriesResponse200 } from '@/src/app/api/categories/interfaces';
+import { CatData, ICategoriesResponse200 } from '@/src/app/api/categories/interfaces';
 import { getCategory } from '@/src/app/api/categories/categoriesAPI';
 import { categoryStore } from '@/src/app/providers/Store/config/store';
 
@@ -43,11 +43,9 @@ const EquipmentCategoryPage: React.FC = () => {
       const result = await getCategory({  Slug: pathname});
       
       if (result) {
-        //@ts-ignore
-        // setData(r); // Успешно загружаем данные
-
-        const r: CatData = result.value as CatData;
-        setData(r); 
+     
+        const r: ApiResponse = result as ApiResponse;
+        setData(r.value); 
       // setLoading(false); // Выключаем состояние загрузки
        
       }

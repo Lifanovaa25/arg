@@ -35,6 +35,25 @@ export interface CatData {
     }[];
   };
 }
+interface ApiResponse {
+  isSuccess: boolean;
+  isFailure: boolean;
+  error?: {
+    code: string;
+    description: string;
+    type: string;
+  };
+  value?: {
+    label: string;
+    text: string;
+    subcategories: Subcategory[];
+  };
+}
+interface Subcategory {
+  name: string;
+  url: string;
+  image: string;
+}
 export interface ICategoriesResponse400 {
   type: string;
   title: string;
@@ -60,5 +79,5 @@ export interface ICategoriesResponse500 {
   };
 }
 
-export type TCategoriesResponse = ICategoriesResponse200 | ICategoriesResponse400 | ICategoriesResponse500;
+export type TCategoriesResponse =ApiResponse| ICategoriesResponse200 | ICategoriesResponse400 | ICategoriesResponse500;
 export type IError = IResponseError | ICategoriesResponse400 | ICategoriesResponse500;
