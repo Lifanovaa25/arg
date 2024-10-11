@@ -154,7 +154,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               className={cn(styles.category, {
                 [styles.active]: category.categoryName === activeName,
               })}
-              onMouseEnter={() => handleChangeCategory(category)}
+              onClick={() => handleChangeCategory(category)}
             >
               <Link className={styles.categoryLink} href={category.categoryUrl} onClick={() => handlerMenuClose(category.categoryUrl)} >
                 {category.categoryName}
@@ -172,7 +172,10 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         <ul className={styles.ul}>
           {activeTypes.map((type) => (
             <li key={type.typeName} className={styles.typeName}>
-              <Link href={type.typeUrl}>
+              <Link 
+              // href={type.typeUrl}
+                href="/mining/[id]" as={`/mining/${type.typeName}/`}
+              >
                 {type.typeName}
               </Link>
             </li>
@@ -191,7 +194,9 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
                 })}
                 onClick={() => handleChangeCategory(category)}
               >
-                <Link className={styles.categoryLink} href={category.categoryUrl}>
+                <Link className={styles.categoryLink}
+                //  href={category.categoryUrl}
+                href="/mining/[id]" as={`/mining/${category.categoryName}`}>
                   {category.categoryName}
                 </Link>
                 <Chevron

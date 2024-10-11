@@ -18,6 +18,7 @@ export const CardsList = (props: CardsListProps) => {
       <div className="container">
         <div className={styles.line}></div>
         <div className={styles.wrapper}>
+          test test test
           {subcategories.map((item,index) => (
             <CategoryCard key={index} name={item.name} image={item.image} url={item.url}  />
           ))}
