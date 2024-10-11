@@ -40,8 +40,7 @@ export const Search = () => {
   });
   const fetchProducts = async (): Promise<void> => {
   
-    let num = pageNumber
-    setPageNumber(num++)
+
     const result = await getSearchResults({
       Page: pageNumber, PageSize: '30', SearchString: searchRequest
     });
@@ -86,11 +85,11 @@ export const Search = () => {
   // Выполнить запрос при загрузке страницы или изменении строки запроса
   useEffect(() => {
     const searchQuery = searchParams.get('q') || '';
-    console.log(searchParams.get('q'))
+  
     if (searchQuery) {
       // fetchProducts(searchQuery);
       setSearchRequest(searchQuery)
-      fetchProducts()
+     
     }
   }, [searchParams]);
 
