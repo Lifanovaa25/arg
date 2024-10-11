@@ -39,18 +39,18 @@ const EquipmentCategoryPage: React.FC = () => {
   const { path, onAddPathName } = categoryStore();
 
   useEffect(() => {
-    const fetchData =  async (): Promise<void> => {
-      const result = await getCategory({  Slug: pathname});
-      
+    const fetchData = async (): Promise<void> => {
+      const result = await getCategory({ Slug: pathname });
+
       if (result) {
-     
+
         const r: ApiResponse = result as ApiResponse;
-        setData(r.value); 
-      // setLoading(false); // Выключаем состояние загрузки
-       
+        setData(r.value);
+        // setLoading(false); // Выключаем состояние загрузки
+
       }
     };
-   
+
     fetchData();
   }, [pathname]);
 
@@ -66,10 +66,10 @@ const EquipmentCategoryPage: React.FC = () => {
     <>
       {data && (
         <>
-      
+
           <Top title={data.label} />
           <Description text={data.text} />
-          <CardsList  key={data.label} subcategories={data.subcategories} />
+          <CardsList subcategories={data.subcategories} />
         </>
       )}
     </>

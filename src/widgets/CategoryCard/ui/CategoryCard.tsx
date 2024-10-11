@@ -7,6 +7,7 @@ import styles from './CategoryCard.module.scss';
 
 
 interface CategoryProps {
+  
   name: string;
   url: string;
   image: string;
