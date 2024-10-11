@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import { Top } from './Top/Top';
 import { Description } from './Description/Description';
 import { CardsList } from './CardsList/CardsList';
-import { CatData, ICategoriesResponse200 } from '@/src/app/api/categories/interfaces';
 import { getCategory } from '@/src/app/api/categories/categoriesAPI';
 import { categoryStore } from '@/src/app/providers/Store/config/store';
 

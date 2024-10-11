@@ -94,9 +94,11 @@
   font-size: 16px;
   line-height: 20px;
   font-family: var(--font-mont);
+  width: 40%;
 
   &:last-child {
     overflow-y: auto;
+
     &::-webkit-scrollbar {
       width: 5px;
       border-radius: 10px;
@@ -116,6 +118,7 @@
   cursor: pointer;
   transition: all 0.3s;
   position: relative;
+  height: 20px;
 
   &:hover {
     color: var(--light-green);
@@ -140,6 +143,12 @@
   right: -46px;
   top: 2px;
   opacity: 0;
+}
+
+.categoryLink {
+  position: absolute;
+  width: fit-content;
+  left: 0;
 }
 
 .typeName {
