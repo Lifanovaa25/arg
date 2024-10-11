@@ -40,29 +40,35 @@ const EquipmentCategoryPage: React.FC = () => {
 
   useEffect(() => {
     const fetchData =  async (): Promise<void> => {
-      const result = await getCategory({  Slug: path});
+      const result = await getCategory({  Slug: pathname});
       
       if (result) {
-        const r: ICategoriesResponse200 = result as ICategoriesResponse200;
-      
+        //@ts-ignore
+        // setData(r); // Успешно загружаем данные
+
+        const r: CatData = result.value as CatData;
+        setData(r); 
+      // setLoading(false); // Выключаем состояние загрузки
+       
       }
     };
    
     fetchData();
   }, [pathname]);
 
-  if (loading) {
-    return <p>Загрузка...</p>; // Сообщение о загрузке
-  }
+  // if (loading) {
+  //   return <p>Загрузка...</p>; // Сообщение о загрузке
+  // }
 
-  if (error) {
-    return <p>Ошибка: {error}</p>; // Сообщение об ошибке
-  }
+  // if (error) {
+  //   return <p>Ошибка: {error}</p>; // Сообщение об ошибке
+  // }
 
   return (
     <>
       {data && (
         <>
+      
           <Top title={data.label} />
           <Description text={data.text} />
           <CardsList subcategories={data.subcategories} />

@@ -23,7 +23,18 @@ export interface ICategoriesResponse200 {
     }[];
   };
 }
-
+export interface CatData {
+ 
+  value: {
+    label: string;
+    text: string;
+    subcategories: {
+      name: string;
+      url: string;
+      image: string;
+    }[];
+  };
+}
 export interface ICategoriesResponse400 {
   type: string;
   title: string;

@@ -7,7 +7,7 @@ export interface TitleProps extends THeading {
   /**
    * Контент title.
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /**
    * Размер title.
    */

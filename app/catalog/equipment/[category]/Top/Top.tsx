@@ -12,7 +12,6 @@ export const Top = (props: TopProps) => {
     <section className={styles.section}>
       <div className="container">
         <Title className={styles.title} size="h1" dangerouslySetInnerHTML={{ __html: title }} >
-          {title}
         </Title>
       </div>
     </section>
