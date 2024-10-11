@@ -7,8 +7,12 @@ import {
 } from "./interfaces";
 
 const getCategory = async ({ id, Slug }: ICategoriesRequestParams): Promise<TCategoriesResponse | IError> => {
+if(Slug[Slug.length-1] !== '/') {
+  Slug = `${Slug}/`;
+
+}
   try {
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/GetCategory?Slug=${Slug}/`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/GetCategory?Slug=${Slug}`;
 
     if (id) {
       url = `${url}&id=${id}`;
