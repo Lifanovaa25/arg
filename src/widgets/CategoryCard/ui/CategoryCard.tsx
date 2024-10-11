@@ -5,11 +5,20 @@ import Arrow from '/public/svg/arrow-long.svg';
 import test from '/public/images/test.png';
 import styles from './CategoryCard.module.scss';
 
-export const CategoryCard = () => {
+
+interface CategoryProps {
+  name: string;
+  url: string;
+  image: string;
+}
+
+
+export const CategoryCard = (props: CategoryProps) => {
+  const {name, url, image} = props;
   return (
     <div className={styles.wrapper}>
-      <Link className={styles.link} href={'/'}>
-        <Image className={styles.img} src={test} alt={'Image'} />
+      <Link className={styles.link} href={url ?? ""}>
+        <Image className={styles.img} width={100} height={100} src={image ? 'https://royal-equipment.ae' + image : test} alt={name + " image"} />
 
         <div className={styles.contentWrapper}>
           <Title
@@ -19,7 +28,7 @@ export const CategoryCard = () => {
             font="onest"
             weight="medium"
           >
-            All laboratory equipment
+            {name}
           </Title>
           <div className={styles.iconWrapper}>
             <Arrow

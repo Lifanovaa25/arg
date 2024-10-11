@@ -26,7 +26,7 @@ export const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(test);
+    console.log({test});
   }, [test]);
   
   
