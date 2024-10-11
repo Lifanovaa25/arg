@@ -6,6 +6,8 @@ import Checkbox from '@/src/shared/ui/Checkbox/Checkbox';
 import { showToast } from '@/src/shared/ui/Toast/Toast';
 import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
 import styles from './Form.module.scss';
+import { IFeedBackResponse200 } from '@/src/app/api/feedback/interfaces';
+import { sendFeedback } from '@/src/app/api/feedback/feedbackAPI';
 
 export const Form = () => {
   const {
@@ -30,7 +32,25 @@ export const Form = () => {
       const { accept, ...data } = form;
       // const response = await FooterService.sendForm(data);
       reset();
-      showToast();
+      let sendForm = async (): Promise<void> => {
+        const result = await sendFeedback({
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          Itn: null,
+          file: null,
+          message: data.message
+        });
+
+        if (result) {
+          const r: IFeedBackResponse200 = result as IFeedBackResponse200;
+          showToast();
+          console.log(result)
+        }
+
+      };
+      sendForm()
+
     } catch (error) {
       console.error(error);
     }
