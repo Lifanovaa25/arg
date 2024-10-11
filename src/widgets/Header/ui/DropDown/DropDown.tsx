@@ -19,7 +19,7 @@ export const DropDown = (props: DropDownProps) => {
   const [activeTypes, setActiveTypes] = useState<ItemType[]>([]);
   const [showTypes, setShowTypes] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const {path, onAddPathName } = categoryStore();
+  const { path, onAddPathName } = categoryStore();
 
 
   const { data } = useMenuItems();
@@ -27,7 +27,12 @@ export const DropDown = (props: DropDownProps) => {
   console.log({ data })
   const currentCategories: MenuItem[] =
     data?.[activeTab === 'Equipment' ? 0 : 1]?.categories || [];
+  function capitalizeFirstLetter(string: string) {
 
+    string = string.replace(' ', '-')
+    console.log(string)
+    return string.charAt(0).toLowerCase() + string.slice(1);
+  }
   const handleTabChange = (tabIndex: number) => {
     const selectedTabData = data[tabIndex];
     setActiveTab(tabs[tabIndex]);
@@ -38,15 +43,15 @@ export const DropDown = (props: DropDownProps) => {
   const handleChangeCategory = ({ categoryName, types }: MenuItem) => {
     setActiveName(categoryName);
     setActiveTypes(types);
- 
+
     if (isMobile) {
       setShowTypes(true);
     }
   };
-const handlerSavePath=(path:string)=>{
-  onAddPathName(path)
-  // alert(path)
-}
+  const handlerSavePath = (path: string) => {
+    onAddPathName(path)
+    // alert(path)
+  }
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };
@@ -103,9 +108,11 @@ const handlerSavePath=(path:string)=>{
                 className={cn(styles.category, {
                   [styles.active]: categoryName === activeName,
                 })}
-                onClick={() => handleChangeCategory({ categoryName, types })}
+              // onClick={() => handleChangeCategory({ categoryName, types })}
               >
-                {categoryName}
+
+                <Link href={`/catalog/${capitalizeFirstLetter(activeTab)}/${capitalizeFirstLetter(categoryName)}`} > {categoryName}</Link>
+
                 <Chevron
                   className={styles.icon}
                   width="18"
@@ -120,7 +127,7 @@ const handlerSavePath=(path:string)=>{
         <ul className={styles.ul}>
           {activeTypes.map(({ typeName, typeUrl }) => (
             <li key={typeName} className={styles.typeName}>
-              <Link href={typeUrl} onClick={()=>handlerSavePath(typeUrl)}>{typeName}</Link>
+              <Link href={typeUrl} onClick={() => handlerSavePath(typeUrl)}>{typeName}</Link>
             </li>
           ))}
         </ul>

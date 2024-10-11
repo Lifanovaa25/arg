@@ -15,7 +15,7 @@ const getPageProductsItems = async ({
   Sort
 }: IPageProductsRequestParams): Promise<TPageProductsResponse | IError> => {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/GetMenuItems
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/GetPageWithProducts
     ?Page=${Page}
     &PageSize=${PageSize}
     &PageUrl=${PageUrl}
