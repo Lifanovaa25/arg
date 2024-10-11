@@ -9,7 +9,7 @@ import Trash from '/public/svg/trash.svg';
 import test from '/public/images/test.png';
 import styles from './Card.module.scss';
 
-//TODO: долелать форму, когда будет бэк
+
 export const Card = (props: CardProps) => {
   const { title, price, id, quantity, handleOpenModal,view,image } = props;
   const { onPlusCard, onMinusCard } = productCartStore();

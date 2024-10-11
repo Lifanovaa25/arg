@@ -50,7 +50,13 @@ export const Details = () => {
 
       <div className={styles.list}>
         {(cart && cart.length) && cart.map((card) => (
-          <Card key={card.id} {...card} handleOpenModal={handleOpenModal} />
+          <Card 
+          image={''} 
+          manufacturer={''} 
+          link={''} 
+          view={'list'}
+           key={card.id} {...card} 
+           handleOpenModal={handleOpenModal} />
         ))}
       </div>
 
