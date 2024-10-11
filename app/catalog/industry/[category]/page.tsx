@@ -52,7 +52,7 @@ const EquipmentCategoryPage: React.FC = () => {
     };
    
     fetchData();
-  }, [pathname]);
+  }, []);
 
   // if (loading) {
   //   return <p>Загрузка...</p>; // Сообщение о загрузке
