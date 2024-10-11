@@ -174,7 +174,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
             <li key={type.typeName} className={styles.typeName}>
               <Link 
               // href={type.typeUrl}
-                href="/mining/[id]" as={`/mining/${type.typeName}/`}
+                href="/catalog/equipment/mining/" as={`/mining/${type.typeName}/`}
               >
                 {type.typeName}
               </Link>
