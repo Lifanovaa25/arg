@@ -31,7 +31,7 @@ interface ApiResponse {
   };
 }
 
-const EquipmentCategoryPage: React.FC = () => {
+const IndustryCategoryPage: React.FC = () => {
   const pathname = usePathname(); // Получаем путь
   const [data, setData] = useState<ApiResponse['value'] | null>(null); // Данные из API
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
@@ -76,4 +76,4 @@ const EquipmentCategoryPage: React.FC = () => {
   );
 };
 
-export default EquipmentCategoryPage;
+export default IndustryCategoryPage;

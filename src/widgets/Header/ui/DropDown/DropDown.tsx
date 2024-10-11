@@ -89,7 +89,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   }
   const handleChangeCategory = (category: MenuCategory) => {
     setActiveName(category.categoryName);
-    setActiveTypes(category.types);
+    // setActiveTypes(category.types);
 
     if (isMobile) {
       setShowTypes(true);
