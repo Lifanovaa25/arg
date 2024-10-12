@@ -173,8 +173,9 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
           {activeTypes.map((type) => (
             <li key={type.typeName} className={styles.typeName}>
               <Link 
-              // href={type.typeUrl}
-                href="/catalog/equipment/mining/" as={`/mining/${type.typeName}/`}
+              href={type.typeUrl}
+                // href="/catalog/equipment/mining/[id]" 
+                as={`/catalog/equipment/mining/${type.typeName}/`}
               >
                 {type.typeName}
               </Link>
@@ -196,7 +197,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               >
                 <Link className={styles.categoryLink}
                 //  href={category.categoryUrl}
-                href="/mining/[id]" as={`/mining/${category.categoryName}`}>
+                href="/catalog/equipment/mining/[id]" as={`/catalog/equipment/mining/${category.categoryName}`}>
                   {category.categoryName}
                 </Link>
                 <Chevron
