@@ -7,7 +7,6 @@ export interface IPageCartsRequestParams {
 
 export interface ICartRequestParams {
   Id: number;
-  Count: number;
 }
 
 export interface ICartResponse200 {

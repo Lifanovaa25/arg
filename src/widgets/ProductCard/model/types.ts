@@ -1,8 +1,8 @@
 import type { ProductCard } from '@/src/shared/types/productCard';
 export interface CardProps extends ProductCard {
-  image: string,
-  manufacturer: string,
-  link:string,
+  image: string;
+  manufacturer: string;
+  link: string;
   view: 'list' | 'grid';
 }
 
@@ -14,13 +14,14 @@ export interface ICartStore {
   onPlusCard: (id: number) => void;
   onRemoveCard: (id: number) => void;
   onClearCart: () => void;
+  getCartIds: () => void;
 }
 
 export interface ICategoryStore {
-  path:string;
-  onAddPathName:(pathName: string) => void;
+  path: string;
+  onAddPathName: (pathName: string) => void;
 }
 export interface ISearchStore {
-  query:string;
-  onAddSearchRequest:(query: string) => void;
+  query: string;
+  onAddSearchRequest: (query: string) => void;
 }

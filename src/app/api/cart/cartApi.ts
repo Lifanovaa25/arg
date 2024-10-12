@@ -10,9 +10,9 @@ import {
 
 
 
-const getCart = async ({ Id,Count }: ICartRequestParams, ): Promise<TPageCartsResponse | IError> => {
+const getCart = async ({ Id }: ICartRequestParams, ): Promise<TPageCartsResponse | IError> => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/GetCart?CartItems={Id:${Id},Count:${Count}}`);
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/GetCart?CartItems={Id:${Id}}`);
     const result = await response.data;
 
     return result;

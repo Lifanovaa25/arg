@@ -3,7 +3,11 @@ import { persist } from 'zustand/middleware';
 import { LOCAL_STORAGE_STORE_NAME } from './config';
 import { getLocalStore } from '@/src/shared/lib/utils/localeStorage/localStorage';
 
-import type { ICartStore, ICategoryStore, ISearchStore } from '@/src/widgets/ProductCard/model/types';
+import type {
+  ICartStore,
+  ICategoryStore,
+  ISearchStore,
+} from '@/src/widgets/ProductCard/model/types';
 import type { CardProps } from '@/src/widgets/ProductCard/model/types';
 import type { ProductCard } from '@/src/shared/types/productCard';
 import { link } from 'fs';
@@ -44,6 +48,17 @@ export const productCartStore = create<ICartStore>()(
       },
       onClearCart: () => {
         set({ cart: [] });
+      },
+      //получение айдишников в корзине
+      getCartIds: () => {
+        const cart = JSON.parse(JSON.stringify(get().cart));
+        let i = 0;
+        let Ids: number[] = [];
+        cart.forEach((item: ProductCard) => {
+          Ids[i] = item.id;
+          i++
+        });
+        return Ids
       },
     }),
     {
