@@ -23,7 +23,7 @@ export interface IPageProductsResponse200 {
   };
   Value: {
     Category: {
-      Label: string;
+      Label: string ;
       Title: string;
       Link: string;
       TitleToEnd: boolean;

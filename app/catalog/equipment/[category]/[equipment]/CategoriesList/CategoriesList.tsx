@@ -1,12 +1,17 @@
 import Title from '@/src/shared/ui/Title/Title';
 import styles from './CategoriesList.module.scss';
+import { title } from 'process';
 
-//TODO: доделать как будет готов бек, и с этой компонентой еще подумать и думаю ее нужно сделать переиспользуемой для других страниц, а их будет много
-export const CategoriesList = () => {
+interface CatListProps {
+  title: string | undefined;
+}
+
+
+export const CategoriesList = (props: CatListProps) => {
   return (
     <div className={styles.wrapper}>
       <Title className={styles.title} size="h3" variant="secondary">
-        All Mining Equipment
+        {title}
       </Title>
     </div>
   );
