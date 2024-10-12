@@ -3,7 +3,8 @@
   justify-content: space-between;
   width: 95%;
   float: right;
-border-bottom: 1px solid var(--soft-gray);
+  border-bottom: 1px solid var(--soft-gray);
+
   .selectWrapper:first-child>div:last-child {
     min-width: 198px !important;
   }
