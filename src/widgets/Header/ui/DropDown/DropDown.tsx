@@ -82,8 +82,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
       setShowTypes(false); // Скрываем подкатегории при смене вкладки
     }
   };
-  function handlerMenuClose(catUrl: string) {
-    handlerSavePath(catUrl)
+  function handlerMenuClose() {
     setIsDropDown(false)
 
   }
@@ -102,7 +101,9 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };
-
+  function capitalizeFirstLetter(string:string) {
+    return string.charAt(0).toLowerCase() + string.slice(1);
+}
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -156,7 +157,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               })}
               onClick={() => handleChangeCategory(category)}
             >
-              <Link className={styles.categoryLink} href={category.categoryUrl} onClick={() => handlerMenuClose(category.categoryUrl)} >
+              <Link className={styles.categoryLink} href={category.categoryUrl} onClick={() => handlerMenuClose()} >
                 {category.categoryName}
               </Link>
               <Chevron
@@ -172,10 +173,11 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         <ul className={styles.ul}>
           {activeTypes.map((type) => (
             <li key={type.typeName} className={styles.typeName}>
-              <Link 
-              href={type.typeUrl}
-                // href="/catalog/equipment/equipment/[id]" 
-                as={`/equipment/${type.typeName}/`}
+              <Link
+
+                onClick={() => onAddPathName(type.typeUrl)}
+                href="/catalog/equipment/equipment/[id]"
+                as={`/catalog/${capitalizeFirstLetter(activeTab)}/${capitalizeFirstLetter(activeTab)}/${type.typeName}/`}
               >
                 {type.typeName}
               </Link>
@@ -196,9 +198,11 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
                 onClick={() => handleChangeCategory(category)}
               >
                 <Link className={styles.categoryLink}
-                //  href={category.categoryUrl}
-                href="/catalog/equipment/equipment/[id]" 
-                as={`/equipment/${category.categoryName}`}>
+                  href={category.categoryUrl}
+                // href="/catalogequipment/[id]" 
+                // as={`/equipment/equipment/${category.categoryName}`}
+                >
+
                   {category.categoryName}
                 </Link>
                 <Chevron

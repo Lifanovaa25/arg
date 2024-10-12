@@ -23,7 +23,7 @@ export const MainProvider = (props: MainContainerProps) => {
   return (
     <main
       className={cn(styles.main, {
-        [styles.noMarginTop]: isCatalogPage,    
+        [styles.noMarginTop]: isCatalogPage && !isPagPage,    
       })}
     >
       {children}

@@ -1,12 +1,12 @@
 'use client'
 // import { CategoriesList } from '../';
 import { useEffect, useState } from 'react';
-import { CardsList } from '../CardsList/CardsList';
 import styles from './AllMiningEquipment.module.scss';
 import { getPageProductsItems } from '@/src/app/api/products/productsAPI';
 import { usePathname } from 'next/navigation';
 import { IPageProductsResponse200 } from '@/src/app/api/products/interfaces';
 import { CategoriesList } from './CategoriesList/CategoriesList';
+import { CardsList } from './CardsList/CardsList';
 
 
 const AllMiningEquipment: React.FC = () => {
@@ -18,7 +18,7 @@ const AllMiningEquipment: React.FC = () => {
       const result = await getPageProductsItems({ Page:1,
         PageSize:20,
         PageUrl: pathname,
-        Params: null,
+        Params: [],
         Sort:1  });
 
       if (result) {
@@ -41,7 +41,8 @@ console.log(pathname)
         <div className="big-container">
           <div className={styles.wrapper}>
             <CategoriesList />
-            <CardsList subcategories={[]} />
+            <CardsList  />
+            {/* <CardsList subcategories={[]} /> */}
           </div>
         </div>
       </section>
