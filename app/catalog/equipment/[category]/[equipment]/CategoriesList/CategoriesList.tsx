@@ -11,7 +11,7 @@ export const CategoriesList = (props: CatListProps) => {
   return (
     <div className={styles.wrapper}>
       <Title className={styles.title} size="h3" variant="secondary">
-        {title}
+        {props.title}
       </Title>
     </div>
   );
