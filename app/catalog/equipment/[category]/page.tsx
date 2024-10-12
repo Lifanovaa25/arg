@@ -49,7 +49,7 @@ const EquipmentCategoryPage: React.FC = () => {
 
       }
     };
-
+console.log({data})
     fetchData();
   }, []);
 

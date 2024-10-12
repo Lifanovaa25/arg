@@ -9,7 +9,7 @@ export interface IPageProductsRequestParams {
 }
 
 export interface IProductRequestParams {
-  id: string;
+  id?: string;
   Slug: string;
 }
 

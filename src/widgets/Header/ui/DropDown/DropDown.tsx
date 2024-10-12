@@ -101,9 +101,12 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };
-  function capitalizeFirstLetter(string:string) {
+  function capitalizeFirstLetter(string: string) {
+    string = string.replace("/catalog/industry", '');
+    string = string.replace("/catalog/equipment", '');
+    string = string.replace(" ", '-');
     return string.charAt(0).toLowerCase() + string.slice(1);
-}
+  }
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -176,8 +179,8 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               <Link
 
                 onClick={() => onAddPathName(type.typeUrl)}
-                href="/catalog/equipment/equipment/[id]"
-                as={`/catalog/${capitalizeFirstLetter(activeTab)}/${capitalizeFirstLetter(activeTab)}/${type.typeName}/`}
+                href="/catalog/equipment/[id]"
+                as={`${type.typeUrl}/`}
               >
                 {type.typeName}
               </Link>
