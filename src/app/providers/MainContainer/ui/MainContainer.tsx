@@ -18,11 +18,12 @@ export const MainProvider = (props: MainContainerProps) => {
   const pathname = usePathname();
 
   const isCatalogPage = pathname.includes("catalog/equipment");
+  const isPagPage = pathname.includes("catalog/equipment/equipment");
 
   return (
     <main
       className={cn(styles.main, {
-        [styles.noMarginTop]: isCatalogPage,
+        [styles.noMarginTop]: isCatalogPage,    
       })}
     >
       {children}

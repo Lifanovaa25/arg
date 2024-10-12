@@ -14,6 +14,7 @@ export const getBreadcrumbs = (pathname: string) => {
       let label = path.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, (m) => m.toUpperCase());
 
       label = label.replace(/\bAnd\b/g, 'and');
+      label = label.replace(/%20/g, ' ');
 
       return {
         href,

@@ -6,6 +6,7 @@ import styles from './AllMiningEquipment.module.scss';
 import { getPageProductsItems } from '@/src/app/api/products/productsAPI';
 import { usePathname } from 'next/navigation';
 import { IPageProductsResponse200 } from '@/src/app/api/products/interfaces';
+import { CategoriesList } from './CategoriesList/CategoriesList';
 
 
 const AllMiningEquipment: React.FC = () => {
@@ -39,7 +40,7 @@ console.log(pathname)
       <section>
         <div className="big-container">
           <div className={styles.wrapper}>
-            {/* <CategoriesList /> */}
+            <CategoriesList />
             <CardsList subcategories={[]} />
           </div>
         </div>

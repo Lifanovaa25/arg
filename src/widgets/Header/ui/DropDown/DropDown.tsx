@@ -89,7 +89,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   }
   const handleChangeCategory = (category: MenuCategory) => {
     setActiveName(category.categoryName);
-    // setActiveTypes(category.types);
+    setActiveTypes(category.types);
 
     if (isMobile) {
       setShowTypes(true);
@@ -174,8 +174,8 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
             <li key={type.typeName} className={styles.typeName}>
               <Link 
               href={type.typeUrl}
-                // href="/catalog/equipment/mining/[id]" 
-                as={`/catalog/equipment/mining/${type.typeName}/`}
+                // href="/catalog/equipment/equipment/[id]" 
+                as={`/equipment/${type.typeName}/`}
               >
                 {type.typeName}
               </Link>
@@ -197,7 +197,8 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               >
                 <Link className={styles.categoryLink}
                 //  href={category.categoryUrl}
-                href="/catalog/equipment/mining/[id]" as={`/catalog/equipment/mining/${category.categoryName}`}>
+                href="/catalog/equipment/equipment/[id]" 
+                as={`/equipment/${category.categoryName}`}>
                   {category.categoryName}
                 </Link>
                 <Chevron

@@ -6,11 +6,8 @@ export interface IPageCartsRequestParams {
 }
 
 export interface ICartRequestParams {
-  PageId: number;
-  cartItems: {
-    Id: number;
-    Count: number;
-  };
+  Id: number;
+  Count: number;
 }
 
 export interface ICartResponse200 {
@@ -28,16 +25,15 @@ export interface ICartResponse200 {
 
 export interface ICartsResponse400 {
   Value: {
-
-  type: string;
-  title: string;
-  status: number;
-  detail: string;
-  instance: string;
-  additionalProp1: string;
-  additionalProp2: string;
-  additionalProp3: string;
-  }
+    type: string;
+    title: string;
+    status: number;
+    detail: string;
+    instance: string;
+    additionalProp1: string;
+    additionalProp2: string;
+    additionalProp3: string;
+  };
 }
 
 export interface ICartsResponse500 {
