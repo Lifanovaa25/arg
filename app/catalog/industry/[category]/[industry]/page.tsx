@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import styles from './AllMiningEquipment.module.scss';
 import { getPageProductsItems } from '@/src/app/api/products/productsAPI';
 import { usePathname } from 'next/navigation';
-import { IPageProductsResponse200 } from '@/src/app/api/products/interfaces';
-import { CategoriesList } from './CategoriesList/CategoriesList';
-import { CardsList } from './CardsList/CardsList';
+import { CategoriesList } from '@/src/widgets/CategoriesList/CategoriesList';
+import { CardsList } from '@/src/widgets/CardsList/CardsList';
+
 
 interface Product {
   value: {
