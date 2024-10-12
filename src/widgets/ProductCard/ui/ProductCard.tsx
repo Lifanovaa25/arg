@@ -40,7 +40,7 @@ export const ProductCard = (props: CardProps) => {
 
   return (
     <div className={cn(styles.wrapper, styles[view])}>
-      <Link className={styles.link} href={'/'}>
+      <Link className={styles.link} href={props.link}>
       <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
 
         <div className={cn(styles.contentWrapper, styles[view])}>
@@ -56,14 +56,14 @@ export const ProductCard = (props: CardProps) => {
               font="onest"
               weight="bold"
             >
-              {'Junction box Mettler Toledo AJB941M'}
+              {props.title}
             </Title>
           </div>
 
           <div className={styles.bottom}>
             <div className={styles.price}>
               <span>Price: </span>
-              <span>{price}</span>
+              <span>{props.price}</span>
             </div>
             <div className={styles.btnsWrapper}>
               {!card ? (

@@ -9,9 +9,9 @@ import cn from 'classnames';
 
 interface CategoryProps {
   
-  name: string;
-  url: string;
-  image: string;
+  name: string | undefined;
+  url: string | undefined;
+  image: string |undefined;
   className?:string
 }
 

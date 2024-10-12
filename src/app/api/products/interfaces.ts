@@ -21,7 +21,7 @@ export interface IPageProductsResponse200 {
     Description: string;
     Type: string;
   };
-  Value: {
+  value: {
     Category: {
       Label: string ;
       Title: string;
@@ -52,7 +52,7 @@ export interface IPageProductsResponse200 {
       Id: 0;
       Image: string;
       Label: string;
-      Price: 0;
+      Price: number;
       Props: string[][];
       Link: string;
       ToCart: boolean;
@@ -68,7 +68,54 @@ export interface IPageProductsResponse200 {
     };
   };
 }
-
+export interface Product {
+  value: {
+    category: {
+      label: string ;
+      title: string;
+      link: string;
+      titleToEnd: boolean;
+      items: {
+        Id: number;
+        Link: string;
+        Label: string;
+        Title: string;
+      }[];
+    };
+    filters: {
+      Name: string;
+      Label: string;
+      AllItems: string;
+      Radio: boolean;
+      HideAfter: boolean;
+      Ignore: boolean;
+      Items: {
+        Id: 0;
+        Link: string;
+        Label: string;
+        Title: string;
+      }[];
+    }[];
+    items: {
+      id: 0;
+      image: string;
+      label: string;
+      price: number;
+      props: string[][];
+      link: string;
+      toCart: boolean;
+      articul: string;
+    }[];
+    totalPages: number;
+    aboutManufacturer: {
+      title: string;
+      text: string;
+      personImg: string;
+      personName: string;
+      personPost: string;
+    };
+  };
+}
 export interface IProductResponse200 {
   IsSuccess: boolean;
   IsFailure: boolean;
@@ -131,5 +178,5 @@ export interface IProductsResponse500 {
   };
 }
 
-export type TPageProductsResponse = IPageProductsResponse200 | IProductsResponse400 | IProductsResponse500;
+export type TPageProductsResponse =Product| IPageProductsResponse200 | IProductsResponse400 | IProductsResponse500;
 export type IError = IResponseError | IProductsResponse400 | IProductsResponse500;

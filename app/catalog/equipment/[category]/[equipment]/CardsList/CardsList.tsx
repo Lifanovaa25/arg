@@ -29,11 +29,36 @@ const sorts: { value: string; label: string }[] = [
   { value: 'expensive', label: 'Price: expensive' },
 ];
 
-//TODO: с этой компонентой еще подумать и думаю ее нужно сделать переиспользуемой для других страниц, а их будет много
-export const CardsList = () => {
+interface Subcategory {
+  id: number;
+  image: string;
+  label: string;
+  price: number;
+  props: string[][];
+  link: string;
+  toCart: boolean;
+  articul: string;
+}
+
+interface CardsListProps {
+  subcategories:{
+    id: number;
+    image: string;
+    label: string;
+    price: number;
+    props: string[][];
+    link: string;
+    toCart: boolean;
+    articul: string;
+  }[] | undefined;
+  
+}
+
+export const CardsList = (props: CardsListProps) => {
   const [view, setView] = useState(views[1].value);
   const [sort, setSort] = useState(sorts[0].value);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
+  const { subcategories } = props;
 
   useEffect(() => {
     const isMobile = checkMobileScreen();
@@ -74,11 +99,16 @@ export const CardsList = () => {
       <div className={styles.line}></div>
 
       <div className={styles.list}>
-        {arr.map((item) => (
+        
+        {subcategories?.map((item) => (
+        
           <ProductCard
-            image={''}
-            manufacturer={''}
-            link={''}
+           //@ts-ignore
+            image={item.image}
+            manufacturer={item.label}
+           //@ts-ignore
+            link={item.link}
+            title={item.label}
             key={item.id}
             {...item}
             view={view} />
