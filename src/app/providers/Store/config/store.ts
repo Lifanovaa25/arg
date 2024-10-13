@@ -5,7 +5,6 @@ import { getLocalStore } from '@/src/shared/lib/utils/localeStorage/localStorage
 
 import type {
   ICartStore,
-  ICategoryStore,
   ISearchStore,
 } from '@/src/widgets/ProductCard/model/types';
 import type { CardProps } from '@/src/widgets/ProductCard/model/types';
@@ -19,6 +18,7 @@ export const productCartStore = create<ICartStore>()(
         ? getLocalStore(LOCAL_STORAGE_STORE_NAME)
         : [],
       CartIds: [],
+      productUrl:'',
       onAddCard: (props: CardProps) => {
         set({ cart: [...get().cart, { ...props, quantity: 1 }] });
         set({ CartIds: [...get().cart, { ...props,id: props.id}] });
@@ -66,18 +66,16 @@ export const productCartStore = create<ICartStore>()(
         });
         // set({ CartIds: [...get().cart, { ...cart, id:cart.id }] });
       },
+      setUrl: (url: string) => {
+        return set({ productUrl: url });
+      },
     }),
     {
       name: LOCAL_STORAGE_STORE_NAME,
     }
   )
 );
-export const categoryStore = create<ICategoryStore>()((set, get) => ({
-  path: '',
-  onAddPathName: (pathName: string) => {
-    return set({ path: pathName });
-  },
-}));
+
 export const searchStore = create<ISearchStore>()((set, get) => ({
   query: '',
   onAddSearchRequest: (query: string) => {

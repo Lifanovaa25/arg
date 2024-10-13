@@ -9,7 +9,6 @@ import { DropDownProps, MenuTab, MenuCategory, MenuType, ApiResponse } from './t
 import Close from '/public/svg/close.svg';
 import Chevron from '/public/svg/chevron.svg';
 import styles from './DropDown.module.scss'; // Исправлено название файла
-import { categoryStore } from '@/src/app/providers/Store/config/store';
 
 export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [activeTab, setActiveTab] = useState<string>('');

@@ -25,12 +25,6 @@ export interface ICartStore {
   setUrl: (url: string) => void;
 }
 
-export interface ICategoryStore {
-  path: string;
-  productUrl: string;
-  onAddPathName: (pathName: string) => void;
-  setUrl:(url:string)=>void
-}
 export interface ISearchStore {
   query: string;
   onAddSearchRequest: (query: string) => void;
@@ -50,10 +44,7 @@ export interface ICartStore {
   getCartIds: () => void;
 }
 
-export interface ICategoryStore {
-  path: string;
-  onAddPathName: (pathName: string) => void;
-}
+
 export interface ISearchStore {
   query: string;
   onAddSearchRequest: (query: string) => void;
