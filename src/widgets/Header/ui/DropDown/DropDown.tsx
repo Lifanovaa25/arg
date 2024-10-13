@@ -178,7 +178,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
             <li key={type.typeName} className={styles.typeName}>
               <Link
 
-                onClick={() => onAddPathName(type.typeUrl)}
+                onClick={() => handlerMenuClose()}
                 href="/catalog/equipment/[id]"
                 as={`${type.typeUrl}/`}
               >
@@ -202,9 +202,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
               >
                 <Link className={styles.categoryLink}
                   href={category.categoryUrl}
-                // href="/catalogequipment/[id]" 
-                // as={`/equipment/equipment/${category.categoryName}`}
-                >
+                  onClick={() => handlerMenuClose()}   >
 
                   {category.categoryName}
                 </Link>
@@ -228,13 +226,13 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
                 height="18"
                 color="var(--white)"
               />
-              Назад
+            
             </button>
 
             <ul className={styles.ul}>
               {activeTypes.map((type) => (
                 <li key={type.typeName} className={styles.typeName}>
-                  <Link href={type.typeUrl}>
+                  <Link href={type.typeUrl} onClick={() => handlerMenuClose()}>
                     {type.typeName}
                   </Link>
                 </li>

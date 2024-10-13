@@ -198,6 +198,7 @@
   .category {
     width: fit-content;
     opacity: 1;
+    width: 100%;
 
     &.active {
       font-weight: 400;
@@ -207,6 +208,7 @@
   .ul {
     max-height: initial;
     gap: 14px;
+    width: 100%;
 
     &:last-child {
       overflow-y: initial;
