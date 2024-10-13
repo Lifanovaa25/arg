@@ -4,6 +4,7 @@ export interface CardProps extends ProductCard {
   manufacturer: string;
   link: string;
   view: 'list' | 'grid';
+  cardPageLink?:string;
 }
 
 // Модель Store для продуктовой корзины

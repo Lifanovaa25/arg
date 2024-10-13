@@ -78,24 +78,14 @@ const AllMiningEquipment: React.FC = () => {
         Params: [],
         Sort: 1
       });
-
-
       if (result) {
-
         const r: Product = result as unknown as Product;
-
         setData(r.value);
-
       }
     };
     if (data === null) {
       fetchData()
     }
-
-    //  setData(item) 
-
-    console.log({ data })
-
   }, [pathname, data]);
   return (
     <>

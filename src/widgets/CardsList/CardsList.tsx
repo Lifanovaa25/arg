@@ -8,6 +8,7 @@ import { MobileMenu } from '../MobileMenu/MobileMenu';
 import Settings from '/public/svg/settings.svg';
 import styles from './CardsList.module.scss';
 import './Select.scss';
+import { usePathname } from 'next/navigation';
 
 //TODO: убрать
 const arr = [
@@ -41,7 +42,7 @@ interface Subcategory {
 }
 
 interface CardsListProps {
-  subcategories:{
+  subcategories: {
     id: number;
     image: string;
     label: string;
@@ -51,18 +52,18 @@ interface CardsListProps {
     toCart: boolean;
     articul: string;
   }[] | undefined;
-  
+
 }
 
 export const CardsList = (props: CardsListProps) => {
+  const pathname = usePathname()
   const [view, setView] = useState(views[1].value);
   const [sort, setSort] = useState(sorts[0].value);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
   const { subcategories } = props;
-
+  console.log( pathname )
   useEffect(() => {
     const isMobile = checkMobileScreen();
-
     if (isMobile) setView('list');
   }, []);
 
@@ -99,15 +100,16 @@ export const CardsList = (props: CardsListProps) => {
       <div className={styles.line}></div>
 
       <div className={styles.list}>
-        
+
         {subcategories?.map((item) => (
-        
+
           <ProductCard
-           //@ts-ignore
+            //@ts-ignore
             image={item.image}
             manufacturer={item.label}
-           //@ts-ignore
+            //@ts-ignore
             link={item.link}
+            cardPageLink={pathname}
             title={item.label}
             key={item.id}
             {...item}

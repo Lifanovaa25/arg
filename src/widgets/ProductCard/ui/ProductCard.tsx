@@ -11,9 +11,9 @@ import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './ProductCard.module.scss';
 
 export const ProductCard = (props: CardProps) => {
-  const { id, title: text, price, view } = props;
+  const { id, title: text, price, cardPageLink, view } = props;
   const { cart, onAddCard, onPlusCard, onRemoveCard, onMinusCard } = productCartStore();
-
+  const pageUrl = String(props.cardPageLink)
   const card = cart && cart.length && cart.find((obj) => obj.id === id);
 
   const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
@@ -40,56 +40,110 @@ export const ProductCard = (props: CardProps) => {
 
   return (
     <div className={cn(styles.wrapper, styles[view])}>
-      <Link className={styles.link} href={props.link}>
-      <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+      {cardPageLink ?
+        <Link className={styles.link} href={`${pageUrl}/product/[productCard]`} as={`${pageUrl}/product`}>
+          <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
 
-        <div className={cn(styles.contentWrapper, styles[view])}>
-          <div>
-            <div className={styles.manufacturers}>
-              <span>Manufacturers: </span>
-              <span>{'GRUNDFOS'}</span>
+          <div className={cn(styles.contentWrapper, styles[view])}>
+            <div>
+              <div className={styles.manufacturers}>
+                <span>Manufacturers: </span>
+                <span>{'GRUNDFOS'}</span>
+              </div>
+              <Title
+                className={cn(styles.title, styles[view])}
+                size="h5"
+                variant="secondary"
+                font="onest"
+                weight="bold"
+              >
+                {props.title}
+              </Title>
             </div>
-            <Title
-              className={cn(styles.title, styles[view])}
-              size="h5"
-              variant="secondary"
-              font="onest"
-              weight="bold"
-            >
-              {props.title}
-            </Title>
-          </div>
 
-          <div className={styles.bottom}>
-            <div className={styles.price}>
-              <span>Price: </span>
-              <span>{props.price}</span>
-            </div>
-            <div className={styles.btnsWrapper}>
-              {!card ? (
-                <button className={styles.btnAdd} onClick={handleAddCard}>
-                  <span className={styles.spanIncrease}>+</span>
-                  <span className={styles.spanAdd}>add to cart</span>
-                </button>
-              ) : (
-                <div className={styles.btnIncrease}>
-                  <button className={styles.btnCount} onClick={handleDecreaseCount}>
-                    -
+            <div className={styles.bottom}>
+              <div className={styles.price}>
+                <span>Price: </span>
+                <span>{props.price}</span>
+              </div>
+              <div className={styles.btnsWrapper}>
+                {!card ? (
+                  <button className={styles.btnAdd} onClick={handleAddCard}>
+                    <span className={styles.spanIncrease}>+</span>
+                    <span className={styles.spanAdd}>add to cart</span>
                   </button>
-                  <span className={styles.spanQuantity}>{card.quantity}</span>
-                  <button className={styles.btnCount} onClick={handleIncreaseCount}>
-                    +
-                  </button>
-                </div>
-              )}
+                ) : (
+                  <div className={styles.btnIncrease}>
+                    <button className={styles.btnCount} onClick={handleDecreaseCount}>
+                      -
+                    </button>
+                    <span className={styles.spanQuantity}>{card.quantity}</span>
+                    <button className={styles.btnCount} onClick={handleIncreaseCount}>
+                      +
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          {view === 'list' && (
-            <span className={styles.information}>View information</span>
-          )}
-        </div>
-      </Link>
+            {view === 'list' && (
+              <span className={styles.information}>View information</span>
+            )}
+          </div>
+        </Link>
+        :
+
+        <Link className={styles.link} href={props.link}>
+          <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+
+          <div className={cn(styles.contentWrapper, styles[view])}>
+            <div>
+              <div className={styles.manufacturers}>
+                <span>Manufacturers: </span>
+                <span>{'GRUNDFOS'}</span>
+              </div>
+              <Title
+                className={cn(styles.title, styles[view])}
+                size="h5"
+                variant="secondary"
+                font="onest"
+                weight="bold"
+              >
+                {props.title}
+              </Title>
+            </div>
+
+            <div className={styles.bottom}>
+              <div className={styles.price}>
+                <span>Price: </span>
+                <span>{props.price}</span>
+              </div>
+              <div className={styles.btnsWrapper}>
+                {!card ? (
+                  <button className={styles.btnAdd} onClick={handleAddCard}>
+                    <span className={styles.spanIncrease}>+</span>
+                    <span className={styles.spanAdd}>add to cart</span>
+                  </button>
+                ) : (
+                  <div className={styles.btnIncrease}>
+                    <button className={styles.btnCount} onClick={handleDecreaseCount}>
+                      -
+                    </button>
+                    <span className={styles.spanQuantity}>{card.quantity}</span>
+                    <button className={styles.btnCount} onClick={handleIncreaseCount}>
+                      +
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {view === 'list' && (
+              <span className={styles.information}>View information</span>
+            )}
+          </div>
+        </Link>
+      }
     </div>
   );
 };
