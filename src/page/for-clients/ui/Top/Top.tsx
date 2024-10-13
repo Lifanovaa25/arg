@@ -10,7 +10,7 @@ export const Top = () => {
         Leave a request and start working with us
         </Title>
         <div className={styles.wrapper}>
-          <Image src={aboutImg} className={styles.img} alt="AboutUs" />
+          {/* <Image src={aboutImg} className={styles.img} alt="AboutUs" /> */}
         </div>
       
       </div>

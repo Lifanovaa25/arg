@@ -1,52 +1,188 @@
-import Form from "@/src/widgets/Footer/ui/Form/Form";
+'use client'
 
-
+import Button from "@/src/shared/ui/Button/Button";
+import Checkbox from "@/src/shared/ui/Checkbox/Checkbox";
+import Textarea from "@/src/shared/ui/Textarea/Textarea";
+import { useState, useRef } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import cn from 'classnames';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
+import { getTotalQuantityCards } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
+import Title from '@/src/shared/ui/Title/Title';
+import Input from '@/src/shared/ui/Input/Input';
+import { showToast } from '@/src/shared/ui/Toast/Toast';
+import User from '/public/svg/user.svg';
+import Phone from '/public/svg/phone.svg';
+import Email from '/public/svg/email.svg';
+import Message from '/public/svg/message.svg';
+import styles from './Middle.module.scss';
+import { IFeedBackResponse200 } from "@/src/app/api/feedback/interfaces";
+import { sendFeedback } from "@/src/app/api/feedback/feedbackAPI";
 
 export const Middle = () => {
-  return (
-    <section>
-      {/* <Form /> */}
-
-      {/* <div className="container">
-        <div className={styles.card_items}>
-          <div className={styles.card_item}>
-            <div className={styles.item_title}> Our main goal </div>
-            <div className={styles.item_body}>Is to meet our customers’ requierements and provide unique solutions to improve the efficiency and productivity of their business. We welcome exceptional quality and innovations, which is why we coo-perate only with the best equipment suppliers from around the world. This allows us to guarantee high-quality products and satisfy the most demanding
-              needs of our customers.
-            </div>
-          </div>
-
-          <div className={styles.card_item}>
-            <div className={styles.item_title}> market </div>
-            <div className={styles.item_body}>The Royal Equipment team thoroughly studies the market
-              and trends in order to keep up with the latest innovations
-              and technological developments in the industry.
-              This ensures that we can offer our customers cutting-edge equipment that meets the highest quality standards
-              and modern technical requirements.</div>
-
-          </div>
-        </div>
-        <div className={styles.wrap}>
-          <h3 className={styles.h3}>In our work with clients, we take an individual approach trying
-            to find out and understand their unique needs and goals</h3>
-          <div className={styles.h3_sub_title}>We are ready to provide advice, assistance and guidance on the selection of the most suitable equipment to help our customers achieve success, optimize processes and improve the results of their operations.</div>
-        </div>
-      </div>
-      <div className={cn(styles.img_wrap, "container")}>
-        <div className={styles.banner_text}>
-          <div className={styles.benner_title}>We active both locally
-            and internationally </div>
-          <div className={styles.benner_text}>Our reputation and presence in the industrial equipment supply market
-            in the UAE speak volumes about our professionalism and reliability.
-            We are proud of our successful projects in mining, pharmaceutical,
-            oil and gas, metallurgical, chemical, food, fuel and energy industries </div>
-        </div>
-        <Image src={banner} className={styles.img} alt="" />
-      </div>
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const [captchaError, setCaptchaError] = useState(false);
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+  
+    const { cart } = productCartStore();
+  
+    const {
+      register,
+      handleSubmit,
+      control,
+      reset,
+      formState: { errors, isSubmitting },
+    } = useForm<FormValues>({
+      resolver: zodResolver(FormSchema),
+      defaultValues: {
+        name: '',
+        email: '',
+        message: '',
+        phone: '',
+        accept: false,
+      },
+    });
+  
+  
+    const onSubmit: SubmitHandler<FormValues> = async (form) => {
+      if (!captchaToken) {
+        setCaptchaError(true);
+        return;
+      }
+      try {
+        const { accept, ...data } = form;
+        // const response = await FooterService.sendForm(data);
+        reset();
+        let sendForm = async (): Promise<void> => {
+          const result = await sendFeedback({
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            Itn: null,
+            file: null,
+            message: data.message
+          });
+  
+          if (result) {
+            const r: IFeedBackResponse200 = result as IFeedBackResponse200;
+            showToast();
+            console.log(result)
+          }
+  
+        };
+        sendForm()
+  
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const hadleGetToken = (e: string | null) => {
+      setCaptchaToken(e);
+      setCaptchaError(false);
+    };
+  
+    const formFields = [
+      {
+        name: 'name',
+        label: 'Your name',
+        placeholder: 'David Augustino',
+        error: errors.name?.message,
+        Icon: User,
+      },
+      {
+        name: 'phone',
+        label: 'Phone number',
+        placeholder: '8 909 124 54 32',
+        error: errors.phone?.message,
+        Icon: Phone,
+      },
+      {
+        name: 'email',
+        label: 'Your email',
+        placeholder: 'royalequipment@gmail,com',
+        error: errors.email?.message,
+        Icon: Email,
+      },
+    ];
+  
+    return (
+      <section className={styles.section}>
       <div className="container">
-        <div className={styles.wrap_txt}>Royal Equipment offers comprehensive solutions for the supply of industrial equipment, taking into account the individual needs of every customer. Our goal is to become your trusted partner by providing you with high-quality products, prompt support and cutting-edge technical solutions
-          or various industrial sectors.</div>
-      </div> */}
-    </section>
-  );
-};
+      <div className={styles.wrap}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          {formFields.map(({ name, label, placeholder, error, Icon }) => (
+            <label
+              key={name}
+              className={cn(styles.label, {
+                [styles.error]: error,
+              })}
+            >
+              <div className={styles.labelWrapper}>
+                <Icon color="var(--black)" />
+                <span className={styles.span}>{label}</span>
+              </div>
+              <Input
+                {...register(name as keyof FormValues)}
+                className={styles.input}
+                variant="third"
+                placeholder={placeholder}
+              />
+            </label>
+          ))}
+  
+          <label
+            className={cn(styles.label, {
+              [styles.error]: errors.message?.message,
+            })}
+          >
+            <div className={styles.labelWrapper}>
+              <Message color="var(--black)" />
+              <span className={styles.span}>Message</span>
+            </div>
+            <Textarea {...register('message')} placeholder="Typing here" />
+          </label>
+  
+          <Controller
+            name="accept"
+            control={control}
+            render={({ field }) => (
+              <Checkbox
+                className={styles.checkbox}
+                textClassName={styles.checkboxText}
+                variant="secondary"
+                checked={field.value}
+                message={errors.accept?.message}
+                onCheckedChange={field.onChange}
+              />
+            )}
+          />
+  
+          <div
+            className={cn(styles.recaptchaWrapper, {
+              [styles.error]: captchaError,
+            })}
+          >
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LcOFzgqAAAAAAEVXi3ynRYrG4GXP-lNUybfOnWm"
+              onChange={hadleGetToken}
+            />
+          </div>
+  
+          <Button
+            className={styles.btn}
+            variant="golden"
+            isLoading={isSubmitting}
+            type="submit"
+          >
+            Сreate an order
+          </Button>
+        </form>
+      </div>
+      </div>
+      </section>
+    );
+  };

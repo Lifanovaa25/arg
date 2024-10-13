@@ -1,18 +1,15 @@
 'use client';
 import { MouseEvent } from 'react';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
-import { Order } from '../Order/Order';
+
 import Image from 'next/image';
 import styles from './Product.module.scss';
 import { getProduct } from '@/src/app/api/products/productsAPI';
 import {
-  IPageProductsResponse200,
   IProductResponse200,
 } from '@/src/app/api/products/interfaces';
 import { useEffect, useState } from 'react';
-import Title from '@/src/shared/ui/Title/Title';
 import test from '/public/images/test.png';
-import Button from '@/src/shared/ui/Button/Button';
 import { ProductDetails } from '../Details/Details';
 
 export const Product = () => {
