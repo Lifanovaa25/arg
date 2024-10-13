@@ -1,11 +1,12 @@
-import banner from '../../../../../public/images/aboutUsBanner.png'
-import Image from 'next/image';
-import styles from './Middle.module.scss';
-import cn from 'classnames';
+import Form from "@/src/widgets/Footer/ui/Form/Form";
+
+
 
 export const Middle = () => {
   return (
     <section>
+      {/* <Form /> */}
+
       {/* <div className="container">
         <div className={styles.card_items}>
           <div className={styles.card_item}>

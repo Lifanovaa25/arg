@@ -7,7 +7,7 @@ export const Top = () => {
     <section className={styles.section}>
       <div className="container">
         <Title size="h1" className={styles.title} variant="secondary">
-        For Clients
+        Leave a request and start working with us
         </Title>
         <div className={styles.wrapper}>
           <Image src={aboutImg} className={styles.img} alt="AboutUs" />

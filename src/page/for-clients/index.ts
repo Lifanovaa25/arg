@@ -1,1 +1,1 @@
-export { ForClients } from './ui/AboutUs/AboutUs';
+export { ForClients } from './ui/ForClients/ForClients';
