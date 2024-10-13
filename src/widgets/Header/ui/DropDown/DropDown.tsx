@@ -9,7 +9,6 @@ import { DropDownProps, MenuTab, MenuCategory, MenuType, ApiResponse } from './t
 import Close from '/public/svg/close.svg';
 import Chevron from '/public/svg/chevron.svg';
 import styles from './DropDown.module.scss'; // Исправлено название файла
-import { categoryStore } from '@/src/app/providers/Store/config/store';
 
 export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [activeTab, setActiveTab] = useState<string>('');
@@ -19,7 +18,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [menuData, setMenuData] = useState<MenuTab[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const { path, onAddPathName } = categoryStore();
+  
 
   useBodyOverflow(isDropDown);
 
@@ -94,10 +93,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
       setShowTypes(true);
     }
   };
-  const handlerSavePath = (path: string) => {
-    onAddPathName(path)
-    // alert(path)
-  }
+
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };

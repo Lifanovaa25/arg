@@ -38,7 +38,7 @@ const EquipmentCategoryPage: React.FC = () => {
   const [data, setData] = useState<ApiResponse['value'] | null>(null); // Данные из API
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [error, setError] = useState<string | null>(null); // Сообщение об ошибке
-  const { path, onAddPathName } = categoryStore();
+ 
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {

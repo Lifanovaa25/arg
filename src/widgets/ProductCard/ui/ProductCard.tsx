@@ -11,11 +11,12 @@ import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './ProductCard.module.scss';
 
 export const ProductCard = (props: CardProps) => {
-  const { id, title: text, price, cardPageLink, view } = props;
+  const { id, title: text, price, productUrl, view } = props;
   const { cart, onAddCard, onPlusCard, onRemoveCard, onMinusCard } = productCartStore();
   const pageUrl = String(props.cardPageLink)
+  const prodUrl = String(props.productUrl)
   const card = cart && cart.length && cart.find((obj) => obj.id === id);
-
+const {setUrl} = productCartStore()
   const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onAddCard(props);
@@ -40,8 +41,9 @@ export const ProductCard = (props: CardProps) => {
 
   return (
     <div className={cn(styles.wrapper, styles[view])}>
-      {cardPageLink ?
-        <Link className={styles.link} href={`${pageUrl}/product/[productCard]`} as={`${pageUrl}/product`}>
+      {pageUrl ?
+        <Link className={styles.link} href={`${pageUrl}/product/[productCard]`} as={`${pageUrl}/product`}
+        onClick={()=>setUrl(prodUrl)}>
           <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
 
           <div className={cn(styles.contentWrapper, styles[view])}>

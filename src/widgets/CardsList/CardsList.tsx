@@ -9,6 +9,7 @@ import Settings from '/public/svg/settings.svg';
 import styles from './CardsList.module.scss';
 import './Select.scss';
 import { usePathname } from 'next/navigation';
+import {  productCartStore } from '@/src/app/providers/Store/config/store';
 
 //TODO: убрать
 const arr = [
@@ -60,13 +61,12 @@ export const CardsList = (props: CardsListProps) => {
   const [view, setView] = useState(views[1].value);
   const [sort, setSort] = useState(sorts[0].value);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
-  const { subcategories } = props;
+  const {setUrl,productUrl} =  productCartStore(); const { subcategories } = props;
   console.log( pathname )
   useEffect(() => {
     const isMobile = checkMobileScreen();
     if (isMobile) setView('list');
   }, []);
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.selectsWrapper}>
@@ -113,7 +113,8 @@ export const CardsList = (props: CardsListProps) => {
             title={item.label}
             key={item.id}
             {...item}
-            view={view} />
+            view={view}
+            productUrl={item.link} />
         ))}
       </div>
 

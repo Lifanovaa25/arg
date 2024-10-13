@@ -19,9 +19,10 @@ export const productCartStore = create<ICartStore>()(
         ? getLocalStore(LOCAL_STORAGE_STORE_NAME)
         : [],
       CartIds: [],
+      productUrl: '',
       onAddCard: (props: CardProps) => {
         set({ cart: [...get().cart, { ...props, quantity: 1 }] });
-        set({ CartIds: [...get().cart, { ...props,id: props.id}] });
+        set({ CartIds: [...get().cart, { ...props, id: props.id }] });
       },
       onMinusCard: (id: number) => {
         const cart = JSON.parse(JSON.stringify(get().cart));
@@ -50,8 +51,7 @@ export const productCartStore = create<ICartStore>()(
       },
       onRemoveCard: (id: number) => {
         set({ cart: get().cart.filter((obj) => obj.id !== id) });
-        set({ CartIds: get().CartIds.filter((obj) => obj.id !== id)});
-
+        set({ CartIds: get().CartIds.filter((obj) => obj.id !== id) });
       },
       onClearCart: () => {
         set({ cart: [] });
@@ -66,18 +66,16 @@ export const productCartStore = create<ICartStore>()(
         });
         // set({ CartIds: [...get().cart, { ...cart, id:cart.id }] });
       },
+      setUrl: (url: string) => {
+        return set({ productUrl: url });
+      },
     }),
     {
       name: LOCAL_STORAGE_STORE_NAME,
     }
   )
 );
-export const categoryStore = create<ICategoryStore>()((set, get) => ({
-  path: '',
-  onAddPathName: (pathName: string) => {
-    return set({ path: pathName });
-  },
-}));
+
 export const searchStore = create<ISearchStore>()((set, get) => ({
   query: '',
   onAddSearchRequest: (query: string) => {

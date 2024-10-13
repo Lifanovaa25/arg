@@ -4,7 +4,8 @@ export interface CardProps extends ProductCard {
   manufacturer: string;
   link: string;
   view: 'list' | 'grid';
-  cardPageLink?:string;
+  cardPageLink?: string;
+  productUrl?:string;
 }
 
 // Модель Store для продуктовой корзины
@@ -13,17 +14,21 @@ export interface ICartStore {
   CartIds: {
     id: number;
   }[];
+  productUrl: string;
   onAddCard: (props: CardProps) => void;
   onMinusCard: (id: number) => void;
   onPlusCard: (id: number) => void;
   onRemoveCard: (id: number) => void;
   onClearCart: () => void;
   getCartIds: () => void;
+  setUrl: (url: string) => void;
 }
 
 export interface ICategoryStore {
   path: string;
+  productUrl: string;
   onAddPathName: (pathName: string) => void;
+  setUrl:(url:string)=>void
 }
 export interface ISearchStore {
   query: string;
