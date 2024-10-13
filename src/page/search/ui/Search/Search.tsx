@@ -52,37 +52,14 @@ export const Search = () => {
 
     }
   };
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  
-  //     if (
-  //       window.innerHeight + window.scrollY >=
-  //       document.body.offsetHeight - 100
-  //     ) {
-  //       setPageNumber(pageNumber+1)
 
-  //       let q = searchParams.get('q') 
-  //       if(q != null) {
-  //          setSearchRequest(q)
-  //       }
-  //       // console.log(pageNumber)
-  //       fetchProducts()
-  //       // console.log(document.body.offsetHeight);
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  // }, [window.scrollY])
- 
   const handleForm: SubmitHandler<FormProps> = ({ search }) => {
     push(`/search?q=${search}`);
     setSearchRequest(search)
     fetchProducts()
     console.log(searchRequest)
-    // fetchProducts(search); // Выполнить поиск при сабмите
   };
 
-  // Выполнить запрос при загрузке страницы или изменении строки запроса
   useEffect(() => {
     const searchQuery = searchParams.get('q') || '';
   

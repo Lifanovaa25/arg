@@ -1,0 +1,49 @@
+.preloader {
+ 
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  margin: (- 30px - 3px) calc(-10px / 2);
+  width: 10px;
+  height:  30px;
+  // border-radius: 50%;
+  box-shadow: 0 33px 0 0 #F4D480, 0 23px 0 0 #F4D480,
+    20px 33px 0 0 #F4D480;
+
+  
+
+  animation: preloaderBouncing infinite 1.5s linear;
+}
+@keyframes preloaderBouncing {
+    0% {
+      box-shadow: 0 23px 0 0 #F4D480, 0 23px 0 0 #F4D480,
+        20px 23px 0 0 #F4D480;
+    }
+    13% {
+      box-shadow: 0 23px 0 3px #F4D480,
+        0 23px 0 0 #F4D480, 20px 23px 0 0 #F4D480;
+    }
+    26% {
+      box-shadow: 0 23px 0 #{3px * 0.666} #F4D480,
+        0 23px 0 3px #F4D480, 20px 23px 0 0 #F4D480;
+    }
+    39% {
+      box-shadow: 0 23px 0 #{3px * 0.333} #F4D480,
+        0 23px 0 #{3px * 0.666} #F4D480,
+        20px 23px 0 3px #F4D480;
+    }
+    52% {
+      box-shadow: 0 23px 0 0 #F4D480,
+        0 23px 0 #{3px * 0.333} #F4D480,
+        20px 23px 0 #{3px * 0.666} #F4D480;
+    }
+    65% {
+      box-shadow: 0 23px 0 0 #F4D480, 0 23px 0 0 #F4D480,
+        20px 23px 0 #{3px * 0.333} #F4D480;
+    }
+    78% {
+      box-shadow: 0 23px 0 0 #F4D480, 0 23px 0 0 #F4D480,
+        20px 23px 0 0 #F4D480;
+    }
+  }

@@ -52,10 +52,9 @@ export const Order = () => {
 
     try {
       const { accept, ...data } = form;
-      console.log(data);
+  
 
-      // const response = await FooterService.sendForm(data);
-      reset();
+    reset();
       recaptchaRef.current?.reset();
       setCaptchaToken(null);
       setCaptchaError(false);

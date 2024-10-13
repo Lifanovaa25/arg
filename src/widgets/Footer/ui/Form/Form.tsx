@@ -45,7 +45,6 @@ export const Form = () => {
         if (result) {
           const r: IFeedBackResponse200 = result as IFeedBackResponse200;
           showToast();
-          console.log(result)
         }
 
       };

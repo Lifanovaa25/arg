@@ -8,10 +8,12 @@ import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './Details.module.scss';
 import { getCart } from '@/src/app/api/cart/cartApi';
 import { ICartResponse200 } from '@/src/app/api/cart/interfaces';
+import { Loading } from '@/src/widgets/Loading';
 
 export const Details = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idProduct, setIdProduct] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
 
   const { CartIds, cart, getCartIds, onRemoveCard, onClearCart } = productCartStore();
 
@@ -25,7 +27,7 @@ export const Details = () => {
     if (result) {
       const r: ICartResponse200 = result as unknown as ICartResponse200;
       setData(r.value);
-      // setLoading(false); // Выключаем состояние загрузки
+      setLoading(false); // Выключаем состояние загрузки
     }
   };
   useEffect(() => {
@@ -45,9 +47,7 @@ export const Details = () => {
         }
       }
     }
-    console.log({cart})
-    console.log({data})
-    // console.log({CartIds})
+ 
   }, [data]);
   useEffect(() => {
     getCartIds();
@@ -75,7 +75,10 @@ export const Details = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.top}>
+      {loading ?
+      <Loading/> :
+      <>
+        <div className={styles.top}>
         <Title size="h1" variant="secondary">
           Checkout details
         </Title>
@@ -117,6 +120,8 @@ export const Details = () => {
         handleClearCart={handleClearCart}
         idProduct={idProduct}
       />
+      </>}
+    
     </div>
   );
 };
