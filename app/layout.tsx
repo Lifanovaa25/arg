@@ -22,6 +22,9 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+       {/* <link rel="icon" href="/public/favicon.png" />  */}
+       {/* <link rel="icon" href="/favicon.png" sizes="any" /> */}
+       <link rel="icon" href="/favicon2.ico" sizes="any" />
       </head>
       <body className={`${mont.variable} ${onest.variable}`}>
         <div id="__next">

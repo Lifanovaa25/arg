@@ -116,41 +116,42 @@ export interface Product {
     };
   };
 }
-export interface IProductResponse200 {
-  IsSuccess: boolean;
-  IsFailure: boolean;
-  Error: {
-    Code: string;
-    Description: string;
-    Type: string;
+
+export interface IProductResponseValue{
+  label: string;
+  imageUrl: string | undefined;
+  articul: string;
+  country: string;
+  analogue: string;
+  filters: {
+    Manufacturers: string[];
   };
-  Value: {
-    Label: string;
-    ImageUrl: string | undefined;
-    Articul: string;
-    Country: string;
-    Analogue: string;
-    Filters: {
-      additionalProp1: string[];
-      additionalProp2: string[];
-      additionalProp3: string[];
-    };
-    Price: number;
-    ProductDescription: string;
-    Characteristics: string;
-    LinkUrl: string;
-    LinkName: string;
-    IsExternalLink: boolean;
-    SparePartsLists: {
-      Title: string;
-      Items: {
-        Name: string;
-        Price: number;
-        Articul: string;
-        Url: string;
-      }[];
+  price: number;
+  productDescription: string;
+  characteristics: string;
+  linkUrl: string;
+  linkName: string;
+  isExternalLink: boolean;
+  sparePartsLists: {
+    title: string;
+    items: {
+      name: string;
+      price: number;
+      articul: string;
+      url: string;
     }[];
+  }[];
+}
+
+export interface IProductResponse200 {
+  isSuccess: boolean;
+  isFailure: boolean;
+  error: {
+    code: string;
+    description: string;
+    type: string;
   };
+  value: IProductResponseValue;
 }
 
 export interface IProductsResponse400 {

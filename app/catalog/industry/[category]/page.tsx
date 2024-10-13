@@ -54,16 +54,9 @@ const EquipmentCategoryPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [pathname]);
 
-  // if (loading) {
-  //   return <p>Загрузка...</p>; // Сообщение о загрузке
-  // }
-
-  // if (error) {
-  //   return <p>Ошибка: {error}</p>; // Сообщение об ошибке
-  // }
-
+ 
   return (
     <>
       <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />

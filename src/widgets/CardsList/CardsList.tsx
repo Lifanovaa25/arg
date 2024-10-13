@@ -26,9 +26,9 @@ const views: { value: 'list' | 'grid'; label: string }[] = [
   { value: 'grid', label: 'Grid' },
 ];
 const sorts: { value: string; label: string }[] = [
-  { value: 'popularity', label: 'Popularity' },
-  { value: 'cheaper', label: 'Price: cheaper' },
-  { value: 'expensive', label: 'Price: expensive' },
+  { value: '0', label: 'Popularity' },
+  { value: '1', label: 'Price: cheaper' },
+  { value: '2', label: 'Price: expensive' },
 ];
 
 interface Subcategory {
@@ -61,8 +61,9 @@ export const CardsList = (props: CardsListProps) => {
   const [view, setView] = useState(views[1].value);
   const [sort, setSort] = useState(sorts[0].value);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
-  const {setUrl,productUrl} =  productCartStore(); const { subcategories } = props;
-  console.log( pathname )
+ 
+   const { subcategories } = props;
+
   useEffect(() => {
     const isMobile = checkMobileScreen();
     if (isMobile) setView('list');
@@ -113,8 +114,7 @@ export const CardsList = (props: CardsListProps) => {
             title={item.label}
             key={item.id}
             {...item}
-            view={view}
-            productUrl={item.link} />
+            view={view} />
         ))}
       </div>
 

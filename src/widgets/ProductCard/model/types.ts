@@ -1,12 +1,10 @@
 import type { ProductCard } from '@/src/shared/types/productCard';
 export interface CardProps extends ProductCard {
-
   image: string;
   manufacturer: string;
   link: string;
   view: 'list' | 'grid';
   cardPageLink?: string;
-  productUrl?:string;
 }
 
 // Модель Store для продуктовой корзины

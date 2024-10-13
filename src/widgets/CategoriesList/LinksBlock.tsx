@@ -3,45 +3,58 @@ import styles from './CategoriesList.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
-const arr = [
-    { title: 'title 1', href: '/', id: 1 },
-    { title: 'title 2', href: '/', id: 2 },
-    { title: 'title 3', href: '/', id: 3 },
-    { title: 'title 4', href: '/', id: 4 },
-    { title: 'title 5', href: '/', id: 5 },
-    { title: 'title 6', href: '/', id: 6 },
-  ];
-interface CatListProps {
-    title?: string | undefined;
-    link?:string;
-    index?:number
+
+export interface LinkListItem{
+  title:string;
+  link:string;
+  id: number;
+  label:string;
 }
 
 
-export const LinksBlock = (props: CatListProps) => {
-   const {title,link,index} = props
+export interface ProductFilters{
+    name: string;
+    allItems: string;
+    radio: boolean;
+    hideAfter: boolean;
+    ignore: boolean;
+    items: LinkListItem[];
+  }
+
+export interface LinkListProps {
+    itemsCount?: number;
+    label?:string;
+    items?:LinkListItem[];
+}
+  
+
+
+export const LinksBlock = (props: LinkListProps) => {
+   const {label, items, itemsCount} = props
     const [activeTab, setActiveTab] = useState('');
     const [visible, setVisible] = useState(false);
+    const pathname = usePathname();
 
     return (
 
         <div className={styles.links}>
      
             <div className={styles.links_item}>
-             {props.title &&    <h3 className={styles.links_title}>Manufacturers</h3>}
-                {arr.map((item, index) =>
-                    <>  <Link href={item.href}
+             {props.label !== undefined && <h3 className={styles.links_title}>{props.label}</h3>}
+                {items != undefined && items.map((item, index) =>
+                    <>  <Link href={item.link}
                         className={cn(styles.link, {
-                            [styles.active]: activeTab === item.title,
+                            [styles.active]: pathname+'/' === item.link,
                         })}
                         style={index > 3 && !visible ? { display: 'none' } : { display: 'block' }}
-                        onClick={() => setActiveTab(item.title)}>{item.title}
+                        onClick={() => setActiveTab(item.label)}>{item.label}
                     </Link>
                         {index == 3 && !visible &&
                             <div className={styles.show_more}
                                 onClick={() => setVisible(true)}>Show more
-                                <span className={styles.all_items}>(45) Items</span>
+                                <span className={styles.all_items}>({props.itemsCount !== undefined ? props.itemsCount-4: 0}) Items</span>
                             </div>
                         }
 

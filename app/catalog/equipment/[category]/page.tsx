@@ -54,15 +54,7 @@ const EquipmentCategoryPage: React.FC = () => {
     };
 
     fetchData();
-  }, []);
-
-  // if (loading) {
-  //   return <p>Загрузка...</p>; // Сообщение о загрузке
-  // }
-
-  // if (error) {
-  //   return <p>Ошибка: {error}</p>; // Сообщение об ошибке
-  // }
+  }, [pathname]);
 
   return (
     <>

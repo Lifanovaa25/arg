@@ -69,6 +69,13 @@
   }
 }
 
+@media (max-width: 1632px) {
+  .aside {
+    max-width: calc(250px - 58px);
+    min-width: calc(250px - 58px);
+  }
+}
+
 @media (max-width: 1570px) {
   .aside {
     display: none;

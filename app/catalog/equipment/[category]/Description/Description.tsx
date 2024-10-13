@@ -13,6 +13,7 @@ export const Description = (props: DescriptionProps) => {
         <div className={styles.wrapper}>
           <div dangerouslySetInnerHTML={{ __html: text }}>
           </div>
+          
         </div>
       </div>
     </section>
