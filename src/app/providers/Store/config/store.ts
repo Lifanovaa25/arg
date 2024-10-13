@@ -8,7 +8,7 @@ import type {
   ISearchStore,
 } from '@/src/widgets/ProductCard/model/types';
 import type { CardProps } from '@/src/widgets/ProductCard/model/types';
-import type { ProductCard } from '@/src/shared/types/productCard';
+import type { Params, ProductCard } from '@/src/shared/types/productCard';
 import { link } from 'fs';
 
 export const productCartStore = create<ICartStore>()(
@@ -19,6 +19,7 @@ export const productCartStore = create<ICartStore>()(
         : [],
       CartIds: [],
       productUrl:'',
+      params:[],
       onAddCard: (props: CardProps) => {
         set({ cart: [...get().cart, { ...props, quantity: 1 }] });
         set({ CartIds: [...get().cart, { ...props,id: props.id}] });
@@ -59,15 +60,16 @@ export const productCartStore = create<ICartStore>()(
       //получение айдишников в корзине
       getCartIds: () => {
         const cart = JSON.parse(JSON.stringify(get().cart));
-        // let i = 0;
-        // let Ids: object[];
-        cart.forEach((item: ProductCard) => {
-          // set({ CartIds: item.id });
-        });
-        // set({ CartIds: [...get().cart, { ...cart, id:cart.id }] });
-      },
+         },
       setUrl: (url: string) => {
         return set({ productUrl: url });
+      },
+      setParams:(props:Params) =>{
+        set({ params: [...get().params, { ...props}] });
+      
+      },
+      onClearParams: () => {
+      //  return  set({ params:[] });
       },
     }),
     {

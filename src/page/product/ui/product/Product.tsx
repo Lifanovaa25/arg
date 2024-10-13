@@ -38,10 +38,7 @@ export const Product = () => {
     }
   }, [data]);
 
-  const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    // onAddCard({p});
-  };
+ 
   return (
     <section>
       <div className="container">

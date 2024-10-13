@@ -14,6 +14,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './Carousel.scss';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 interface Product {
   value: {
     category: {
@@ -24,7 +25,7 @@ interface Product {
       items: LinkListItem[];
     };
     // filters: ProductFilters; 
-    filters: LinkListProps[]; 
+    filters: LinkListProps[];
     items: {
       id: number;
       image: string;
@@ -59,13 +60,14 @@ const AllMiningEquipment: React.FC = () => {
   const [data, setData] = useState<Product['value'] | null>(null); // Данные из API
   const [pageNum, setPageNum] = useState(1)
   const [activeTab, setActiveTab] = useState(1);
-
+  const { setParams, onClearParams, params } = productCartStore();
+  const filter = params
   const fetchData = async (): Promise<void> => {
     const result = await getPageProductsItems({
       Page: pageNum,
       PageSize: 10,
       PageUrl: pathname,
-      Params: [],
+      Params: filter,
       Sort: 1
     });
     if (result) {
@@ -74,22 +76,28 @@ const AllMiningEquipment: React.FC = () => {
     }
   };
   useEffect(() => {
-    
+
     if (data === null) {
       fetchData()
     }
   }, [pathname, data]);
+
   useEffect(() => {
-    
-      fetchData()
-    
-  }, [pageNum]);
+    console.log({ filter })
+    fetchData()
+    onClearParams()
+  }, [pageNum, filter]);
+  useEffect(() => {
+    console.log({ filter })
+    fetchData()
+    onClearParams()
+  }, [filter]);
   function PageIncrement(count: number | undefined) {
-    if (pageNum <= Number(count) ) {
+    if (pageNum <= Number(count)) {
       setPageNum(pageNum + 1)
       setActiveTab(pageNum)
     }
-   
+
     return
 
   }
@@ -127,7 +135,7 @@ const AllMiningEquipment: React.FC = () => {
               {Array(data?.totalPages).fill(
                 <SwiperSlide className={styles.pag_wrap}>
 
-                  <div 
+                  <div
                     className={cn(styles.pag_btn, {
                       [styles.active]: activeTab === pageNum,
                     })}

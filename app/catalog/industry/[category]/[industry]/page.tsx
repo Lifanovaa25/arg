@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react';
 import styles from './AllMiningEquipment.module.scss';
 import { getPageProductsItems } from '@/src/app/api/products/productsAPI';
 import { usePathname } from 'next/navigation';
-import { CategoriesList } from '@/src/widgets/CategoriesList/CategoriesList';
+import { LinkListItem, LinkListProps, ProductFilters } from '@/src/widgets/CategoriesList/LinksBlock';
 import { CardsList } from '@/src/widgets/CardsList/CardsList';
+import { CategoriesList } from '@/src/widgets/CategoriesList/CategoriesList';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -20,27 +21,10 @@ interface Product {
       title: string;
       link: string;
       titleToEnd: boolean;
-      items: {
-        id: number;
-        link: string;
-        label: string;
-        title: string;
-      };
+      items: LinkListItem[];
     };
-    filters: {
-      Name: string;
-      Label: string;
-      AllItems: string;
-      Radio: boolean;
-      HideAfter: boolean;
-      Ignore: boolean;
-      Items: {
-        Id: 0;
-        Link: string;
-        Label: string;
-        Title: string;
-      };
-    };
+    // filters: ProductFilters; 
+    filters: LinkListProps[]; 
     items: {
       id: number;
       image: string;
@@ -114,7 +98,7 @@ const AllMiningEquipment: React.FC = () => {
       <section>
         <div className="big-container">
           <div className={styles.wrapper}>
-            <CategoriesList title={data?.category.label} />
+            <CategoriesList category={data?.category} filters={data?.filters} title={data?.category.label} />
             <CardsList subcategories={data?.items} />
 
           </div>

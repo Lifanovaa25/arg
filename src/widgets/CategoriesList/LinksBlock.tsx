@@ -2,8 +2,10 @@
 import styles from './CategoriesList.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
+import { Params } from '@/src/shared/types/productCard';
 
 
 export interface LinkListItem{
@@ -33,10 +35,20 @@ export interface LinkListProps {
 
 export const LinksBlock = (props: LinkListProps) => {
    const {label, items, itemsCount} = props
-    const [activeTab, setActiveTab] = useState('');
+    const [activeTab, setActiveTab] = useState(props.label);
     const [visible, setVisible] = useState(false);
     const pathname = usePathname();
-
+    const [ productQuantity, setProductQuantity ] = useState<Params | undefined>()
+  const { setParams,params} = productCartStore();
+   
+    const handleClick = (tab: string,val:string) => {
+        setActiveTab(tab)
+        let key = String(props.label)
+        let value = String(val)
+        // setProductQuantity(props.label, val,val)
+        setParams({key,value})
+        console.log({params})
+      };
     return (
 
         <div className={styles.links}>
@@ -44,13 +56,14 @@ export const LinksBlock = (props: LinkListProps) => {
             <div className={styles.links_item}>
              {props.label !== undefined && <h3 className={styles.links_title}>{props.label}</h3>}
                 {items != undefined && items.map((item, index) =>
-                    <>  <Link href={item.link}
+                    <>  <div 
+                    // href={item.link}
                         className={cn(styles.link, {
-                            [styles.active]: pathname+'/' === item.link,
+                            [styles.active]: activeTab === item.label,
                         })}
                         style={index > 3 && !visible ? { display: 'none' } : { display: 'block' }}
-                        onClick={() => setActiveTab(item.label)}>{item.label}
-                    </Link>
+                        onClick={() => handleClick(item.label,item.link)}>{item.label}
+                    </div>
                         {index == 3 && !visible &&
                             <div className={styles.show_more}
                                 onClick={() => setVisible(true)}>Show more

@@ -72,6 +72,7 @@ export const ProductDetails = (props:DetailsProps) => {
             <div className={styles.btn_block}>
 
               <Button variant="golden" className={styles.btn}
+              //@ts-ignore
                 onClick={handleAddCard}
               >
                 <span>Add to cart</span>

@@ -21,13 +21,16 @@ const nextConfig = {
     return config;
   },
   images: {
+    unoptimized: true,
+  },
+  images: {
     remotePatterns: [{
       protocol: 'https',
       hostname: 'royal-equipment.ae',
       port: '',
       pathname: '/media/**'
     }]
-  }
+  },
 };
 
 export default nextConfig;
