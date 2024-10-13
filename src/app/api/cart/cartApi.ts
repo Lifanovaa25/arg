@@ -1,18 +1,26 @@
-import axios from "axios";
+import axios from 'axios';
 
 import {
-
   ICartRequestParams,
   IError,
   IPageCartsRequestParams,
-  TPageCartsResponse
-} from "./interfaces";
+  TPageCartsResponse,
+} from './interfaces';
 
-
-
-const getCart = async ({ Id }: ICartRequestParams, ): Promise<TPageCartsResponse | IError> => {
+const getCart = async ({
+  Id,
+}: ICartRequestParams): Promise<TPageCartsResponse | IError> => {
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/GetCart?CartItems={Id:${Id}}`);
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/GetCart?`;
+  
+    Id.forEach((item) => {
+      if (item.id != undefined) {
+        url = `${url}cartIds=${item.id}&`;
+      }
+   
+
+    });
+    const response = await axios.get(url);
     const result = await response.data;
 
     return result;
@@ -23,6 +31,4 @@ const getCart = async ({ Id }: ICartRequestParams, ): Promise<TPageCartsResponse
   }
 };
 
-export  {
-  getCart
-};
+export { getCart };

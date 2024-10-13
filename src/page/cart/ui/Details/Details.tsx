@@ -1,17 +1,49 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Title from '@/src/shared/ui/Title/Title';
 import { Card } from '../Card/Card';
 import { CartModal } from '../Modal/Modal';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './Details.module.scss';
+import { getCart } from '@/src/app/api/cart/cartApi';
+import { ICartResponse200 } from '@/src/app/api/cart/interfaces';
 
 export const Details = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idProduct, setIdProduct] = useState<number | null>(null);
 
-  const { cart, onRemoveCard, onClearCart } = productCartStore();
+  const { CartIds, cart, getCartIds, onRemoveCard, onClearCart } = productCartStore();
+
+  const [IdsItem, setdsItem] = useState([])
+  const Ids = getCartIds()
+
+
+  const [data, setData] = useState<ICartResponse200['Value'] | null>(null); // Данные из API
+//TODO разобраться,доделать
+  const fetchData = async (): Promise<void> => {
+    const result = await getCart({ Id: CartIds });
+    if (result) {
+      const r: ICartResponse200 = result as unknown as ICartResponse200;
+      setData(r.Value);
+      // setLoading(false); // Выключаем состояние загрузки
+
+    }
+  };
+  useEffect(() => {
+    getCartIds()
+    if (data === null) {
+      fetchData();
+    }
+    console.log({cart})
+    console.log({data})
+    console.log({CartIds})
+
+  }, [data]);
+  useEffect(() => {
+    getCartIds()
+    fetchData();
+  }, [cart, CartIds]);
 
   const handleOpenModal = (id: number) => {
     setIsModalOpen(true);
@@ -50,13 +82,13 @@ export const Details = () => {
 
       <div className={styles.list}>
         {(cart && cart.length > 0) && cart.map((card) => (
-          <Card 
-          image={''} 
-          manufacturer={''} 
-          link={''} 
-          view={'list'}
-           key={card.id} {...card} 
-           handleOpenModal={handleOpenModal} />
+          <Card
+            image={''}
+            manufacturer={''}
+            link={''}
+            view={'list'}
+            key={card.id} {...card}
+            handleOpenModal={handleOpenModal} />
         ))}
       </div>
 

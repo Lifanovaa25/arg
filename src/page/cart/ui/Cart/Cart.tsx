@@ -5,9 +5,6 @@ import { Order } from '../Order/Order';
 import styles from './Cart.module.scss';
 
 export const Cart = () => {
-  const { getCartIds } = productCartStore();
-  const Ids = getCartIds()
-  console.log(Ids)
 
   return (
     <section>

@@ -9,6 +9,9 @@ export interface CardProps extends ProductCard {
 // Модель Store для продуктовой корзины
 export interface ICartStore {
   cart: ProductCard[];
+  CartIds: {
+    id: number;
+  }[];
   onAddCard: (props: CardProps) => void;
   onMinusCard: (id: number) => void;
   onPlusCard: (id: number) => void;

@@ -40,9 +40,7 @@ const EquipmentCategoryPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const result = await getCategory({ Slug: pathname });
-
       if (result) {
-
         const r: ApiResponse = result as ApiResponse;
         setData(r.value);
         // setLoading(false); // Выключаем состояние загрузки

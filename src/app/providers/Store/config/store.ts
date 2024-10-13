@@ -18,11 +18,14 @@ export const productCartStore = create<ICartStore>()(
       cart: getLocalStore(LOCAL_STORAGE_STORE_NAME)
         ? getLocalStore(LOCAL_STORAGE_STORE_NAME)
         : [],
+      CartIds: [],
       onAddCard: (props: CardProps) => {
         set({ cart: [...get().cart, { ...props, quantity: 1 }] });
+        set({ CartIds: [...get().cart, { ...props,id: props.id}] });
       },
       onMinusCard: (id: number) => {
         const cart = JSON.parse(JSON.stringify(get().cart));
+        // const CartIds = JSON.parse(JSON.stringify(get().CartIds));
 
         cart.forEach((item: ProductCard) => {
           if (item.id === id && item.quantity) {
@@ -31,9 +34,11 @@ export const productCartStore = create<ICartStore>()(
         });
 
         set({ cart });
+        // set({CartIds})
       },
       onPlusCard: (id: number) => {
         const cart = JSON.parse(JSON.stringify(get().cart));
+        const CartIds = JSON.parse(JSON.stringify(get().CartIds));
 
         cart.forEach((item: ProductCard) => {
           if (item.id === id && item.quantity) {
@@ -45,6 +50,8 @@ export const productCartStore = create<ICartStore>()(
       },
       onRemoveCard: (id: number) => {
         set({ cart: get().cart.filter((obj) => obj.id !== id) });
+        set({ CartIds: get().CartIds.filter((obj) => obj.id !== id)});
+
       },
       onClearCart: () => {
         set({ cart: [] });
@@ -52,13 +59,12 @@ export const productCartStore = create<ICartStore>()(
       //получение айдишников в корзине
       getCartIds: () => {
         const cart = JSON.parse(JSON.stringify(get().cart));
-        let i = 0;
-        let Ids: number[] = [];
+        // let i = 0;
+        // let Ids: object[];
         cart.forEach((item: ProductCard) => {
-          Ids[i] = item.id;
-          i++
+          // set({ CartIds: item.id });
         });
-        return Ids
+        // set({ CartIds: [...get().cart, { ...cart, id:cart.id }] });
       },
     }),
     {

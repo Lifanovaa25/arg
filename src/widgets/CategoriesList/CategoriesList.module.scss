@@ -3,7 +3,9 @@
   min-width: 212px;
   color: var(--black);
 }
-
+.title {
+  margin-bottom: 35px;
+}
 @media (max-width: 1320px) {
   .wrapper {
     display: none;
