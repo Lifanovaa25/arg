@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import {
   ICartRequestParams,
+  ICartResponse200,
   IError,
   IPageCartsRequestParams,
   TPageCartsResponse,

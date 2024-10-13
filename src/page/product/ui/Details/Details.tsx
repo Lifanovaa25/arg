@@ -1,122 +1,82 @@
-'use client';
+'use client'
+import { MouseEvent } from 'react';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 
+import Image from 'next/image';
+import styles from './Details.module.scss';
+import { getProduct } from '@/src/app/api/products/productsAPI';
+import { IPageProductsResponse200, IProductResponse200 } from '@/src/app/api/products/interfaces';
 import { useEffect, useState } from 'react';
 import Title from '@/src/shared/ui/Title/Title';
-import { Card } from '../Card/Card';
-import { CartModal } from '../Modal/Modal';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
-import styles from './Details.module.scss';
-import { getCart } from '@/src/app/api/cart/cartApi';
-import { ICartResponse200 } from '@/src/app/api/cart/interfaces';
-import { propagateServerField } from 'next/dist/server/lib/render-server';
-export interface ProductDetails {
-  label: string| undefined;
-  
-  Value?: {
-    Label: string;
-    ImageUrl: string | undefined;
-    Articul: string;
-    Country: string;
-    Analogue: string;
-    Filters: {
-      additionalProp1: string[];
-      additionalProp2: string[];
-      additionalProp3: string[];
-    };
-    Price: number;
-    ProductDescription: string;
-    Characteristics: string;
-    LinkUrl: string;
-    LinkName: string;
-    IsExternalLink: boolean;
-    SparePartsLists: {
-      Title: string;
-      Items: {
-        Name: string;
-        Price: number;
-        Articul: string;
-        Url: string;
-      }[];
-    }[];
-  };
+import test from '/public/images/test.png';
+import Button from '@/src/shared/ui/Button/Button';
+interface DetailsProps {
+
 }
-export const Details = (props:ProductDetails) => {
-  const {label} = props
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [idProduct, setIdProduct] = useState<number | null>(null);
-
-  const { CartIds, cart, getCartIds, onRemoveCard, onClearCart } = productCartStore();
-
-  const [IdsItem, setdsItem] = useState([])
-  const Ids = getCartIds()
+export const ProductDetails = (props:DetailsProps) => {
+  const { productUrl } = productCartStore()
+  const [data, setData] = useState<IProductResponse200['Value'] | null>(null); // Данные из API
+  const { cart, onAddCard, onPlusCard, onRemoveCard, onMinusCard } = productCartStore();
+  const words = productUrl.split('/');
+  const prodId = Number(words[words.length - 1])
 
 
-  const [data, setData] = useState<ICartResponse200['Value'] | null>(null); // Данные из API
-
-  
-
-  const handleOpenModal = (id: number) => {
-    setIsModalOpen(true);
-    setIdProduct(id);
+  const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // onAddCard({p});
   };
-
-  const handleRemoveCart = () => {
-    if (idProduct) {
-      onRemoveCard(idProduct);
-      setIsModalOpen(false);
-      setIdProduct(null);
-    }
-  };
-
-  const handleClearCart = () => {
-    onClearCart()
-    setIsModalOpen(false);
-    setIdProduct(null);
-  };
-
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.top}>
-        <Title size="h1" variant="secondary">
-         {/* {props.label} */}
-        </Title>
+ 
+          <div className={styles.details}>
+            <div className={styles.top}>
+              <div className={styles.art}>Articul : KA-00000920</div>
+              <div className={styles.art}>Manufacturers: GRUNDFOS</div>
+            </div>
+            <div className={styles.title}>
+              <Title size="h1" variant="secondary">
+                {data?.Label} test
+              </Title>
+              <div className={styles.line}></div>
+            </div>
+            <div className={styles.middle}>
+              <div className={styles.point}>
+                <h5 className={styles.point_title}>Characteristics</h5>
+                <div className={styles.point_info}>
+                  <div className={styles.point_line}>Max head: 1 m</div>
+                  <div className={styles.point_line}> Max.flow rate: 0.50 m³/h</div>
+                  <div className={styles.point_line}>  Maximum pressure: 10 bar</div>
+                  <div className={styles.point_line}>Liquid temperature: 0 .. 95 °C</div>
+                </div>
 
-        {(cart && cart.length > 0) && (
-          <button className={styles.btn} onClick={() => setIsModalOpen(true)}>
-            Clear cart
-          </button>
-        )}
-      </div>
+              </div>
+              <div className={styles.point}>
+                <h5 className={styles.point_title}>Country</h5>
+                <div className={styles.point_info}>
+                  <div className={styles.point_line}>Denmark</div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.price}>Price:
+              <span>From 0 € </span>
+            </div>
+            <div className={styles.btn_block}>
 
-      {(cart && cart.length < 1) && <p className={styles.empty}>Cart is empty</p>}
-
-      <div className={styles.list}>
-        {(cart && cart.length > 0) && cart.map((card) => (
-          <Card
-            image={''}
-            manufacturer={''}
-            link={''}
-            view={'list'}
-            key={card.id} {...card}
-            handleOpenModal={handleOpenModal} />
-        ))}
-      </div>
-
-      {cart && cart.length > 0 && (
-        <div className={styles.total}>
-          <span className={styles.price}>Total price:</span>
-          <span className={styles.request}>On request</span>
-        </div>
-      )}
-
-      <CartModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        setIdProduct={setIdProduct}
-        handleRemoveCart={handleRemoveCart}
-        handleClearCart={handleClearCart}
-        idProduct={idProduct}
-      />
-    </div>
+              <Button variant="golden" className={styles.btn}
+                // onClick={handleAddCard}
+              >
+                <span>Add to cart</span>
+              </Button>
+              <Button className={styles.btn} variant="outline">
+                Request a quote
+              </Button>
+            </div>
+            <div className={styles.description}>
+              Highly efficient, silent COMFORT DIGITAL TIMER pumps provide hot water recirculation in private houses and apartments.
+              Thanks to the timing function, the period of operation of the pump can be manually set, which will optimize energy costs.
+              The pump is made of corrosion-resistant brass.
+              Continuous operation. Easy cleaning.
+            </div>
+          </div>
+       
   );
 };

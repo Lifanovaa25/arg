@@ -1,4 +1,4 @@
-import type { IResponseError } from "../interfaces";
+import type { IResponseError } from '../interfaces';
 
 export interface IPageProductsRequestParams {
   PageUrl: string;
@@ -23,7 +23,7 @@ export interface IPageProductsResponse200 {
   };
   value: {
     Category: {
-      Label: string ;
+      Label: string;
       Title: string;
       Link: string;
       TitleToEnd: boolean;
@@ -71,7 +71,7 @@ export interface IPageProductsResponse200 {
 export interface Product {
   value: {
     category: {
-      label: string ;
+      label: string;
       title: string;
       link: string;
       titleToEnd: boolean;
@@ -178,5 +178,9 @@ export interface IProductsResponse500 {
   };
 }
 
-export type TPageProductsResponse =Product| IPageProductsResponse200 | IProductsResponse400 | IProductsResponse500;
+export type TPageProductsResponse =
+  | Product
+  | IPageProductsResponse200
+  | IProductsResponse400
+  | IProductsResponse500;
 export type IError = IResponseError | IProductsResponse400 | IProductsResponse500;

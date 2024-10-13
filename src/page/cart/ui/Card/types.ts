@@ -5,6 +5,11 @@ export interface CartSliceProps {
   cart: ProductCard[];
 }
 
+
+export interface CartSliceProps {
+  cart: ProductCard[];
+}
+
 export interface CardProps extends ProductCard {
   image: string,
   manufacturer: string,

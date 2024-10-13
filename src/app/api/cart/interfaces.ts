@@ -11,21 +11,33 @@ export interface ICartRequestParams {
   }[];
 }
 
+export interface ICartItem {
+  id: number,
+  image: string,
+  label: string,
+  price: number,
+  props: string[][],
+  link: string,
+  toCart: true,
+  articul: string,
+  amount: number
+}
+
 export interface ICartResponse200 {
-  Value: {
-    items: [];
+  value: {
+    items: ICartItem[];
   };
-  IsSuccess: boolean;
-  IsFailure: boolean;
-  Error: {
-    Code: string;
-    Description: string;
-    Type: string;
+  isSuccess: boolean;
+  isFailure: boolean;
+  error: {
+    code: string;
+    description: string;
+    type: string;
   };
 }
 
 export interface ICartsResponse400 {
-  Value: {
+  value: {
     type: string;
     title: string;
     status: number;

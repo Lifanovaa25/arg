@@ -15,8 +15,8 @@ const getPageProductsItems = async ({
   Sort,
 }: IPageProductsRequestParams): Promise<TPageProductsResponse | IError> => {
   try {
-    if(PageUrl[PageUrl.length - 1] != '/'){
-      PageUrl = `${PageUrl}/`
+    if (PageUrl[PageUrl.length - 1] != '/') {
+      PageUrl = `${PageUrl}/`;
     }
     let url = `${process.env.NEXT_PUBLIC_API_URL}/GetPageWithProducts?Page=${Page}&PageSize=${PageSize}&PageUrl=${PageUrl}&Sort=${Sort}`;
     if (Params) {

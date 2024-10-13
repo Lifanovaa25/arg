@@ -6,7 +6,7 @@ import { Top } from './Top/Top';
 import { Description } from './Description/Description';
 import { CardsList } from './CardsList/CardsList';
 import { getCategory } from '@/src/app/api/categories/categoriesAPI';
-import { categoryStore } from '@/src/app/providers/Store/config/store';
+import DynamicSeoHeader from '@/src/widgets/dinamicSeoHeader';
 
 // Описание типов для данных, возвращаемых API
 interface Subcategory {
@@ -27,32 +27,32 @@ interface ApiResponse {
     label: string;
     text: string;
     subcategories: Subcategory[];
-  }
+  };
   SeoTitle: string,
   SeoDescription: string,
   SeoCanonical: string
 }
 
-const IndustryCategoryPage: React.FC = () => {
+const EquipmentCategoryPage: React.FC = () => {
   const pathname = usePathname(); // Получаем путь
   const [data, setData] = useState<ApiResponse['value'] | null>(null); // Данные из API
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [error, setError] = useState<string | null>(null); // Сообщение об ошибке
 
-
+  const [SeoTitle, setSeoTitle] = useState('')
+  const [SeoDescription, setSeoDescription] = useState('')
   useEffect(() => {
-    const fetchData =  async (): Promise<void> => {
-      const result = await getCategory({  Slug: pathname});
-      
+    const fetchData = async (): Promise<void> => {
+      const result = await getCategory({ Slug: pathname });
       if (result) {
-     
         const r: ApiResponse = result as ApiResponse;
-        setData(r.value); 
-      // setLoading(false); // Выключаем состояние загрузки
-       
+        setData(r.value);
+        // setLoading(false); // Выключаем состояние загрузки
+        setSeoTitle(r.SeoTitle)
+        setSeoDescription(r.SeoDescription)
       }
     };
-   
+
     fetchData();
   }, []);
 
@@ -66,9 +66,10 @@ const IndustryCategoryPage: React.FC = () => {
 
   return (
     <>
+      <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />
       {data && (
         <>
-      
+
           <Top title={data.label} />
           <Description text={data.text} />
           <CardsList subcategories={data.subcategories} />
@@ -78,4 +79,4 @@ const IndustryCategoryPage: React.FC = () => {
   );
 };
 
-export default IndustryCategoryPage;
+export default EquipmentCategoryPage;

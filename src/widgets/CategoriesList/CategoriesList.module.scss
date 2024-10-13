@@ -5,7 +5,10 @@
 }
 .title {
   margin-bottom: 35px;
+
+  color: var(--black);
 }
+
 @media (max-width: 1320px) {
   .wrapper {
     display: none;

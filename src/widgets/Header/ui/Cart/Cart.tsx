@@ -1,5 +1,6 @@
 'use client';
 
+
 import Link from 'next/link';
 import cn from 'classnames';
 import Button from '@/src/shared/ui/Button/Button';
@@ -18,6 +19,7 @@ export const Cart = (props: CartProps) => {
       <Button className={styles.cartButton}>
         <Bag width="16" height="16" color="var(--white)" />
         <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>
+        <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>
       </Button>
       <div className={styles.wrapper}>
         <span
@@ -26,6 +28,7 @@ export const Cart = (props: CartProps) => {
             [styles.gray]: !isCatalogRoute || (isCatalogRoute && isScrolledFar),
           })}
         >
+        
           {getTotalQuantityCards(cart)}
         </span>
         <span

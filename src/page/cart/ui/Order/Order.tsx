@@ -52,16 +52,37 @@ export const Order = () => {
 
     try {
       const { accept, ...data } = form;
-      console.log(data);
 
-      // const response = await FooterService.sendForm(data);
+      const payload = {
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        message: data.message,
+        items: cart.map((item) => ({
+          id: item.id,
+          quantity: item.quantity,
+        })),
+      };
+
+      const response = await fetch('https://royal-equipment.ae/api/SubmitCart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке формы');
+      }
+
       reset();
       recaptchaRef.current?.reset();
       setCaptchaToken(null);
       setCaptchaError(false);
-      showToast();
+      showToast(); 
     } catch (error) {
-      console.error(error);
+      console.error('Ошибка отправки формы:', error);
     }
   };
 

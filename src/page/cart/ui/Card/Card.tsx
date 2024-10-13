@@ -11,7 +11,7 @@ import styles from './Card.module.scss';
 
 
 export const Card = (props: CardProps) => {
-  const { title, price, id, quantity, handleOpenModal,view,image } = props;
+  const { title, price, id, quantity, handleOpenModal,view,image,manufacturer } = props;
   const { onPlusCard, onMinusCard } = productCartStore();
 
   const handleIncreaceQuantity = () => {
@@ -38,10 +38,10 @@ export const Card = (props: CardProps) => {
       <div className={styles.content}>
         <div className={styles.manufacturers}>
           <span>Manufacturers: </span>
-          <span>{'GRUNDFOS'}</span>
+          <span>{manufacturer}</span>
         </div>
         <Title className={styles.title} size="h4" variant="secondary" font="onest">
-          {'Junction box Mettler Toledo AJB941M'}
+          {title}
         </Title>
 
         <div className={styles.bottom}>
