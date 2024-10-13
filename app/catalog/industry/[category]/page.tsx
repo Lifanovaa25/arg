@@ -27,7 +27,10 @@ interface ApiResponse {
     label: string;
     text: string;
     subcategories: Subcategory[];
-  };
+  }
+  SeoTitle: string,
+  SeoDescription: string,
+  SeoCanonical: string
 }
 
 const IndustryCategoryPage: React.FC = () => {

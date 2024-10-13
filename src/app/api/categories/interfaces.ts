@@ -21,6 +21,9 @@ export interface ICategoriesResponse200 {
       Url: string;
       Image: string;
     }[];
+    SeoTitle: string,
+    SeoDescription: string,
+    SeoCanonical: string
   };
 }
 export interface CatData {

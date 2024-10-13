@@ -28,6 +28,9 @@ interface ApiResponse {
     text: string;
     subcategories: Subcategory[];
   };
+  SeoTitle: string,
+  SeoDescription: string,
+  SeoCanonical: string
 }
 
 const EquipmentCategoryPage: React.FC = () => {
@@ -47,7 +50,7 @@ const EquipmentCategoryPage: React.FC = () => {
 
       }
     };
-   
+
     fetchData();
   }, []);
 
