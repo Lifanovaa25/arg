@@ -37,7 +37,7 @@ export const Cart = (props: CartProps) => {
             [styles.gray]: !isCatalogRoute || (isCatalogRoute && isScrolledFar),
           })}
         >
-          Product's on bag
+          Product&rsquo;s on bag
         </span>
       </div>
     </Link>
