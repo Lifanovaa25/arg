@@ -38,12 +38,14 @@ const getProduct = async ({
   Slug,
 }: IProductRequestParams): Promise<TPageProductsResponse | IError> => {
   try {
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/GetCategory?Slug=${Slug}`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/GetProduct?id=${id}`;
 
-    if (id) {
+    // if (id) {
+    //   url = `${url}&id=${id}`;
+    // }
+    if (Slug) {
       url = `${url}&id=${id}`;
     }
-
     const response = await axios.get(url);
     const result = await response.data;
 

@@ -8,8 +8,40 @@ import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './Details.module.scss';
 import { getCart } from '@/src/app/api/cart/cartApi';
 import { ICartResponse200 } from '@/src/app/api/cart/interfaces';
-
-export const Details = () => {
+import { propagateServerField } from 'next/dist/server/lib/render-server';
+export interface ProductDetails {
+  label: string| undefined;
+  
+  Value?: {
+    Label: string;
+    ImageUrl: string | undefined;
+    Articul: string;
+    Country: string;
+    Analogue: string;
+    Filters: {
+      additionalProp1: string[];
+      additionalProp2: string[];
+      additionalProp3: string[];
+    };
+    Price: number;
+    ProductDescription: string;
+    Characteristics: string;
+    LinkUrl: string;
+    LinkName: string;
+    IsExternalLink: boolean;
+    SparePartsLists: {
+      Title: string;
+      Items: {
+        Name: string;
+        Price: number;
+        Articul: string;
+        Url: string;
+      }[];
+    }[];
+  };
+}
+export const Details = (props:ProductDetails) => {
+  const {label} = props
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idProduct, setIdProduct] = useState<number | null>(null);
 
@@ -20,30 +52,8 @@ export const Details = () => {
 
 
   const [data, setData] = useState<ICartResponse200['Value'] | null>(null); // Данные из API
-//TODO разобраться,доделать
-  const fetchData = async (): Promise<void> => {
-    const result = await getCart({ Id: CartIds });
-    if (result) {
-      const r: ICartResponse200 = result as unknown as ICartResponse200;
-      setData(r.Value);
-      // setLoading(false); // Выключаем состояние загрузки
 
-    }
-  };
-  useEffect(() => {
-    getCartIds()
-    if (data === null) {
-      fetchData();
-    }
-    console.log({cart})
-    console.log({data})
-    console.log({CartIds})
-
-  }, [data]);
-  useEffect(() => {
-    getCartIds()
-    fetchData();
-  }, [cart, CartIds]);
+  
 
   const handleOpenModal = (id: number) => {
     setIsModalOpen(true);
@@ -68,7 +78,7 @@ export const Details = () => {
     <div className={styles.wrapper}>
       <div className={styles.top}>
         <Title size="h1" variant="secondary">
-          Checkout details
+         {/* {props.label} */}
         </Title>
 
         {(cart && cart.length > 0) && (

@@ -16,7 +16,7 @@ export const ProductCard = (props: CardProps) => {
   const pageUrl = String(props.cardPageLink)
   const prodUrl = String(props.productUrl)
   const card = cart && cart.length && cart.find((obj) => obj.id === id);
-const {setUrl} = productCartStore()
+  const { setUrl } = productCartStore()
   const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onAddCard(props);
@@ -43,7 +43,7 @@ const {setUrl} = productCartStore()
     <div className={cn(styles.wrapper, styles[view])}>
       {pageUrl ?
         <Link className={styles.link} href={`${pageUrl}/product/[productCard]`} as={`${pageUrl}/product`}
-        onClick={()=>setUrl(prodUrl)}>
+          onClick={() => setUrl(prodUrl)}>
           <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
 
           <div className={cn(styles.contentWrapper, styles[view])}>

@@ -9,8 +9,8 @@ export interface IPageProductsRequestParams {
 }
 
 export interface IProductRequestParams {
-  id?: string;
-  Slug: string;
+  id?: string | number;
+  Slug?: string;
 }
 
 export interface IPageProductsResponse200 {
@@ -126,7 +126,7 @@ export interface IProductResponse200 {
   };
   Value: {
     Label: string;
-    ImageUrl: string;
+    ImageUrl: string | undefined;
     Articul: string;
     Country: string;
     Analogue: string;
