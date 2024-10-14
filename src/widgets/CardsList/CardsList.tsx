@@ -52,7 +52,7 @@ interface CardsListProps {
     link: string;
     toCart: boolean;
     articul: string;
-  }[] ;
+  }[] | undefined;
 
 }
 
@@ -102,7 +102,7 @@ export const CardsList = (props: CardsListProps) => {
       <div className={styles.line}></div>
 
       <div className={styles.list}>
-        {subcategories?.length < 1 &&
+        {Number(subcategories?.length) < 1 &&
         <div className={styles.nothing}>There are no products with the specified parameters yet</div> }
         {subcategories?.map((item) => (
           <>
