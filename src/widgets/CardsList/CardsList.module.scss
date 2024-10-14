@@ -74,10 +74,19 @@
   }
 }
 
+.nothing {
+  font-size: 18px;
+  line-height: 23px;
+  font-family: var(--font-onest);
+  color: var(--black);
+  font-weight: 400;
+}
+
 @media (max-width: 1022px) {
   .selectWrapper:last-child {
     display: none;
   }
+
   .list {
     width: 100%;
   }
