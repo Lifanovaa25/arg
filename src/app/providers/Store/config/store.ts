@@ -10,6 +10,7 @@ import type {
 import type { CardProps } from '@/src/widgets/ProductCard/model/types';
 import type { Params, ProductCard } from '@/src/shared/types/productCard';
 import { link } from 'fs';
+import { number } from 'zod';
 
 export const productCartStore = create<ICartStore>()(
   persist(
@@ -20,6 +21,7 @@ export const productCartStore = create<ICartStore>()(
       CartIds: [],
       productUrl:'',
       params:[],
+      sort:0,
       onAddCard: (props: CardProps) => {
         set({ cart: [...get().cart, { ...props, quantity: 1 }] });
         set({ CartIds: [...get().cart, { ...props,id: props.id}] });
@@ -66,6 +68,10 @@ export const productCartStore = create<ICartStore>()(
       },
       setParams:(props:Params) =>{
         set({ params: [...get().params, { ...props}] });
+      
+      },
+      setSort:(sort:number) =>{
+        set({sort});
       
       },
       onClearParams: () => {

@@ -47,7 +47,7 @@ export const LinksBlock = (props: LinkListProps) => {
         let value = String(val)
         // setProductQuantity(props.label, val,val)
         setParams({ key, value })
-        console.log({ params })
+      
     };
     return (
 

@@ -23,7 +23,10 @@ export interface ICartStore {
   setUrl: (url: string) => void;
   setParams:({}:Params)=>void;
   onClearParams: () => void;
-  params:Params[]
+  params:Params[];
+  sort:number;
+  setSort: (sort: number) => void;
+
 }
 
 

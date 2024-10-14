@@ -57,7 +57,6 @@ export const Search = () => {
     push(`/search?q=${search}`);
     setSearchRequest(search)
     fetchProducts()
-    console.log(searchRequest)
   };
 
   useEffect(() => {

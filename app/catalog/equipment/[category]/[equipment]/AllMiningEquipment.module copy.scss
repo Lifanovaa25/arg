@@ -10,7 +10,11 @@
 .pagination {
   display: flex;
   width: calc(100% - 220px - 50px);
-  float: right;
+  max-width: 300px;
+  min-width: 300px;
+  margin-left: 270px;
+  overflow: hidden;
+  float: left;
 }
 
 .pag_btn {

@@ -9,7 +9,7 @@ import Settings from '/public/svg/settings.svg';
 import styles from './CardsList.module.scss';
 import './Select.scss';
 import { usePathname } from 'next/navigation';
-import {  productCartStore } from '@/src/app/providers/Store/config/store';
+import { productCartStore } from '@/src/app/providers/Store/config/store';
 
 //TODO: убрать
 const arr = [
@@ -25,10 +25,10 @@ const views: { value: 'list' | 'grid'; label: string }[] = [
   { value: 'list', label: 'List' },
   { value: 'grid', label: 'Grid' },
 ];
-const sorts: { value: string; label: string }[] = [
-  { value: '0', label: 'Popularity' },
-  { value: '1', label: 'Price: cheaper' },
-  { value: '2', label: 'Price: expensive' },
+const sorts: { value: number; label: string }[] = [
+  { value: 0, label: 'Popularity' },
+  { value: 1, label: 'Price: cheaper' },
+  { value: 2, label: 'Price: expensive' },
 ];
 
 interface Subcategory {
@@ -59,10 +59,11 @@ interface CardsListProps {
 export const CardsList = (props: CardsListProps) => {
   const pathname = usePathname()
   const [view, setView] = useState(views[1].value);
-  const [sort, setSort] = useState(sorts[0].value);
+  // const [sort, setSort] = useState(sorts[0].value);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
- 
-   const { subcategories } = props;
+  const { setSort, sort ,params} = productCartStore();
+
+  const { subcategories } = props;
 
   useEffect(() => {
     const isMobile = checkMobileScreen();
@@ -79,7 +80,7 @@ export const CardsList = (props: CardsListProps) => {
           <span className={styles.span}>Sort</span>
           <Select
             defaultValue={sorts[0]}
-            onChange={(e) => setSort(e?.value ?? '')}
+            onChange={(e) => setSort(Number(e?.value))}
             options={sorts}
             isSearchable={false}
             classNamePrefix="select"
@@ -103,19 +104,21 @@ export const CardsList = (props: CardsListProps) => {
       <div className={styles.list}>
 
         {subcategories?.map((item) => (
+          <>
+          
+            <ProductCard
+              //@ts-ignore
+              image={item.image}
+              manufacturer={item.label}
+              //@ts-ignore
+              link={item.link}
+              cardPageLink={pathname}
+              title={item.label}
+              key={item.id}
+              {...item}
+              view={view} />
+          </>))}
 
-          <ProductCard
-            //@ts-ignore
-            image={item.image}
-            manufacturer={item.label}
-            //@ts-ignore
-            link={item.link}
-            cardPageLink={pathname}
-            title={item.label}
-            key={item.id}
-            {...item}
-            view={view} />
-        ))}
       </div>
 
       <MobileMenu

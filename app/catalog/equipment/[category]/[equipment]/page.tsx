@@ -61,53 +61,57 @@ const AllMiningEquipment: React.FC = () => {
   const [data, setData] = useState<Product['value'] | null>(null); // Данные из API
   const [pageNum, setPageNum] = useState(1)
   const [activeTab, setActiveTab] = useState(1);
-  const { setParams, onClearParams, params } = productCartStore();
+  const { setParams, sort, onClearParams, params } = productCartStore();
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
-
-  const filter = params
+  const [pagesCount, setPagesCount] = useState<number[] | null>([])
   const fetchData = async (): Promise<void> => {
     const result = await getPageProductsItems({
       Page: pageNum,
       PageSize: 10,
       PageUrl: pathname,
-      Params: filter,
-      Sort: 1
+      Params: params,
+      Sort: sort
     });
     if (result) {
       const r: Product = result as unknown as Product;
       setData(r.value);
       setLoading(false)
+      pages(r.value.totalPages)
+      // console.log(data?.totalPages)
     }
   };
-  useEffect(() => {
-
-    if (data === null) {
-      fetchData()
-    }
-  }, [pathname, data]);
 
   useEffect(() => {
-    console.log({ filter })
+
+    
+    setLoading(true)
     fetchData()
-    onClearParams()
-  }, [pageNum, filter]);
-  useEffect(() => {
-    console.log({ filter })
-    fetchData()
-    onClearParams()
-  }, [filter]);
-  function PageIncrement(count: number | undefined) {
-    if (pageNum <= Number(count)) {
-      setPageNum(pageNum + 1)
-      setActiveTab(pageNum)
+    // pages()
+
+  }, [pageNum, params, sort]);
+
+
+
+
+
+function PageIncrement(p: number ) {
+
+    setPageNum(p)
+    setActiveTab(p)
+  }
+  function pages(p: number) {
+    let arr: number[] = []
+    let i = 0
+    while (Number(p) > i) {
+      i++
+      arr.push(i)
     }
-
-    return
-
+    console.log(arr)
+    setPagesCount(arr)
   }
   return (
     <>
-      {loading &&  <Loading/> }
+      {loading && <Loading />}
 
       <section>
         <div className="big-container">
@@ -138,17 +142,22 @@ const AllMiningEquipment: React.FC = () => {
                 },
               }}
             >
-              {Array(data?.totalPages).fill(
+              {/* {Array(data?.totalPages).fill( */}
+              {pagesCount?.map((item, index) =>
                 <SwiperSlide className={styles.pag_wrap}>
 
                   <div
                     className={cn(styles.pag_btn, {
-                      [styles.active]: activeTab === pageNum,
+                      [styles.active]: activeTab === index+1,
                     })}
-                    onClick={() => PageIncrement(data?.totalPages)}> {pageNum} </div>
+                    onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
                 </SwiperSlide>
 
-              )}
+              )
+              }
+
+
+              {/* )} */}
             </Swiper>
 
           </div>
