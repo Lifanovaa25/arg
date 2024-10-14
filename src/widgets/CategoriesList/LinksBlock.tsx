@@ -40,15 +40,19 @@ export const LinksBlock = (props: LinkListProps) => {
     const pathname = usePathname();
     const [productQuantity, setProductQuantity] = useState<Params | undefined>()
     const { setParams, params } = productCartStore();
-
+    const [showMore, setShowMore] = useState(3)
     const handleClick = (tab: string, val: string) => {
         setActiveTab(tab)
         let key = String(props.label)
         let value = String(val)
         // setProductQuantity(props.label, val,val)
         setParams({ key, value })
-      
+
     };
+    const handlerShowMore = () => {
+        setVisible(true)
+        setShowMore(showMore + 3)
+    }
     return (
 
         <div className={styles.links}>
@@ -59,18 +63,18 @@ export const LinksBlock = (props: LinkListProps) => {
                 {items != undefined && props.label === undefined && items.map((item, index) =>
                     <>
                         <Link
-                        key={index}
-                         href={item.link}
+                            key={index}
+                            href={item.link}
                             className={cn(styles.link, {
                                 [styles.active]: pathname + '/' === item.link,
                             })}
-                            style={index > 3 && !visible ? { display: 'none' } : { display: 'block' }}
+                            style={index > showMore  ? { display: 'none' } : { display: 'block' }}
                             onClick={() => setActiveTab(item.label)}>{item.label}
                         </Link>
-                        {index == 3 && !visible &&
+                        {index === showMore  &&
                             <div className={styles.show_more}
-                                onClick={() => setVisible(true)}>Show more
-                                <span className={styles.all_items}>({props.itemsCount !== undefined ? props.itemsCount - 4 : 0}) Items</span>
+                                onClick={() => handlerShowMore()}>Show more
+                                <span className={styles.all_items}>({props.itemsCount !== undefined ? props.itemsCount - showMore -1  : 0}) Items</span>
                             </div>
                         }
 
@@ -85,13 +89,13 @@ export const LinksBlock = (props: LinkListProps) => {
                             className={cn(styles.link, {
                                 [styles.active]: activeTab === item.label,
                             })}
-                            style={index > 3 && !visible ? { display: 'none' } : { display: 'block' }}
+                            style={index > showMore ? { display: 'none' } : { display: 'block' }}
                             onClick={() => handleClick(item.label, item.link)}>{item.label}
                         </div>
-                        {index == 3 && !visible &&
+                        {index == showMore  &&
                             <div className={styles.show_more}
-                                onClick={() => setVisible(true)}>Show more
-                                <span className={styles.all_items}>({props.itemsCount !== undefined ? props.itemsCount - 4 : 0}) Items</span>
+                                onClick={() => handlerShowMore()}>Show more
+                                <span className={styles.all_items}>({props.itemsCount !== undefined ? props.itemsCount - showMore -1 : 0}) Items</span>
                             </div>
                         }
 
