@@ -116,8 +116,8 @@ function PageIncrement(p: number ) {
       <section>
         <div className="big-container">
           <div className={styles.wrapper}>
-            <CategoriesList category={data?.category} filters={data?.filters} title={data?.category.label} />
-            <CardsList subcategories={data?.items} />
+            <CategoriesList key={''}  category={data?.category} filters={data?.filters} title={data?.category.label} />
+            <CardsList key={''}  subcategories={data?.items} />
 
           </div>
 
