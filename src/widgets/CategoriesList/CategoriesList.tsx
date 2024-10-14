@@ -9,6 +9,7 @@ interface CatListProps {
   title?: string;
   category?: LinkListProps;
   filters?: LinkListProps[];
+  id?:number
 }
 
 export const CategoriesList = (props: CatListProps) => {
@@ -28,6 +29,7 @@ export const CategoriesList = (props: CatListProps) => {
       </Title>
       <div className={styles.links}>
         <LinksBlock
+        key={props.id}
           itemsCount={props.category?.items?.length}
           items={props.category?.items}
         />

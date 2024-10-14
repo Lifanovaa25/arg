@@ -19,8 +19,8 @@ export const CardsList = (props: CardsListProps) => {
         <div className={styles.line}></div>
         <div className={styles.wrapper}>
           {subcategories.map((item,index) => (
-            <CategoryCard
-            className={styles.img} key={index} name={item.name} image={item.image} url={item.url}  />
+            <CategoryCard key={index}
+            className={styles.img}  name={item.name} image={item.image} url={item.url}  />
           ))}
         </div>
       </div>

@@ -83,7 +83,7 @@ const AllMiningEquipment: React.FC = () => {
 
   useEffect(() => {
 
-    
+
     setLoading(true)
     fetchData()
     // pages()
@@ -94,7 +94,7 @@ const AllMiningEquipment: React.FC = () => {
 
 
 
-function PageIncrement(p: number ) {
+  function PageIncrement(p: number) {
 
     setPageNum(p)
     setActiveTab(p)
@@ -116,14 +116,13 @@ function PageIncrement(p: number ) {
       <section>
         <div className="big-container">
           <div className={styles.wrapper}>
-            <CategoriesList key={''}  category={data?.category} filters={data?.filters} title={data?.category.label} />
-            <CardsList key={''} subcategories={data?.items} />
+            <CategoriesList category={data?.category} filters={data?.filters} title={data?.category.label} />
+            <CardsList subcategories={data?.items} />
 
           </div>
 
 
           <div className={styles.pagination}>
-            {/* <div className={styles.pag_wrap}> */}
             <Swiper
               modules={[Navigation]}
               navigation
@@ -142,27 +141,20 @@ function PageIncrement(p: number ) {
                 },
               }}
             >
-              {/* {Array(data?.totalPages).fill( */}
               {pagesCount?.map((item, index) =>
-                <SwiperSlide className={styles.pag_wrap}>
+                <SwiperSlide key={index} className={styles.pag_wrap}>
 
                   <div
                     className={cn(styles.pag_btn, {
-                      [styles.active]: activeTab === index+1,
+                      [styles.active]: activeTab === index + 1,
                     })}
                     onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
                 </SwiperSlide>
-
-              )
-              }
-
-
-              {/* )} */}
+              )}
             </Swiper>
 
           </div>
         </div>
-        {/* </div> */}
       </section>
     </>
   );

@@ -58,7 +58,9 @@ export const LinksBlock = (props: LinkListProps) => {
                 {props.label !== undefined && <h3 className={styles.links_title}>{props.label}</h3>}
                 {items != undefined && props.label === undefined && items.map((item, index) =>
                     <>
-                        <Link href={item.link}
+                        <Link
+                        key={index}
+                         href={item.link}
                             className={cn(styles.link, {
                                 [styles.active]: pathname + '/' === item.link,
                             })}
@@ -79,7 +81,7 @@ export const LinksBlock = (props: LinkListProps) => {
                 {items != undefined && props.label !== undefined && items.map((item, index) =>
                     <>
                         <div
-                            // href={item.link}
+                            key={index}
                             className={cn(styles.link, {
                                 [styles.active]: activeTab === item.label,
                             })}

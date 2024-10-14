@@ -21,9 +21,9 @@ export const Catalog = () => {
           </Title>
 
           <div className={styles.tabs}>
-            {tabs.map((item) => (
+            {tabs.map((item, index) => (
               <div
-                key={item}
+                key={index}
                 className={cn(styles.tab, {
                   [styles.active]: activeTab === item,
                 })}

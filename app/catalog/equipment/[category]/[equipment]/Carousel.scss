@@ -23,14 +23,13 @@
 
 .swiper-button-next {
   transform: rotate(180deg);
-  margin-right: -50px;
+  margin-right: -65px;
 
 }
 
 .swiper-wrapper {
   margin-left: 25px;
   max-width: 220px;
-  overflow: hidden;
 }
 
 .swiper-button-prev {
@@ -44,7 +43,7 @@
 
 .swiper {
   margin: 0 !important;
-  margin-left: -50px;
+  margin-left: -60px;
 }
 
 @media (max-width: 768px) {

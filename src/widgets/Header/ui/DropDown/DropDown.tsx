@@ -9,6 +9,7 @@ import { DropDownProps, MenuTab, MenuCategory, MenuType, ApiResponse } from './t
 import Close from '/public/svg/close.svg';
 import Chevron from '/public/svg/chevron.svg';
 import styles from './DropDown.module.scss'; // Исправлено название файла
+import { Loading } from '@/src/widgets/Loading';
 
 export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [activeTab, setActiveTab] = useState<string>('');
@@ -18,6 +19,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [menuData, setMenuData] = useState<MenuTab[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   
 
   useBodyOverflow(isDropDown);
@@ -45,6 +47,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         }));
 
         setMenuData(formattedData);
+        setLoading(false)
         if (formattedData.length > 0) {
           setActiveTab(formattedData[0].tabName);
           if (formattedData[0].categories.length > 0) {
@@ -128,6 +131,8 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         [styles.menuActive]: isDropDown,
       })}
     >
+      {loading && <Loading />}
+
       <Title className={styles.title} size="h3">
         Catalog
       </Title>
