@@ -55,7 +55,7 @@ export const Product = () => {
               className={styles.img}
               src={
                 data?.imageUrl !== undefined
-                  ? `${data?.imageUrl}`
+                  ? `https://royal-equipment.ae${data?.imageUrl}`
                   : test
               }
               width={100}
