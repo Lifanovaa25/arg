@@ -7,6 +7,7 @@ import { Description } from './Description/Description';
 import { CardsList } from './CardsList/CardsList';
 import { getCategory } from '@/src/app/api/categories/categoriesAPI';
 import DynamicSeoHeader from '@/src/widgets/dinamicSeoHeader';
+import { Loading } from '@/src/widgets/Loading';
 
 // Описание типов для данных, возвращаемых API
 interface Subcategory {
@@ -42,12 +43,13 @@ const EquipmentCategoryPage: React.FC = () => {
   const [SeoTitle, setSeoTitle] = useState('')
   const [SeoDescription, setSeoDescription] = useState('')
   useEffect(() => {
+    setLoading(true)
     const fetchData = async (): Promise<void> => {
       const result = await getCategory({ Slug: pathname });
       if (result) {
         const r: ApiResponse = result as ApiResponse;
         setData(r.value);
-        // setLoading(false); // Выключаем состояние загрузки
+        setLoading(false); // Выключаем состояние загрузки
         setSeoTitle(r.SeoTitle)
         setSeoDescription(r.SeoDescription)
       }
@@ -58,6 +60,8 @@ const EquipmentCategoryPage: React.FC = () => {
 
   return (
     <>
+      {loading &&  <Loading/> }
+
       <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />
       {data && (
         <>

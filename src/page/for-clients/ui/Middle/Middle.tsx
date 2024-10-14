@@ -20,7 +20,7 @@ import Email from '/public/svg/email.svg';
 import Message from '/public/svg/message.svg';
 import styles from './Middle.module.scss';
 import { IFeedBackResponse200 } from "@/src/app/api/feedback/interfaces";
-import { sendFeedback } from "@/src/app/api/feedback/feedbackAPI";
+import { SendVacancyRespond } from "@/src/app/api/feedback/feedbackAPI";
 
 export const Middle = () => {
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -57,7 +57,7 @@ export const Middle = () => {
         // const response = await FooterService.sendForm(data);
         reset();
         let sendForm = async (): Promise<void> => {
-          const result = await sendFeedback({
+          const result = await SendVacancyRespond({
             name: data.name,
             phone: data.phone,
             email: data.email,
@@ -186,3 +186,5 @@ export const Middle = () => {
       </section>
     );
   };
+
+

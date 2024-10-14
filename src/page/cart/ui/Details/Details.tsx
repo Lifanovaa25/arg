@@ -31,9 +31,13 @@ export const Details = () => {
     }
   };
   useEffect(() => {
+   
     getCartIds();
-    if (data === null) {
+    if (data === null) { 
+      setLoading(true)
       fetchData();
+    
+
     } else {
       for (const item of data.items) {
         for (const cart_item of cart) {
@@ -75,9 +79,8 @@ export const Details = () => {
 
   return (
     <div className={styles.wrapper}>
-      {loading ?
-      <Loading/> :
-      <>
+      {loading &&  <Loading/> }
+      
         <div className={styles.top}>
         <Title size="h1" variant="secondary">
           Checkout details
@@ -120,7 +123,7 @@ export const Details = () => {
         handleClearCart={handleClearCart}
         idProduct={idProduct}
       />
-      </>}
+      
     
     </div>
   );

@@ -11,9 +11,11 @@ import {
 import { useEffect, useState } from 'react';
 import test from '/public/images/test.png';
 import { ProductDetails } from '../Details/Details';
+import { Loading } from '@/src/widgets/Loading';
 
 export const Product = () => {
   const { productUrl } = productCartStore();
+  const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [data, setData] = useState<IProductResponse200['value'] | null>(null); // Данные из API
   const { cart, onAddCard, onPlusCard, onRemoveCard, onMinusCard } = productCartStore();
   const words = productUrl.split('/');
@@ -23,21 +25,29 @@ export const Product = () => {
     last_product_id = '-1';
   }
   useEffect(() => {
+    
+
     const fetchData = async (): Promise<void> => {
       const result = await getProduct({ id: Number.parseInt(last_product_id) });
       if (result) {
         const r: IProductResponse200 = result as unknown as IProductResponse200;
         setData(r.value);
+        setLoading(false)
       }
     };
     if (data === null) {
+       setLoading(true)
       fetchData();
+     
     }
-  }, [data]);
+    if(data){setLoading(false)}
+  }, [data,last_product_id ]);
 
  
   return (
     <section>
+      {loading &&  <Loading/> }
+
       <div className="container">
         <div className={styles.wrapper}>
           <div className={styles.image_block}>

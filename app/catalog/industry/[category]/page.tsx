@@ -42,12 +42,13 @@ const EquipmentCategoryPage: React.FC = () => {
   const [SeoTitle, setSeoTitle] = useState('')
   const [SeoDescription, setSeoDescription] = useState('')
   useEffect(() => {
+    setLoading(true)
     const fetchData = async (): Promise<void> => {
       const result = await getCategory({ Slug: pathname });
       if (result) {
         const r: ApiResponse = result as ApiResponse;
         setData(r.value);
-        // setLoading(false); // Выключаем состояние загрузки
+        setLoading(false); // Выключаем состояние загрузки
         setSeoTitle(r.SeoTitle)
         setSeoDescription(r.SeoDescription)
       }

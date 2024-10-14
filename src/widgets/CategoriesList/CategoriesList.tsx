@@ -32,8 +32,9 @@ export const CategoriesList = (props: CatListProps) => {
           items={props.category?.items}
         />
         {props.filters !== undefined &&
-          props.filters.map((filter) => (
+          props.filters.map((filter, index) => (
             <LinksBlock
+              key={index}
               label={filter.label}
               items={filter.items}
               itemsCount={filter.items?.length}

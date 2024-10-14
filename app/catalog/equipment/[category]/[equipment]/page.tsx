@@ -15,6 +15,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './Carousel.scss';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
+import { Loading } from '@/src/widgets/Loading';
 interface Product {
   value: {
     category: {
@@ -61,6 +62,8 @@ const AllMiningEquipment: React.FC = () => {
   const [pageNum, setPageNum] = useState(1)
   const [activeTab, setActiveTab] = useState(1);
   const { setParams, onClearParams, params } = productCartStore();
+  const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
+
   const filter = params
   const fetchData = async (): Promise<void> => {
     const result = await getPageProductsItems({
@@ -73,6 +76,7 @@ const AllMiningEquipment: React.FC = () => {
     if (result) {
       const r: Product = result as unknown as Product;
       setData(r.value);
+      setLoading(false)
     }
   };
   useEffect(() => {
@@ -103,6 +107,8 @@ const AllMiningEquipment: React.FC = () => {
   }
   return (
     <>
+      {loading &&  <Loading/> }
+
       <section>
         <div className="big-container">
           <div className={styles.wrapper}>
