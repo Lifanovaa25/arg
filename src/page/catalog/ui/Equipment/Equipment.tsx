@@ -21,7 +21,7 @@ import Arrow from '/public/svg/arrow-long.svg';
 import styles from './Equipment.module.scss';
 
 const verticalCards = [
-  { img: mining, label: 'Mining equipment', href: '/catalog/mining-equipment' },
+  { img: mining, label: 'Mining equipment', href: '/catalog/equipment/mining-equipment' },
   {
     img: laboratory,
     label: 'Laboratory equipment',
