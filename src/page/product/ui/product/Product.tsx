@@ -51,12 +51,11 @@ export const Product = () => {
       <div className="container">
         <div className={styles.wrapper}>
           <div className={styles.image_block}>
-            {/* <Image src={data?.ImageUrl ? `'https://royal-equipment.ae' +${data?.ImageUrl}`} className={styles.img} alt="" /> */}
             <Image
               className={styles.img}
               src={
                 data?.imageUrl !== undefined
-                  ? `https://royal-equipment.ae${data?.imageUrl}`
+                  ? `${data?.imageUrl}`
                   : test
               }
               width={100}

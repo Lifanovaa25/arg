@@ -21,7 +21,7 @@ export const CategoryCard = (props: CategoryProps) => {
   return (
     <div className={styles.wrapper}>
       <Link className={styles.link} href={url ?? ""}>
-        <Image className={cn(styles.img, className)} width={100} height={100} src={image ? 'https://royal-equipment.ae' + image : test} alt={name + " image"} />
+        <Image className={cn(styles.img, className)} width={100} height={100} src={image ?  image : test} alt={name + " image"} />
 
         <div className={styles.contentWrapper}>
           <Title

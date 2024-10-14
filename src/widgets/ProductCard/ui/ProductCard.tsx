@@ -43,7 +43,7 @@ export const ProductCard = (props: CardProps) => {
       {pageUrl ?
         <Link className={styles.link} href={`${pageUrl}/product/[productCard]`} as={`${pageUrl}/product`}
           onClick={() => localStorage.setItem("lastProductId",id.toString())}>
-          <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+          <Image className={cn(styles.img, styles[view])} src={props.image ?  props.image : test} width={100} height={100} alt={text} />
 
           <div className={cn(styles.contentWrapper, styles[view])}>
             <div>
@@ -59,6 +59,7 @@ export const ProductCard = (props: CardProps) => {
                 weight="bold"
               >
                 {props.title}
+                
               </Title>
             </div>
 
@@ -95,7 +96,7 @@ export const ProductCard = (props: CardProps) => {
         :
 
         <Link className={styles.link} href={props.link}>
-          <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+          <Image className={cn(styles.img, styles[view])} src={props.image ? props.image : test} width={100} height={100} alt={text} />
 
           <div className={cn(styles.contentWrapper, styles[view])}>
             <div>

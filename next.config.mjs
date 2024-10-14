@@ -26,10 +26,14 @@ const nextConfig = {
   images: {
     remotePatterns: [{
       protocol: 'https',
-      hostname: 'royal-equipment.ae',
+      // hostname: 'royal-equipment.ae',
       port: '',
-      pathname: '/media/**'
+      pathname: '/media/**',
+      hostname: "",
     }]
+  },
+  images: {
+    domains: [''],
   },
 };
 

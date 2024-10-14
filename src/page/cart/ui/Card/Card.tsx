@@ -33,7 +33,7 @@ export const Card = (props: CardProps) => {
   return (
     <div className={styles.wrapper}>
       {/* <Image className={styles.img} src={test} alt={title} /> */}
-      <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={title} />
+      <Image className={cn(styles.img, styles[view])} src={props.image ? props.image : test} width={100} height={100} alt={title} />
 
       <div className={styles.content}>
         <div className={styles.manufacturers}>
