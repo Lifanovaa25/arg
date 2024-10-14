@@ -29,6 +29,8 @@ const sorts: { value: number; label: string }[] = [
   { value: 0, label: 'Popularity' },
   { value: 1, label: 'Price: cheaper' },
   { value: 2, label: 'Price: expensive' },
+  { value: 3, label: 'Alphabetically: from the beginning' },
+  { value: 4, label: 'Alphabetically: from the end' },
 ];
 
 interface Subcategory {

@@ -17,3 +17,7 @@ EXPOSE 3000
 CMD ["npm", "run", "start"]
 
 #docker build -t my-nextjs-app .
+
+# docker image build -t apashintsev/royaleq:latest .
+# docker run -p 3015:3000 -t -d --name royaleq apashintsev/royaleq:latest
+# docker push apashintsev/royaleq
