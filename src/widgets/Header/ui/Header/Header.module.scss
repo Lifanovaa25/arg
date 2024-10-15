@@ -40,9 +40,24 @@
   margin-right: 15px;
   position: relative;
   z-index: 100;
-
+ 
   &.buttonActive svg {
     transform: rotate(90deg);
+    z-index: 2;
+  }
+  &.buttonActive span {
+    z-index: 2;
+  }
+  &.buttonActive::after {
+    content: '';
+    width: 100%;
+    height: 117px;
+    position: absolute;
+    top:0;
+    left: 0;
+    background: var(--forest-green);
+    border-radius: 15px;
+    z-index: 1;
   }
 }
 

@@ -155,12 +155,12 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         <ul className={styles.ul}>
           {currentCategories.map((category) => (
             <li
-              key={category.categoryName}
-              className={cn(styles.category, {
-                [styles.active]: category.categoryName === activeName,
-              })}
-              onClick={() => handleChangeCategory(category)}
-            >
+            key={category.categoryName}
+            className={cn(styles.category, {
+              [styles.active]: category.categoryName === activeName,
+            })}
+            onMouseEnter={()=>  handleChangeCategory(category)}
+            onClick={() => handleChangeCategory(category)}  >
               <Link className={styles.categoryLink} href={category.categoryUrl} onClick={() => handlerMenuClose()} >
                 {category.categoryName}
               </Link>
