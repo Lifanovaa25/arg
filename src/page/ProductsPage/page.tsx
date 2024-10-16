@@ -27,7 +27,7 @@ interface Product {
       titleToEnd: boolean;
       items: LinkListItem[];
     };
-    // filters: ProductFilters; 
+   
     filters: LinkListProps[];
     items: {
       id: number;
@@ -90,7 +90,7 @@ const AllMining: React.FC = () => {
       pages(r.value.totalPages)
       setSeoTitle(r.value.SeoTitle)
       setSeoDescription(r.value.SeoDescription)
-    //  alert(SeoDescription)
+ 
     }
   };
 

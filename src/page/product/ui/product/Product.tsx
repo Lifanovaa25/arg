@@ -31,6 +31,8 @@ export const Product = () => {
     last_product_id = '-1';
   }
 
+
+
   useEffect(() => {
     if (pathname.includes('/catalog/equipment/product')) {
       setSlug(pathname.replace('/catalog/equipment/product', ''))
@@ -41,7 +43,6 @@ export const Product = () => {
     }
     const fetchData = async (): Promise<void> => {
       const result = await getProduct({
-        //  id: Number.parseInt(last_product_id)
         Slug: slug,
       });
       if (result) {
@@ -86,7 +87,7 @@ export const Product = () => {
           <ProductDetails productId={Number.parseInt(last_product_id)} productDetails={data} />
         </div>
       </div>
-    </section>
+    </section>       
     </>
   );
 };

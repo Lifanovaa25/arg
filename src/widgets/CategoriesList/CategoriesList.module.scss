@@ -2,8 +2,6 @@
   max-width: 212px;
   min-width: 212px;
   color: var(--black);
-  // max-height: calc(100vh - 10px);
-  // overflow-y: scroll;
 }
 
 .title {
@@ -175,7 +173,7 @@ display: none;}
   .mobileBtn {
     display: flex;
     position: absolute;
-    // left: 106%;
+
     z-index: 2;
     top: 200px;
   }

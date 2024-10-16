@@ -28,7 +28,6 @@ export const productCartStore = create<ICartStore>()(
       },
       onMinusCard: (id: number) => {
         const cart = JSON.parse(JSON.stringify(get().cart));
-        // const CartIds = JSON.parse(JSON.stringify(get().CartIds));
 
         cart.forEach((item: ProductCard) => {
           if (item.id === id && item.quantity) {

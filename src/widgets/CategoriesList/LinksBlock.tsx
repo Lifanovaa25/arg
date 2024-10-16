@@ -45,7 +45,6 @@ export const LinksBlock = (props: LinkListProps) => {
         setActiveTab(tab)
         let key = String(props.label)
         let value = String(val)
-        // setProductQuantity(props.label, val,val)
         setParams({ key, value })
 
     };

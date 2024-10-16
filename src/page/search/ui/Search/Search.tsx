@@ -63,7 +63,7 @@ export const Search = () => {
     const searchQuery = searchParams.get('q') || '';
   
     if (searchQuery) {
-      // fetchProducts(searchQuery);
+     
       setSearchRequest(searchQuery)
      
     }
@@ -102,10 +102,7 @@ export const Search = () => {
                   image={item.image}
                   title={item.label}
                   price={item.price}
-                  // props={item.Props}
                   link={item.link}
-                  // toCart={item.ToCart}
-                  // articul={item.Articul}
                   manufacturer={item.props[1][1] ?? ""}
                   view="list"
                 />

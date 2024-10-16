@@ -23,6 +23,10 @@
     gap: 13px;
     background-color: var(--golden-sand);
     color: var(--snow-white);
+    &:hover {
+      background-color: #dead5b85;
+  
+    }
   }
 
   &.outline {
@@ -30,6 +34,10 @@
     background-color: var(--snow-white);
     color: var(--forest-green);
     border: 1px solid rgba(47, 79, 61, 0.4);
+    &:hover {
+      background-color: #dead5b85;
+  
+    }
   }
 
   &.regular {
@@ -39,6 +47,7 @@
   &.secondary {
     font-size: 14px;
   }
+  
 }
 
 @media (max-width: 1100px) {

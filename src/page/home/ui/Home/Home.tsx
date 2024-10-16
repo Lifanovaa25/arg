@@ -17,8 +17,3 @@ export const Home = () => {
     </>
   );
 };
-
-// %2Fcatalog%2Fequipment%2Freplacement-and-spare-parts%2F
-// %2F = /
-
-// /catalog/equipment/replacement-and-spare-parts/
