@@ -64,10 +64,11 @@ const AllMining: React.FC = () => {
   const { setParams, sort, onClearParams, params } = productCartStore();
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [pagesCount, setPagesCount] = useState<number[] | null>([])
+  const [pageSize, setPageSize] = useState(20)
   const fetchData = async (): Promise<void> => {
     const result = await getPageProductsItems({
       Page: pageNum,
-      PageSize: 10,
+      PageSize: pageSize,
       PageUrl: pathname,
       Params: params,
       Sort: sort
@@ -82,17 +83,9 @@ const AllMining: React.FC = () => {
   };
 
   useEffect(() => {
-
-
     setLoading(true)
     fetchData()
-    // pages()
-
-  }, [pageNum, params, sort]);
-
-
-
-
+  }, [pageNum, params, sort, pageSize]);
 
   function PageIncrement(p: number) {
 
@@ -121,39 +114,64 @@ const AllMining: React.FC = () => {
 
           </div>
 
+          <div className={styles.bottom}>
+            <div className={styles.pagination}>
+              <Swiper
+                modules={[Navigation]}
+                navigation
 
-          <div className={styles.pagination}>
-            <Swiper
-              modules={[Navigation]}
-              navigation
+                slidesPerView="auto"
+                slidesPerGroup={1}
+                spaceBetween={14}
+                speed={500}
+                breakpoints={{
+                  768: {
+                    // loop: false,
+                    centeredSlides: true,
 
-              slidesPerView="auto"
-              slidesPerGroup={1}
-              spaceBetween={14}
-              speed={500}
-              breakpoints={{
-                768: {
-                  loop: false,
-                },
-                0: {
-                  loop: true,
-                  centeredSlides: true,
-                },
-              }}
-            >
-              {pagesCount?.map((item, index) =>
-                <SwiperSlide key={index} className={styles.pag_wrap}>
+                  },
+                  0: {
+                    loop: true,
+                    centeredSlides: true,
+                  },
+                }}
+              >
+                {pagesCount?.map((item, index) =>
+                  <SwiperSlide key={index} className={styles.pag_wrap}>
 
-                  <div
-                    className={cn(styles.pag_btn, {
-                      [styles.active]: activeTab === index + 1,
-                    })}
-                    onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
-                </SwiperSlide>
-              )}
-            </Swiper>
+                    <div
+                      className={cn(styles.pag_btn, {
+                        [styles.active]: activeTab === index + 1,
+                      })}
+                      onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
+                  </SwiperSlide>
+                )}
+              </Swiper>
 
+            </div>
+            <div className={styles.prodPerPage}>
+            Products per page:
+            <div
+              className={cn(styles.span, {
+                [styles.active_span]: pageSize === 20,
+              })}
+              onClick={() => setPageSize(20)}>20
+            </div>
+            <div
+              className={cn(styles.span, {
+                [styles.active_span]: pageSize === 30,
+              })}
+              onClick={() => setPageSize(30)}>30
+            </div>
+            <div
+              className={cn(styles.span, {
+                [styles.active_span]: pageSize === 40,
+              })}
+              onClick={() => setPageSize(40)}>40
+            </div>
           </div>
+          </div>
+
         </div>
       </section>
     </>

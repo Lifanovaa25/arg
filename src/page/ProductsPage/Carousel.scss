@@ -17,24 +17,24 @@
   background: url('./arrow-left-short.png') no-repeat center;
   background-color: transparent !important;
   border-radius: 100%;
-  margin-right: 15px;
+  margin-left: 55px;
   left: initial;
 }
 
 .swiper-button-next {
   transform: rotate(180deg);
-  margin-right: -65px;
+  margin-right: -156px;
 
 }
 
 .swiper-wrapper {
-  margin-left: 25px;
+  // margin-left: 25px;
   max-width: 220px;
 }
 
-.swiper-button-prev {
-  // right: 73px;
-}
+// .swiper-button-prev {
+//   // right: 73px;
+// }
 
 .swiper-slide {
   width: initial;
@@ -42,7 +42,7 @@
 }
 
 .swiper {
-  margin: 0 !important;
+  // margin: 0 !important;
   margin-left: -60px;
 }
 
@@ -50,11 +50,20 @@
 
   .swiper-button-prev,
   .swiper-button-next {
-    display: none;
+    // display: none;
   }
 
   .swiper {
     overflow: hidden;
     padding: 0 16px;
+    margin-left: 0;
+    margin-right: 0;
+ 
+  }
+  .swiper-button-prev {
+    margin-left: 0;
+  }
+  .swiper-button-next{
+    margin-right: 0;
   }
 }

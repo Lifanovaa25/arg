@@ -18,6 +18,22 @@
   margin-left: 270px;
   overflow: hidden;
   float: left;
+
+  @media (max-width:1320px) {
+    align-items: center;
+    justify-content: center;
+    float: none;
+    margin: 0 auto;
+    min-width: 350px;
+  }
+
+  // @media (max-width:768px) {
+  //   align-items: center;
+  //   justify-content: center;
+  //   float: none;
+  //   margin: 0 auto;
+  //   min-width: 350px;
+  // }
 }
 
 .pag_btn {
@@ -50,4 +66,42 @@
 .pag_wrap {
   max-width: 225px;
   position: relative;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.prodPerPage {
+
+  display: flex;
+  align-items: center;
+  font-family: var(--font-onset);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 128%;
+  color: var(--black);
+  gap: 10px;
+  float: right;
+
+  .span {
+    color: #bfbfbf;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--black);
+
+    }
+  }
+@media (max-width:768px) {
+  display: none;
+}
+
+}
+
+.active_span {
+  color: var(--black);
+
 }

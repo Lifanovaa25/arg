@@ -8,16 +8,15 @@
 
 .title {
   margin-bottom: 35px;
-
   color: var(--black);
 }
 
-.links {
+.links_wrap {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 115px;
- 
+
 }
 
 .links_item {
@@ -26,7 +25,13 @@
   align-items: flex-start;
   gap: 20px;
 }
-
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
 .link {
   font-family: var(--font-onset);
 
@@ -35,8 +40,9 @@
   line-height: 128%;
   color: #000;
   cursor: pointer;
+
   &:hover {
-    color:var(--forest-green)
+    color: var(--forest-green)
   }
 }
 
@@ -92,28 +98,67 @@
   align-items: center;
   background-color: var(--golden-sand);
   border-radius: 100%;
-  position: fixed;
- 
-  left: 120%;
+  position: absolute;
+
+  left: 110%;
   z-index: 2;
   top: 200px;
 }
-
+.btnClose {
+display: none;}
 @media (max-width: 1320px) {
   .wrapper {
-    position: fixed;
+    position: absolute;
     inset: 0;
     background-color: var(--golden-sand);
     z-index: 200;
     transition: all 0.3s;
     transform: translateX(-101%);
     font-size: 16px;
-    padding: 105px 0 0 38px;
-  
+    // padding: 105px 0 0 38px;
+    padding: 57px 59px;
+    padding-right: 63px;
+    padding-bottom: 84px;
+    min-width: 100%;
+
     &.menuOpen {
       transform: translateX(0);
+      max-height: 100vh;
+      overflow-y: scroll;
     }
   }
+
+  .title,
+  .links_title {
+    font-family: var(--font-mont);
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 119%;
+    color: var(--white);
+    margin-bottom: 54px;
+    position: relative;
+
+    &::after {
+      content: '';
+      height: 4px;
+      width: 30%;
+      max-width: 70px;
+      background: var(--white);
+      position: absolute;
+      left: 0;
+      bottom: -13px;
+    }
+  }
+
+  .active {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 128%;
+    color: #fff;
+    font-weight: 500;
+    color: #2f4f3d;
+  }
+
   .btnClose {
     width: 54px;
     height: 54px;
@@ -126,15 +171,44 @@
     top: 26px;
     right: 26px;
   }
+
   .mobileBtn {
     display: flex;
-    position: fixed;
+    position: absolute;
     // left: 106%;
     z-index: 2;
     top: 200px;
   }
+
   .mobile_wrap {
     position: relative;
     width: 0;
+  }
+
+  .links_wrap {
+    gap: 70px;
+  }
+
+  .link {
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 128%;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .show_more {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 128%;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    color: rgba(204, 255, 255, 0.5);
+    span {
+      display: none;
+    }
+  }
+  .links {
+    gap: 5px;
   }
 }

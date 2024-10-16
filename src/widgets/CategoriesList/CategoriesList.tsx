@@ -14,13 +14,11 @@ interface CatListProps {
   title?: string;
   category?: LinkListProps;
   filters?: LinkListProps[];
-  id?:number
+  id?: number
 }
 
 export const CategoriesList = (props: CatListProps) => {
   const { category } = props;
-  const [activeTab, setActiveTab] = useState('');
-  const [visible, setVisible] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
   if (category !== undefined) {
@@ -31,20 +29,22 @@ export const CategoriesList = (props: CatListProps) => {
   useBodyOverflow(isOpenSettings);
 
   return (
-    
-    <div  className={cn(styles.wrapper, {
+
+    <div className={cn(styles.wrapper, {
       [styles.menuOpen]: isOpenSettings,
     })}
     >
-    <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
+      {!isOpenSettings &&
+        <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
           <Settings width="16" height="16" color="var(--snow-white)" />
-        </button>  
+        </button>
+      }
       <Title className={styles.title} size="h3" variant="secondary">
         {props.title}
       </Title>
-      <div className={styles.links}>
+      <div className={styles.links_wrap}>
         <LinksBlock
-        key={props.id}
+          key={props.id}
           itemsCount={props.category?.items?.length}
           items={props.category?.items}
         />
@@ -62,6 +62,6 @@ export const CategoriesList = (props: CatListProps) => {
         <Close width="22" height="22" color="var(--black)" />
       </button>
     </div>
- 
+
   );
 };
