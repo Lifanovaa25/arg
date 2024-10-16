@@ -18,7 +18,7 @@ const items = [
     href: '/catalog/equipment/mining-equipment',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Filtration Equipment',
     href: '/catalog/equipment/filtration-equipment',
   },
@@ -38,17 +38,17 @@ const items = [
     href: '/catalog/equipment/laboratory-equipment',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Electric motors',
     href: '/catalog/equipment/electric-motors',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Thermal equipment',
     href: '/catalog/equipment/thermal-equipment',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Pipeline equipment',
     href: '/catalog/equipment/pipeline-equipment',
   },
@@ -58,7 +58,7 @@ const items = [
     href: '/catalog/equipment/transmission-equipment',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Printing equipment',
     href: '/catalog/equipment/printing-equipment',
   },
@@ -78,17 +78,17 @@ const items = [
     href: '/catalog/equipment/pneumatic-equipment',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Metalworking',
     href: '/catalog/equipment/metalworking',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Marina equipment',
     href: '/catalog/equipment/marina-equipment',
   },
   {
-    img: '/images/filtration-equipment-1.jpg',
+    img: '/images/filtration-equipment-1.webp',
     text: 'Spare parts',
     href: '/catalog/equipment/spare-parts',
   },
