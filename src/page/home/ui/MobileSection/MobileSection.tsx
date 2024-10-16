@@ -22,7 +22,7 @@ export const MobileSection = () => {
         </p>
 
         <div className={styles.wrapper}>
-          <Button className={styles.btn} variant="outline" onClick={() =>setIsModalOpen(true)}>
+          <Button className={styles.btn} variant="outline" onClick={() => setIsModalOpen(true)}>
             Feedback
           </Button>
 

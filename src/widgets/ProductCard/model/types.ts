@@ -21,15 +21,12 @@ export interface ICartStore {
   onClearCart: () => void;
   getCartIds: () => void;
   setUrl: (url: string) => void;
-  setParams:({}:Params)=>void;
+  setParams: ({}: Params) => void;
   onClearParams: () => void;
-  params:Params[];
-  sort:number;
+  params: Params[];
+  sort: number;
   setSort: (sort: number) => void;
-
 }
-
-
 
 export interface ISearchStore {
   query: string;

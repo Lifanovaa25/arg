@@ -52,86 +52,86 @@ export const ContactModal = (props: ContactModalProps) => {
 
 
 
-  
-    const {
-      register,
-      handleSubmit,
-      control,
-      reset,
-      formState: { errors, isSubmitting },
-    } = useForm<FormValues>({
-      resolver: zodResolver(FormSchema),
-      defaultValues: {
-        name: '',
-        email: '',
-        message: '',
-        phone: '',
-        accept: false,
-      },
-    });
-  
-  
-    const onSubmit: SubmitHandler<FormValues> = async (form) => {
-      // if (!captchaToken) {
-      //   setCaptchaError(true);
-      //   return;
-      // }
-      try {
-        const { accept, ...data } = form;
-        // const response = await FooterService.sendForm(data);
-        reset();
-        let sendForm = async (): Promise<void> => {
-          const result = await sendFeedback({
-            name: data.name,
-            phone: data.phone,
-            email: data.email,
-            Itn: null,
-            file: null,
-            message: data.message
-          });
-  
-          if (result) {
-            const r: IFeedBackResponse200 = result as IFeedBackResponse200;
-            showToast();
-           
-          }
-  
-        };
-        sendForm()
-  
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    const hadleGetToken = (e: string | null) => {
-      setCaptchaToken(e);
-      setCaptchaError(false);
-    };
-  
-    const formFields = [
-      {
-        name: 'name',
-        label: 'Your name',
-        placeholder: 'David Augustino',
-        error: errors.name?.message,
-        Icon: User,
-      },
-      {
-        name: 'phone',
-        label: 'Phone number',
-        placeholder: '8 909 124 54 32',
-        error: errors.phone?.message,
-        Icon: Phone,
-      },
-      {
-        name: 'email',
-        label: 'Your email',
-        placeholder: 'royalequipment@gmail,com',
-        error: errors.email?.message,
-        Icon: Email,
-      },
-    ];
-  
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+      phone: '',
+      accept: false,
+    },
+  });
+
+
+  const onSubmit: SubmitHandler<FormValues> = async (form) => {
+    // if (!captchaToken) {
+    //   setCaptchaError(true);
+    //   return;
+    // }
+    try {
+      const { accept, ...data } = form;
+      // const response = await FooterService.sendForm(data);
+      reset();
+      let sendForm = async (): Promise<void> => {
+        const result = await sendFeedback({
+          name: data.name,
+          phone: data.phone,
+          email: data.email,
+          Itn: null,
+          file: null,
+          message: data.message
+        });
+
+        if (result) {
+          const r: IFeedBackResponse200 = result as IFeedBackResponse200;
+          showToast();
+
+        }
+
+      };
+      sendForm()
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const hadleGetToken = (e: string | null) => {
+    setCaptchaToken(e);
+    setCaptchaError(false);
+  };
+
+  const formFields = [
+    {
+      name: 'name',
+      label: 'Your name',
+      placeholder: 'David Augustino',
+      error: errors.name?.message,
+      Icon: User,
+    },
+    {
+      name: 'phone',
+      label: 'Phone number',
+      placeholder: '8 909 124 54 32',
+      error: errors.phone?.message,
+      Icon: Phone,
+    },
+    {
+      name: 'email',
+      label: 'Your email',
+      placeholder: 'royalequipment@gmail,com',
+      error: errors.email?.message,
+      Icon: Email,
+    },
+  ];
+
   return (
     <Modal
       isOpen={isModalOpen}
@@ -145,7 +145,7 @@ export const ContactModal = (props: ContactModalProps) => {
       <button onClick={hadnelCloseModal}>
         <Close width="24" height="24" color="var(--black)" />
       </button>
-    
+
       <div className={styles.wrap}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           {formFields.map(({ name, label, placeholder, error, Icon }) => (
@@ -167,7 +167,7 @@ export const ContactModal = (props: ContactModalProps) => {
               />
             </label>
           ))}
-  
+
           <label
             className={cn(styles.label, {
               [styles.error]: errors.message?.message,
@@ -179,7 +179,7 @@ export const ContactModal = (props: ContactModalProps) => {
             </div>
             <Textarea {...register('message')} placeholder="Typing here" />
           </label>
-  
+
           <Controller
             name="accept"
             control={control}
@@ -194,7 +194,7 @@ export const ContactModal = (props: ContactModalProps) => {
               />
             )}
           />
-  
+
           {/* <div
             className={cn(styles.recaptchaWrapper, {
               [styles.error]: captchaError,

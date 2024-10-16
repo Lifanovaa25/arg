@@ -54,7 +54,7 @@ export const Middle = () => {
     }
     try {
       const { accept, ...data } = form;
-    reset();
+      reset();
       let sendForm = async (): Promise<void> => {
         const result = await SendVacancyRespond({
           name: data.name,

@@ -87,10 +87,10 @@ export const ProductDetails = (props: DetailsProps) => {
       <div className={styles.description} dangerouslySetInnerHTML={{ __html: productDetails?.productDescription !== undefined ? productDetails?.productDescription : "" }}>
       </div>
 
-     <ContactModal isModalOpen={isModalOpen}
-     
-       setIsModalOpen={setIsModalOpen} 
-     />
+      <ContactModal isModalOpen={isModalOpen}
+
+        setIsModalOpen={setIsModalOpen}
+      />
 
     </div>
 

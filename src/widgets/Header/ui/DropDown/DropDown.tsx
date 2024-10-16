@@ -20,7 +20,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [menuData, setMenuData] = useState<MenuTab[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
-  
+
 
   useBodyOverflow(isDropDown);
 
@@ -155,12 +155,12 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         <ul className={styles.ul}>
           {currentCategories.map((category) => (
             <li
-            key={category.categoryName}
-            className={cn(styles.category, {
-              [styles.active]: category.categoryName === activeName,
-            })}
-            onMouseEnter={()=>  handleChangeCategory(category)}
-            onClick={() => handleChangeCategory(category)}  >
+              key={category.categoryName}
+              className={cn(styles.category, {
+                [styles.active]: category.categoryName === activeName,
+              })}
+              onMouseEnter={() => handleChangeCategory(category)}
+              onClick={() => handleChangeCategory(category)}  >
               <Link className={styles.categoryLink} href={category.categoryUrl} onClick={() => handlerMenuClose()} >
                 {category.categoryName}
               </Link>
@@ -227,7 +227,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
                 height="18"
                 color="var(--white)"
               />
-            
+
             </button>
 
             <ul className={styles.ul}>
