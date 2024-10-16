@@ -64,7 +64,7 @@ const EquipmentCategoryPage: React.FC = () => {
       {data && (
         <>
 
-          <Top title={data.label} />
+          <Top title={data.label}  />
           <Description text={data.text} />
           <CardsList subcategories={data.subcategories} />
         </>

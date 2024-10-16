@@ -2,8 +2,13 @@ import Title from '@/src/shared/ui/Title/Title';
 import styles from './CategoriesList.module.scss';
 import Link from 'next/link';
 import cn from 'classnames';
+import Settings from '/public/svg/settings.svg';
+import Close from '/public/svg/close.svg';
+
 import { useState } from 'react';
 import { LinkListProps, LinksBlock } from './LinksBlock';
+import { MobileMenu } from '../MobileMenu/MobileMenu';
+import { useBodyOverflow } from '@/src/shared/lib/hooks/useBodyOverflow/useBodyOverflow';
 
 interface CatListProps {
   title?: string;
@@ -16,14 +21,24 @@ export const CategoriesList = (props: CatListProps) => {
   const { category } = props;
   const [activeTab, setActiveTab] = useState('');
   const [visible, setVisible] = useState(false);
+  const [isOpenSettings, setIsOpenSettings] = useState(false);
+
   if (category !== undefined) {
     category.items?.forEach((item) => {
       item.link = item.link.replace('http://royal-equipment.ae', '');
     });
   }
+  useBodyOverflow(isOpenSettings);
 
   return (
-    <div className={styles.wrapper}>
+    
+    <div  className={cn(styles.wrapper, {
+      [styles.menuOpen]: isOpenSettings,
+    })}
+    >
+    <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
+          <Settings width="16" height="16" color="var(--snow-white)" />
+        </button>  
       <Title className={styles.title} size="h3" variant="secondary">
         {props.title}
       </Title>
@@ -43,6 +58,10 @@ export const CategoriesList = (props: CatListProps) => {
             />
           ))}
       </div>
+      <button className={styles.btnClose} onClick={() => setIsOpenSettings(false)}>
+        <Close width="22" height="22" color="var(--black)" />
+      </button>
     </div>
+ 
   );
 };

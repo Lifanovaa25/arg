@@ -5,6 +5,9 @@
   margin-top: 200px;
   margin-bottom: 80px;
 
+  @media (max-width:1320px) {
+    gap: 0;
+  }
 }
 
 .pagination {
@@ -48,4 +51,3 @@
   max-width: 225px;
   position: relative;
 }
-

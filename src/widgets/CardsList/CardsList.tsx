@@ -10,16 +10,8 @@ import styles from './CardsList.module.scss';
 import './Select.scss';
 import { usePathname } from 'next/navigation';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
+import { LinkListProps } from '../CategoriesList/LinksBlock';
 
-//TODO: убрать
-const arr = [
-  { title: 'title 1', price: '100', id: 1 },
-  { title: 'title 2', price: '200', id: 2 },
-  { title: 'title 3', price: 'on request', id: 3 },
-  { title: 'title 4', price: '150', id: 4 },
-  { title: 'title 5', price: '250', id: 5 },
-  { title: 'title 6', price: 'on request', id: 6 },
-];
 
 const views: { value: 'list' | 'grid'; label: string }[] = [
   { value: 'list', label: 'List' },
@@ -55,7 +47,10 @@ interface CardsListProps {
     toCart: boolean;
     articul: string;
   }[] | undefined;
-
+  title?: string;
+  category?: LinkListProps;
+  filters?: LinkListProps[];
+  id?:number
 }
 
 export const CardsList = (props: CardsListProps) => {
@@ -74,9 +69,9 @@ export const CardsList = (props: CardsListProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.selectsWrapper}>
-        <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
+        {/* <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
           <Settings width="16" height="16" color="var(--snow-white)" />
-        </button>
+        </button> */}
 
         <div className={styles.selectWrapper}>
           <span className={styles.span}>Sort</span>
@@ -105,7 +100,7 @@ export const CardsList = (props: CardsListProps) => {
 
       <div className={styles.list}>
         {Number(subcategories?.length) < 1 &&
-        <div className={styles.nothing}>There are no products with the specified parameters yet</div> }
+          <div className={styles.nothing}>There are no products with the specified parameters yet</div>}
         {subcategories?.map((item) => (
           <>
 
@@ -124,11 +119,7 @@ export const CardsList = (props: CardsListProps) => {
 
       </div>
 
-      <MobileMenu
-        isOpenSettings={isOpenSettings}
-        setIsOpenSettings={setIsOpenSettings}
-        links={[]}
-      />
+      
     </div>
   );
 };
