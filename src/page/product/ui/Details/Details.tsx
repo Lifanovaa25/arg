@@ -2,11 +2,9 @@
 import { MouseEvent } from 'react';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
 
-import Image from 'next/image';
 import styles from './Details.module.scss';
-import { getProduct } from '@/src/app/api/products/productsAPI';
-import { IPageProductsResponse200, IProductResponse200, IProductResponseValue } from '@/src/app/api/products/interfaces';
-import { useEffect, useState } from 'react';
+import {IProductResponseValue } from '@/src/app/api/products/interfaces';
+
 import Title from '@/src/shared/ui/Title/Title';
 import test from '/public/images/test.png';
 import Button from '@/src/shared/ui/Button/Button';
