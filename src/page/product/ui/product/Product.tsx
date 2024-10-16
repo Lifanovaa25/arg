@@ -12,8 +12,10 @@ import { useEffect, useState } from 'react';
 import test from '/public/images/test.png';
 import { ProductDetails } from '../Details/Details';
 import { Loading } from '@/src/widgets/Loading';
+import { usePathname } from 'next/navigation';
 
 export const Product = () => {
+  const pathname = usePathname()
   const { productUrl } = productCartStore();
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [data, setData] = useState<IProductResponse200['value'] | null>(null); // Данные из API
@@ -24,11 +26,15 @@ export const Product = () => {
   if (last_product_id === null) {
     last_product_id = '-1';
   }
+  const slug = pathname.replace('/catalog/equipment/product', '').replace('/catalog/industry/product', '')
   useEffect(() => {
-    
+
 
     const fetchData = async (): Promise<void> => {
-      const result = await getProduct({ id: Number.parseInt(last_product_id) });
+      const result = await getProduct({
+        //  id: Number.parseInt(last_product_id)
+        Slug: slug,
+      });
       if (result) {
         const r: IProductResponse200 = result as unknown as IProductResponse200;
         setData(r.value);
@@ -36,17 +42,17 @@ export const Product = () => {
       }
     };
     if (data === null) {
-       setLoading(true)
+      setLoading(true)
       fetchData();
-     
-    }
-    if(data){setLoading(false)}
-  }, [data,last_product_id ]);
 
- 
+    }
+    if (data) { setLoading(false) }
+  }, [data, last_product_id]);
+
+
   return (
     <section>
-      {loading &&  <Loading/> }
+      {loading && <Loading />}
 
       <div className="container">
         <div className={styles.wrapper}>

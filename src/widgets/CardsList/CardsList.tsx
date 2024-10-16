@@ -69,9 +69,6 @@ export const CardsList = (props: CardsListProps) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.selectsWrapper}>
-        {/* <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
-          <Settings width="16" height="16" color="var(--snow-white)" />
-        </button> */}
 
         <div className={styles.selectWrapper}>
           <span className={styles.span}>Sort</span>

@@ -41,7 +41,7 @@ export const ProductCard = (props: CardProps) => {
   return (
     <div className={cn(styles.wrapper, styles[view])}>
       {pageUrl ?
-        <Link className={styles.link} href={`${pageUrl}/product/[productCard]`} as={`${pageUrl}/product`}
+        <Link className={styles.link} href={`/catalog/equipment/product/[product]/${props.link}`} as={`/catalog/equipment/product/${props.link}`}
           onClick={() => localStorage.setItem("lastProductId",id.toString())}>
           <Image className={cn(styles.img, styles[view])} src={props.image ?  'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
 

@@ -1,5 +1,5 @@
 import { NextPage, Metadata } from 'next';
-import { Product } from '@/src/page/product';
+import { Product } from '@/src/page/product/';
 
 export const metadata: Metadata = {
   title: 'Cart',
