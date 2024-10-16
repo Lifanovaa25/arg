@@ -13,7 +13,7 @@ import styles from './Carouser.module.scss';
 
 const items = [
   {
-    img: '/images/mining-equipment.jpg',
+    img: '/images/mining-equipment.webp',
     text: 'Mining Equipment',
     href: '/catalog/equipment/mining-equipment',
   },
@@ -23,12 +23,12 @@ const items = [
     href: '/catalog/equipment/filtration-equipment',
   },
   {
-    img: '/images/pumps.jpg',
+    img: '/images/pumps.webp',
     text: 'Pumps',
     href: '/catalog/equipment/pumps',
   },
   {
-    img: '/images/automation-and-electronics.jpg',
+    img: '/images/automation-and-electronics.webp',
     text: 'Automation and electronics',
     href: '/catalog/equipment/automation-and-electronics',
   },
