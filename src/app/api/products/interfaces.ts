@@ -66,6 +66,9 @@ export interface IPageProductsResponse200 {
       PersonName: string;
       PersonPost: string;
     };
+    SeoTitle: string,
+    SeoDescription: string,
+    SeoCanonical: string
   };
 }
 export interface Product {
@@ -118,6 +121,8 @@ export interface Product {
 }
 
 export interface IProductResponseValue{
+  seoTitle: string,
+  seoDescription: string,
   label: string;
   imageUrl: string | undefined;
   articul: string;
@@ -141,6 +146,7 @@ export interface IProductResponseValue{
       url: string;
     }[];
   }[];
+
 }
 
 export interface IProductResponse200 {

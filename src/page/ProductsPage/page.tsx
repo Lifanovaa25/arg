@@ -16,6 +16,8 @@ import 'swiper/css/navigation';
 import './Carousel.scss';
 import { productCartStore } from '@/src/app/providers/Store/config/store';
 import { Loading } from '@/src/widgets/Loading';
+import DynamicSeoHeader from '@/src/widgets/dinamicSeoHeader';
+import Head from 'next/head';
 interface Product {
   value: {
     category: {
@@ -45,6 +47,9 @@ interface Product {
       personName: string;
       personPost: string;
     };
+    SeoTitle: string,
+    SeoDescription: string,
+    SeoCanonical: string
   };
 }
 interface ICard {
@@ -65,6 +70,11 @@ const AllMining: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [pagesCount, setPagesCount] = useState<number[] | null>([])
   const [pageSize, setPageSize] = useState(20)
+
+  const [SeoTitle, setSeoTitle] = useState('')
+  const [SeoDescription, setSeoDescription] = useState('')
+
+
   const fetchData = async (): Promise<void> => {
     const result = await getPageProductsItems({
       Page: pageNum,
@@ -78,7 +88,9 @@ const AllMining: React.FC = () => {
       setData(r.value);
       setLoading(false)
       pages(r.value.totalPages)
-      // console.log(data?.totalPages)
+      setSeoTitle(r.value.SeoTitle)
+      setSeoDescription(r.value.SeoDescription)
+     alert(SeoDescription)
     }
   };
 
@@ -103,7 +115,20 @@ const AllMining: React.FC = () => {
     setPagesCount(arr)
   }
   return (
-    <>
+    <>   <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />
+     
+     <Head>
+      <title>{SeoTitle}</title>
+      <meta name={SeoDescription}
+        content={SeoDescription} />
+      <meta property="og:title"
+        content={SeoTitle} />
+      <meta property="og:description"
+        content={SeoDescription} />
+        <meta property="og:title"
+             content="My Page Title" />     
+
+    </Head>
       {loading && <Loading />}
 
       <section>

@@ -42,6 +42,7 @@ const EquipmentCategoryPage: React.FC = () => {
 
   const [SeoTitle, setSeoTitle] = useState('')
   const [SeoDescription, setSeoDescription] = useState('')
+ 
   useEffect(() => {
     setLoading(true)
     const fetchData = async (): Promise<void> => {
@@ -60,7 +61,7 @@ const EquipmentCategoryPage: React.FC = () => {
 
   return (
     <>
-      {loading &&  <Loading/> }
+      {loading && <Loading />}
 
       <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />
       {data && (
