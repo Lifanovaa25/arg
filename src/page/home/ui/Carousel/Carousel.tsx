@@ -53,7 +53,7 @@ const items = [
     href: '/catalog/equipment/pipeline-equipment',
   },
   {
-    img: '/images/mining-equipment.jpg',
+    img: '/images/mining-equipment.webp',
     text: 'Transmission equipment',
     href: '/catalog/equipment/transmission-equipment',
   },
@@ -68,7 +68,7 @@ const items = [
     href: '/catalog/equipment/hydraulic-equipment',
   },
   {
-    img: '/images/automation-and-electronics.jpg',
+    img: '/images/automation-and-electronics.webp',
     text: 'Conveyors and packaging',
     href: '/catalog/equipment/conveyors-and-packaging',
   },
