@@ -30,7 +30,7 @@ export const ProductDetails = (props:DetailsProps) => {
       productDetails?.imageUrl !== undefined
     ){
       onAddCard({image:productDetails?.imageUrl,manufacturer:productDetails?.filters.Manufacturers[0], link:productDetails?.linkUrl, view:"list", cardPageLink:productDetails?.linkUrl,title:productDetails?.label, price:productDetails?.price, id:props.productId, quantity:1});
-      showToast();
+     
     }
   };
   return (

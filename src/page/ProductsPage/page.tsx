@@ -90,7 +90,7 @@ const AllMining: React.FC = () => {
       pages(r.value.totalPages)
       setSeoTitle(r.value.SeoTitle)
       setSeoDescription(r.value.SeoDescription)
-     alert(SeoDescription)
+    //  alert(SeoDescription)
     }
   };
 
@@ -115,7 +115,8 @@ const AllMining: React.FC = () => {
     setPagesCount(arr)
   }
   return (
-    <>   <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />
+    <>  
+     {/* <DynamicSeoHeader title={SeoTitle} description={SeoDescription} /> */}
      
      <Head>
       <title>{SeoTitle}</title>

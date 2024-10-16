@@ -7,7 +7,6 @@ interface ISEO {
 }
 const DynamicSeoHeader = ({ title, description }: ISEO): React.ReactElement => {
 
-// alert(title)
   return (
 
     <Head>
@@ -20,7 +19,7 @@ const DynamicSeoHeader = ({ title, description }: ISEO): React.ReactElement => {
         content={description} />
         <meta property="og:title"
              content="My Page Title" />
-      
+      <link rel="icon" href="/favicon.ico" sizes="any"></link>
     </Head>
   );
 };
