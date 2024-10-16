@@ -8,11 +8,14 @@ import { getBreadcrumbs } from '../lib/getBreadcrumbs';
 import { getCatalogRoute } from '../lib/getCatalogRoute';
 import Contact from '/public/svg/contact.svg';
 import styles from './Aside.module.scss';
+import { ContactModal } from '@/src/page/product/ui/Modal/Modal';
+import { useState } from 'react';
 
 export const Aside = () => {
   const pathname = usePathname();
   const breadcrumbs = getBreadcrumbs(pathname);
   const isCatalogRoute = getCatalogRoute(pathname);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <aside className={styles.aside}>
@@ -39,7 +42,7 @@ export const Aside = () => {
       </nav>
 
       <div className={styles.wrapper}>
-        <Button className={styles.btn} variant="outline">
+        <Button className={styles.btn} variant="outline" onClick={() =>setIsModalOpen(true)}>
           Feedback
         </Button>
 
@@ -50,6 +53,12 @@ export const Aside = () => {
           </Button>
         </Link>
       </div>
+      {isModalOpen &&
+        <ContactModal isModalOpen={isModalOpen}
+
+          setIsModalOpen={setIsModalOpen}
+        />
+      }
     </aside>
   );
 };
