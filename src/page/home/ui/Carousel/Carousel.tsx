@@ -23,7 +23,7 @@ const items = [
     href: '/catalog/equipment/filtration-equipment',
   },
   {
-    img: '/images/pumps.webp',
+    img: '/images/pumps.jpg',
     text: 'Pumps',
     href: '/catalog/equipment/pumps',
   },
@@ -33,7 +33,7 @@ const items = [
     href: '/catalog/equipment/automation-and-electronics',
   },
   {
-    img: '/images/laboratory-equipment.webp',
+    img: '/images/laboratory-equipment.jpg',
     text: 'Laboratory equipment',
     href: '/catalog/equipment/laboratory-equipment',
   },
