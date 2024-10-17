@@ -46,12 +46,12 @@ export const CartModal = (props: CartModalProps) => {
       <Title size="h4" variant="secondary">
         {modalTitle}
       </Title>
-      <button onClick={hadnelCloseModal}>
+      <button onClick={hadnelCloseModal} aria-label="close">
         <Close width="24" height="24" color="var(--black)" />
       </button>
       <div className={styles.line}></div>
       <p className={styles.text}>{modalText}</p>
-      <Button className={styles.btn} onClick={handleDispatch}>
+      <Button className={styles.btn} onClick={handleDispatch} aria-label="Remove">
         Remove
       </Button>
     </Modal>

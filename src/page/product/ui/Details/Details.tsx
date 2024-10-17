@@ -72,13 +72,13 @@ export const ProductDetails = (props: DetailsProps) => {
       </div>
       <div className={styles.btn_block}>
 
-        <Button variant="golden" className={styles.btn}
+        <Button variant="golden" className={styles.btn}  aria-label="Add to cart"
           //@ts-ignore
           onClick={handleAddCard}
         >
           <span>Add to cart</span>
         </Button>
-        <Button className={styles.btn} variant="outline"
+        <Button className={styles.btn} variant="outline"  aria-label="Request a quote"
           onClick={() => setIsModalOpen(true)}
         >
           Request a quote

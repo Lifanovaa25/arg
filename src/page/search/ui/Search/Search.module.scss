@@ -8,8 +8,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  > div {
-    width: 100% !important;
+
+  >div {
+    width: 75% !important;
   }
 }
 
@@ -37,6 +38,7 @@
   flex-direction: column;
   gap: 20px;
 }
+
 .not_found {
   font-size: 18px;
   line-height: 23px;

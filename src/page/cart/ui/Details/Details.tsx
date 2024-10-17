@@ -87,7 +87,8 @@ export const Details = () => {
         </Title>
 
         {cart && cart.length > 0 && (
-          <button className={styles.btn} onClick={() => setIsModalOpen(true)}>
+          <button className={styles.btn} onClick={() => setIsModalOpen(true)}
+          aria-label="Clear cart" >
             Clear cart
           </button>
         )}

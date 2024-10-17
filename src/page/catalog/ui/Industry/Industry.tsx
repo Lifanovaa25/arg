@@ -4,7 +4,7 @@ import Title from '@/src/shared/ui/Title/Title';
 import oil from '/public/images/oil-and-gas.webp';
 import fuel from '/public/images/fuel-and-energy.webp';
 import mettalurgy from '/public/images/mettalurgy.webp';
-import chemical from '/public/images/chemical.jpg';
+import chemical from '/public/images/chemical.webp';
 import food from '/public/images/food.webp';
 import mining from '/public/images/mining.webp';
 import pulp from '/public/images/pulp-and-paper.webp';

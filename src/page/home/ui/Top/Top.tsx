@@ -23,7 +23,7 @@ export const Top = () => {
                 info@royal-equipment.ae
               </a>
               <Link className={styles.catalogLink} href="/catalog">
-                <Button variant="golden">Go to catalog</Button>
+                <Button variant="golden"  aria-label="Go to catalog">Go to catalog</Button>
               </Link>
             </div>
           </div>

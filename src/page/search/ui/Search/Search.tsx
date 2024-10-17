@@ -85,6 +85,7 @@ export const Search = () => {
                 variant="golden"
                 isLoading={isLoading}
                 type="submit"
+                aria-label="Search"
               >
                 Search
               </Button>

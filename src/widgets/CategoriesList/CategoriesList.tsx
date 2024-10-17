@@ -35,7 +35,7 @@ export const CategoriesList = (props: CatListProps) => {
     })}
     >
       {!isOpenSettings &&
-        <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)}>
+        <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)} aria-label="">
           <Settings width="16" height="16" color="var(--snow-white)" />
         </button>
       }
@@ -58,7 +58,7 @@ export const CategoriesList = (props: CatListProps) => {
             />
           ))}
       </div>
-      <button className={styles.btnClose} onClick={() => setIsOpenSettings(false)}>
+      <button className={styles.btnClose} onClick={() => setIsOpenSettings(false)} aria-label="Close">
         <Close width="22" height="22" color="var(--black)" />
       </button>
     </div>

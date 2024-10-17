@@ -142,7 +142,7 @@ export const ContactModal = (props: ContactModalProps) => {
       <Title className={styles.title} size="h4" variant="secondary">
         Contact with us
       </Title>
-      <button onClick={hadnelCloseModal}>
+      <button onClick={hadnelCloseModal} aria-label="Close">
         <Close width="24" height="24" color="var(--black)" />
       </button>
 

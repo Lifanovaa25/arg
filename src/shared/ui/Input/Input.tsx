@@ -33,7 +33,7 @@ const Input = forwardRef<TInput, InputProps>((props, ref) => {
       />
 
       {isSearch && (
-        <button className={styles.btn}>
+        <button className={styles.btn} aria-label="Search">
           <Search
             className={styles.search}
             width="16"

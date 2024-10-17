@@ -22,12 +22,13 @@ export const MobileSection = () => {
         </p>
 
         <div className={styles.wrapper}>
-          <Button className={styles.btn} variant="outline" onClick={() => setIsModalOpen(true)}>
+          <Button className={styles.btn} variant="outline" onClick={() => setIsModalOpen(true)}
+            aria-label="FeedBack">
             Feedback
           </Button>
 
           <Link className={styles.link} href="/contacts">
-            <Button variant="golden">
+            <Button variant="golden" aria-label="Contact us">
               <Contact width="16" height="16" color="var(--white)" />
               <span>Contact us</span>
             </Button>

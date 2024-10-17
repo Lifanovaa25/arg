@@ -32,7 +32,7 @@ export const Footer = () => {
 
             <div className={styles.footer_inf}>
               <div className={styles.scroll_top}>
-                <button className={styles.scroll_btn} onClick={handleScrollTop}>
+                <button className={styles.scroll_btn} onClick={handleScrollTop} aria-label="Go to the top">
                   <ArrowTop width="13" height="15" color="var(--white)" />
                 </button>
                 <p className={styles.scroll_p}>Go to the top</p>
