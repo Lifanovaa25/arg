@@ -109,6 +109,7 @@ export const Header = () => {
             <button
               className={styles.mobileBtn}
               onClick={() => setIsOpenMobileMenu(true)}
+              aria-label="menu"
             >
               <Burger width="13" height="13" color="var(--white)" />
             </button>
