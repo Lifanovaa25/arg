@@ -22,7 +22,6 @@ export const Contacts = () => {
             width="653"
             height="595"
             allowFullScreen={true}
-            loading="eager"
             className={styles.iframe}
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>

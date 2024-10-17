@@ -63,7 +63,7 @@ const items = [
     href: '/catalog/equipment/printing-equipment',
   },
   {
-    img: '/images/pumps.jpg',
+    img: '/images/pumps.webp',
     text: 'Hydraulic equipment',
     href: '/catalog/equipment/hydraulic-equipment',
   },
@@ -73,7 +73,7 @@ const items = [
     href: '/catalog/equipment/conveyors-and-packaging',
   },
   {
-    img: '/images/laboratory-equipment.jpg',
+    img: '/images/laboratory-equipment.webp',
     text: 'Pneumatic equipment',
     href: '/catalog/equipment/pneumatic-equipment',
   },
@@ -119,7 +119,7 @@ export const Carousel = () => {
             return (
               <SwiperSlide key={index} className={styles.wrapper}>
                 <Link className={styles.link} href={href}>
-                  <Image src={img} className={styles.img} fill loading="eager" alt={text} />
+                  <Image src={img} className={styles.img} fill alt={text} />
 
                   <div className={styles.info}>
                     <Title className={styles.title} size="h4" font="onest">
