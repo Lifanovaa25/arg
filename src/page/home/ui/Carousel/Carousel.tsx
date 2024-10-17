@@ -63,7 +63,7 @@ const items = [
     href: '/catalog/equipment/printing-equipment',
   },
   {
-    img: '/images/pumps.wepb',
+    img: '/images/pumps.jpg',
     text: 'Hydraulic equipment',
     href: '/catalog/equipment/hydraulic-equipment',
   },
@@ -73,7 +73,7 @@ const items = [
     href: '/catalog/equipment/conveyors-and-packaging',
   },
   {
-    img: '/images/laboratory-equipment.wepb',
+    img: '/images/laboratory-equipment.jpg',
     text: 'Pneumatic equipment',
     href: '/catalog/equipment/pneumatic-equipment',
   },
