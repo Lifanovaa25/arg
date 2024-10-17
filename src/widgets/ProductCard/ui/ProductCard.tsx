@@ -70,17 +70,17 @@ export const ProductCard = (props: CardProps) => {
               </div>
               <div className={styles.btnsWrapper}>
                 {!card ? (
-                  <button className={styles.btnAdd} onClick={handleAddCard}>
+                  <button className={styles.btnAdd} onClick={handleAddCard} aria-label="add to cart">
                     <span className={styles.spanIncrease}>+</span>
                     <span className={styles.spanAdd}>add to cart</span>
                   </button>
                 ) : (
                   <div className={styles.btnIncrease}>
-                    <button className={styles.btnCount} onClick={handleDecreaseCount}>
+                    <button className={styles.btnCount} onClick={handleDecreaseCount} aria-label='Minus'>
                       -
                     </button>
                     <span className={styles.spanQuantity}>{card.quantity}</span>
-                    <button className={styles.btnCount} onClick={handleIncreaseCount}>
+                    <button className={styles.btnCount} onClick={handleIncreaseCount} aria-label='Plus'>
                       +
                     </button>
                   </div>
@@ -128,11 +128,13 @@ export const ProductCard = (props: CardProps) => {
                   </button>
                 ) : (
                   <div className={styles.btnIncrease}>
-                    <button className={styles.btnCount} onClick={handleDecreaseCount}>
+                    <button className={styles.btnCount} onClick={handleDecreaseCount}
+                    aria-label='Minus'>
                       -
                     </button>
                     <span className={styles.spanQuantity}>{card.quantity}</span>
-                    <button className={styles.btnCount} onClick={handleIncreaseCount}>
+                    <button className={styles.btnCount} onClick={handleIncreaseCount}
+                    aria-label='Plus'>
                       +
                     </button>
                   </div>

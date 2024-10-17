@@ -51,18 +51,21 @@ export const Card = (props: CardProps) => {
           </div>
 
           <div className={styles.btnsWrapper}>
-            <button className={styles.btn} onClick={handleDecreaceQuantity}>
+            <button className={styles.btn} onClick={handleDecreaceQuantity}
+            aria-label="Minus">
               -
             </button>
             <span className={styles.quantity}>{quantity}</span>
-            <button className={styles.btn} onClick={handleIncreaceQuantity}>
+            <button className={styles.btn} onClick={handleIncreaceQuantity}
+            aria-label="Plus">
               +
             </button>
           </div>
         </div>
       </div>
 
-      <button className={styles.trash} onClick={() => handleOpenModal(id)}>
+      <button className={styles.trash} onClick={() => handleOpenModal(id)}
+        aria-label="Delete">
         <Trash width="19" height="19" color="var(--ash-gray)" />
       </button>
     </div>

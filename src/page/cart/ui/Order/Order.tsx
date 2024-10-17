@@ -192,6 +192,7 @@ export const Order = () => {
           variant="golden"
           isLoading={isSubmitting}
           type="submit"
+          aria-label=""
         >
           Сreate an order
         </Button>

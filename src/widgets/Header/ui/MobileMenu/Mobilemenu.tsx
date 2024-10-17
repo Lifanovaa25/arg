@@ -33,7 +33,8 @@ export const MobileMenu = (props: MobileMenuProps) => {
         </ul>
       </nav>
 
-      <button className={styles.btn} onClick={() => setIsOpenMobileMenu(false)}>
+      <button className={styles.btn} onClick={() => setIsOpenMobileMenu(false)}
+        aria-label='Close'>
         <Close width="22" height="22" color="var(--black)" />
       </button>
     </div>

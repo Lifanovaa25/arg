@@ -119,7 +119,7 @@ export const Carousel = () => {
             return (
               <SwiperSlide key={index} className={styles.wrapper}>
                 <Link className={styles.link} href={href}>
-                  <Image src={img} className={styles.img} fill loading="lazy" alt={text} />
+                  <Image src={img} className={styles.img} fill loading="eager" alt={text} />
 
                   <div className={styles.info}>
                     <Title className={styles.title} size="h4" font="onest">
