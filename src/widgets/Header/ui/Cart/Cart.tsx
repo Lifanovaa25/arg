@@ -16,7 +16,8 @@ export const Cart = (props: CartProps) => {
 
   return (
     <Link className={styles.cart} href="/cart">
-      <Button className={styles.cartButton}>
+      <Button className={styles.cartButton}  aria-label="Cart">
+        
         <Bag width="16" height="16" color="var(--white)" />
         <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>
         <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>

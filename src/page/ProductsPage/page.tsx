@@ -152,7 +152,6 @@ const AllMining: React.FC = () => {
                 speed={500}
                 breakpoints={{
                   768: {
-                    // loop: false,
                     centeredSlides: true,
 
                   },

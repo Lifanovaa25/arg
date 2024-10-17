@@ -43,7 +43,7 @@ export const Footer = () => {
                   <Title className={styles.title} size="h2">
                     Let’s work
                   </Title>
-                  <Title className={styles.sub_title} size="h5" weight="regular">
+                  <Title className={styles.sub_title} size="h3" weight="regular">
                     Leave a request <br className={styles.br} /> and start working with us
                   </Title>
                 </div>
@@ -55,7 +55,7 @@ export const Footer = () => {
                     src={mail}
                     width="25"
                     height="23"
-                    alt="info@royal-equipment.ae"
+                    alt="E-mail : info@royal-equipment.ae"
                   />
                   info@royal-equipment.ae
                 </Link>

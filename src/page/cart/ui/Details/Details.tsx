@@ -20,8 +20,8 @@ export const Details = () => {
   const [IdsItem, setdsItem] = useState([]);
   const Ids = getCartIds();
 
-  const [data, setData] = useState<ICartResponse200['value'] | null>(null); // Данные из API
-  //TODO разобраться,доделать
+  const [data, setData] = useState<ICartResponse200['value'] | null>(null); 
+
   const fetchData = async (): Promise<void> => {
     const result = await getCart({ Id: CartIds });
     if (result) {
