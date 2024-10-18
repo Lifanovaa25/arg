@@ -47,7 +47,11 @@ interface ApiResponse {
     label: string;
     text: string;
     subcategories: Subcategory[];
+    SeoTitle: string,
+    SeoDescription: string,
+    SeoCanonical: string
   };
+
 }
 interface Subcategory {
   name: string;

@@ -1,39 +1,50 @@
-"use client";
-import DynamicSeoHeader from '@/src/widgets/dinamicSeoHeader';
-import { NextPage } from 'next';
-import { CategoryPage } from '@/src/page/categoryPage/page';
+import CategoryPage from '@/src/page/categoryPage/page';
+import { Metadata, NextPage, ResolvingMetadata } from 'next';
 
-// Описание типов для данных, возвращаемых API
-interface Subcategory {
-  name: string;
-  url: string;
-  image: string;
-}
 
-interface ApiResponse {
-  isSuccess: boolean;
-  isFailure: boolean;
-  error?: {
-    code: string;
-    description: string;
-    type: string;
-  };
-  value?: {
-    label: string;
-    text: string;
-    subcategories: Subcategory[];
-  };
-  SeoTitle: string,
-  SeoDescription: string,
-  SeoCanonical: string
-}
-
-const IndustryCategoryPage: NextPage =  () => {
- 
- 
+// const EquipmentCategoryPage: NextPage = () => {
+  export default function IndustryCategoryPage({params}:Props) {
   return (
-    <CategoryPage/>
-  );
+  <>
+  <p> {JSON.stringify(params)}</p>
+  <CategoryPage />
+  </>);
 };
+// export default EquipmentCategoryPage
 
-export default IndustryCategoryPage;
+type Props = {
+  params: { category: string }
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  const id = params.category
+  
+
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  const result = await fetch(`https://royal-equipment.ae/api/GetCategory?Slug=/catalog/industry/${id}/`)
+  .then((res) => res.json());
+ 
+const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: result.value?.SeoTitle || result.value?.label  ,
+    description: result.value?.SeoDescription || result.value?.text  ,
+
+    openGraph: {
+      images: ['/some-specific-page-image.jpg', ...previousImages],
+      title: result.value?.SeoTitle || result.value?.label  ,
+      description: result.value?.SeoDescription || result.value?.text  ,
+    },
+  }
+}
+
+
+
+
+
+
