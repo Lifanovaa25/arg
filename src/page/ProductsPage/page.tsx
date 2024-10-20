@@ -27,7 +27,7 @@ interface Product {
       titleToEnd: boolean;
       items: LinkListItem[];
     };
-   
+
     filters: LinkListProps[];
     items: {
       id: number;
@@ -68,7 +68,7 @@ const AllMining: React.FC = () => {
   const [activeTab, setActiveTab] = useState(1);
   const { setParams, sort, onClearParams, params } = productCartStore();
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
-  const [pagesCount, setPagesCount] = useState<number[] | null>([])
+  const [pagesCount, setPagesCount] = useState<number[]>([1])
   const [pageSize, setPageSize] = useState(20)
 
   const [SeoTitle, setSeoTitle] = useState('')
@@ -90,7 +90,7 @@ const AllMining: React.FC = () => {
       pages(r.value.totalPages)
       setSeoTitle(r.value.SeoTitle)
       setSeoDescription(r.value.SeoDescription)
- 
+
     }
   };
 
@@ -115,21 +115,21 @@ const AllMining: React.FC = () => {
     setPagesCount(arr)
   }
   return (
-    <>  
-     {/* <DynamicSeoHeader title={SeoTitle} description={SeoDescription} /> */}
-     
-     <Head>
-      <title>{SeoTitle}</title>
-      <meta name={SeoDescription}
-        content={SeoDescription} />
-      <meta property="og:title"
-        content={SeoTitle} />
-      <meta property="og:description"
-        content={SeoDescription} />
-        <meta property="og:title"
-             content="My Page Title" />     
+    <>
+      {/* <DynamicSeoHeader title={SeoTitle} description={SeoDescription} /> */}
 
-    </Head>
+      <Head>
+        <title>{SeoTitle}</title>
+        <meta name={SeoDescription}
+          content={SeoDescription} />
+        <meta property="og:title"
+          content={SeoTitle} />
+        <meta property="og:description"
+          content={SeoDescription} />
+        <meta property="og:title"
+          content="My Page Title" />
+
+      </Head>
       {loading && <Loading />}
 
       <section>
@@ -142,59 +142,62 @@ const AllMining: React.FC = () => {
 
           <div className={styles.bottom}>
             <div className={styles.pagination}>
-              <Swiper
-                modules={[Navigation]}
-                navigation
+              {Number(pagesCount) > 1 &&
+                <Swiper
+                  modules={[Navigation]}
+                  navigation
 
-                slidesPerView="auto"
-                slidesPerGroup={1}
-                spaceBetween={14}
-                speed={500}
-                breakpoints={{
-                  768: {
-                    centeredSlides: true,
+                  slidesPerView="auto"
+                  slidesPerGroup={1}
+                  spaceBetween={14}
+                  speed={500}
+                  breakpoints={{
+                    768: {
+                      centeredSlides: true,
+                      loop: false,
+                    },
+                    0: {
+                      loop: true,
+                      centeredSlides: true,
+                    },
+                  }}
+                >
+                  {pagesCount?.map((item, index) =>
+                    <SwiperSlide key={index} className={styles.pag_wrap}>
 
-                  },
-                  0: {
-                    loop: true,
-                    centeredSlides: true,
-                  },
-                }}
-              >
-                {pagesCount?.map((item, index) =>
-                  <SwiperSlide key={index} className={styles.pag_wrap}>
+                      <div
+                        className={cn(styles.pag_btn, {
+                          [styles.active]: activeTab === index + 1,
+                        })}
+                        onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
+                    </SwiperSlide>
+                  )}
+                </Swiper>
 
-                    <div
-                      className={cn(styles.pag_btn, {
-                        [styles.active]: activeTab === index + 1,
-                      })}
-                      onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
-                  </SwiperSlide>
-                )}
-              </Swiper>
+              }
 
             </div>
             <div className={styles.prodPerPage}>
-            Products per page:
-            <div
-              className={cn(styles.span, {
-                [styles.active_span]: pageSize === 20,
-              })}
-              onClick={() => setPageSize(20)}>20
+              Products per page:
+              <div
+                className={cn(styles.span, {
+                  [styles.active_span]: pageSize === 20,
+                })}
+                onClick={() => setPageSize(20)}>20
+              </div>
+              <div
+                className={cn(styles.span, {
+                  [styles.active_span]: pageSize === 30,
+                })}
+                onClick={() => setPageSize(30)}>30
+              </div>
+              <div
+                className={cn(styles.span, {
+                  [styles.active_span]: pageSize === 40,
+                })}
+                onClick={() => setPageSize(40)}>40
+              </div>
             </div>
-            <div
-              className={cn(styles.span, {
-                [styles.active_span]: pageSize === 30,
-              })}
-              onClick={() => setPageSize(30)}>30
-            </div>
-            <div
-              className={cn(styles.span, {
-                [styles.active_span]: pageSize === 40,
-              })}
-              onClick={() => setPageSize(40)}>40
-            </div>
-          </div>
           </div>
 
         </div>
