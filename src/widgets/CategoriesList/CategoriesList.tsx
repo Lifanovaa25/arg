@@ -35,7 +35,7 @@ export const CategoriesList = (props: CatListProps) => {
     })}
     >
       {!isOpenSettings &&
-        <button className={styles.mobileBtn} onClick={() => setIsOpenSettings(true)} aria-label="">
+        <button className={styles.btnSettings} onClick={() => setIsOpenSettings(true)} aria-label="">
           <Settings width="16" height="16" color="var(--snow-white)" />
         </button>
       }
