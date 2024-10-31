@@ -13,17 +13,17 @@ export async function generateMetadata(
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  const response = await fetch(`https://royal-equipment.ae/api/GetPageWithProducts?PageUrl=/catalog/industry/${category}/${industry}/`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/GetPageWithProducts?PageUrl=/catalog/industry/${category}/${industry}/`)
    if (response.ok) {
 
 
-    const result = await fetch(`https://royal-equipment.ae/api/GetPageWithProducts?PageUrl=/catalog/industry/${category}/${industry}/`).then((res) => res.json());
+    const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/GetPageWithProducts?PageUrl=/catalog/industry/${category}/${industry}/`).then((res) => res.json());
 
     const previousImages = (await parent).openGraph?.images || []
 
     return {
-      title: result.value?.SeoTitle || result.value?.category.label,
-      description: result.value?.SeoDescription || result.value?.text,
+      title: result.value?.SeoTitle || (result.value?.category.label)?.replace(/<[^>]*>/g, ''),
+      description: result.value?.SeoDescription || (result.value?.text)?.replace(/<[^>]*>/g, ''),
       openGraph: {
         images: [result.value?.OgImage, ...previousImages],
         title: result.value?.OgTitle || result.value?.label,

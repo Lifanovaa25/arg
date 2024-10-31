@@ -1,4 +1,4 @@
-import { NextPage, Metadata, ResolvingMetadata } from 'next';
+import { Metadata, ResolvingMetadata } from 'next';
 import { Product } from '@/src/page/product/';
 
 type Props = {
@@ -13,7 +13,7 @@ export async function generateMetadata(
   const equipment = params.equipment
   const product = params.product
 
-  const result = await fetch(`https://royal-equipment.ae/api/GetProduct?Slug=/${equipment}/${product}/`).then((res) => res.json());
+  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/GetProduct?Slug=/${equipment}/${product}/`).then((res) => res.json());
 
   const previousImages = (await parent).openGraph?.images || []
 
