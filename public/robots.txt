@@ -1,0 +1,4 @@
+User-agent: *
+
+Sitemap: http://api.royal-equipment.ae/sitemap
+Host: http://royal-equipment.ae
