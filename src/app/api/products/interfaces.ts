@@ -4,8 +4,8 @@ export interface IPageProductsRequestParams {
   PageUrl: string;
   Page: number;
   PageSize: number;
-  Params?: object[];
-  Sort: number;
+  Params?: {};
+  Sort: number | string;
 }
 
 export interface IProductRequestParams {

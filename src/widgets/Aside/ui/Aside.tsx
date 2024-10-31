@@ -21,29 +21,36 @@ export const Aside = () => {
     <aside className={styles.aside}>
       <nav aria-label="breadcrumb">
         <ul>
-          {breadcrumbs.map((breadcrumb, index) => (
-            <li
-              key={index}
-              className={cn(styles.li, {
-                [styles.whiteLi]: isCatalogRoute,
-              })}
-            >
-              <Link
-                className={cn(styles.link, {
-                  [styles.active]: breadcrumb.isActive,
-                })}
-                href={breadcrumb.href}
-              >
-                {breadcrumb.label}
-              </Link>
-            </li>
-          ))}
+          {breadcrumbs.map(
+            (breadcrumb, index) =>
+              breadcrumb.label.length > 1 && (
+                <li
+                  key={index}
+                  className={cn(styles.li, {
+                    [styles.whiteLi]: isCatalogRoute,
+                  })}
+                >
+                  <Link
+                    className={cn(styles.link, {
+                      [styles.active]: breadcrumb.isActive,
+                    })}
+                    href={`${breadcrumb.href}/`}
+                  >
+                    {breadcrumb.label}
+                  </Link>
+                </li>
+              )
+          )}
         </ul>
       </nav>
 
       <div className={styles.wrapper}>
-        <Button className={styles.btn} variant="outline" onClick={() => setIsModalOpen(true)}
-          aria-label="Feedback">
+        <Button
+          className={styles.btn}
+          variant="outline"
+          onClick={() => setIsModalOpen(true)}
+          aria-label="Feedback"
+        >
           Feedback
         </Button>
 
@@ -54,12 +61,9 @@ export const Aside = () => {
           </Button>
         </Link>
       </div>
-      {isModalOpen &&
-        <ContactModal isModalOpen={isModalOpen}
-
-          setIsModalOpen={setIsModalOpen}
-        />
-      }
+      {isModalOpen && (
+        <ContactModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      )}
     </aside>
   );
 };

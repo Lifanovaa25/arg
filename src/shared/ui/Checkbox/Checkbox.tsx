@@ -36,7 +36,7 @@ const Checkbox = forwardRef<L, ICheckboxProps>((props, ref) => {
         I consent to the processing of
         <a
           className={styles.link}
-          href="https://royal-equipment.ae/media/dyyewct1/privacy.txt"
+          href="https://api.royal-equipment.ae/media/dyyewct1/privacy.txt"
           target="_blank"
           rel="noopener noreferrer"
           title="Privacy"

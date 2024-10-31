@@ -14,15 +14,15 @@ import Arrow from '/public/svg/arrow-long.svg';
 import styles from './Industry.module.scss';
 
 const gorizontalCards = [
-  { img: oil, label: 'Oil and Gas', href: '/oil-and-gas' },
-  { img: fuel, label: 'Fuel and energy', href: '/fuel-and-energy' },
-  { img: mettalurgy, label: 'Mettalurgy', href: '/mettalurgy' },
-  { img: chemical, label: 'Chemical', href: '/chemical' },
-  { img: food, label: 'Food', href: '/food' },
-  { img: mining, label: 'Mining', href: '/mining' },
-  { img: pulp, label: 'Pulp and paper', href: '/pulp-and-paper' },
-  { img: pharmaceutical, label: 'Pharmaceutical', href: '/pharmaceutical' },
-  { img: shipbuilding, label: 'Shipbuilding', href: '/shipbuilding' },
+  { img: oil, label: 'Oil and Gas', href: '/catalog/industry/catalog/industry/oil-and-gas' },
+  { img: fuel, label: 'Fuel and energy', href: '/catalog/industry/fuel-and-energy' },
+  { img: mettalurgy, label: 'Mettalurgy', href: '/catalog/industry/mettalurgy' },
+  { img: chemical, label: 'Chemical', href: '/catalog/industry/chemical' },
+  { img: food, label: 'Food', href: '/catalog/industry/food' },
+  { img: mining, label: 'Mining', href: '/catalog/industry/mining' },
+  { img: pulp, label: 'Pulp and paper', href: '/catalog/industry/pulp-and-paper' },
+  { img: pharmaceutical, label: 'Pharmaceutical', href: '/catalog/industry/pharmaceutical' },
+  { img: shipbuilding, label: 'Shipbuilding', href: '/catalog/industry/shipbuilding' },
 ];
 
 export const Industry = () => {

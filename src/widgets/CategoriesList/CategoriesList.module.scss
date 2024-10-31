@@ -113,7 +113,6 @@ display: none;}
     transition: all 0.3s;
     transform: translateX(-101%);
     font-size: 16px;
-    // padding: 105px 0 0 38px;
     padding: 57px 59px;
     padding-right: 63px;
     padding-bottom: 84px;
@@ -123,6 +122,8 @@ display: none;}
       transform: translateX(0);
       max-height: 100vh;
       overflow-y: scroll;
+      height: 100vh;
+      padding-top: 130px;
     }
   }
 
@@ -166,7 +167,7 @@ display: none;}
     background-color: var(--white);
     border-radius: 100%;
     position: absolute;
-    top: 26px;
+    top: 126px;
     right: 26px;
   }
 

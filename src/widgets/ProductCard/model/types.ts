@@ -6,8 +6,6 @@ export interface CardProps extends ProductCard {
   view: 'list' | 'grid';
   cardPageLink?: string;
 }
-
-// Модель Store для продуктовой корзины
 export interface ICartStore {
   cart: ProductCard[];
   CartIds: {

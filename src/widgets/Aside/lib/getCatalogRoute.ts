@@ -15,9 +15,17 @@ const catalogRoutes = [
   '/catalog/equipment/hydraulic-equipment',
   '/catalog/equipment/spare-parts',
   '/catalog/equipment/pumps',
+  '/catalog/industry/oil-and-gas',
+  '/catalog/industry/fuel-and-energy',
+  '/catalog/industry/metallurgy',
+  '/catalog/industry/chemical',
+  '/catalog/industry/food',
+  '/catalog/industry/mining',
+  '/catalog/industry/pulp-and-paper',
+  '/catalog/industry/pharmaceutical',
+  '/catalog/industry/shipbuilding',
 ];
 
-//TODO: На страницах каталога меняем цвет у header и aside на светлый. Т.к. bg-image темного цвета. Проблема в том что когда проскролим bg-image, цвет фона становиться светлым. И у header нужно опять менять на цвет по умолчанию. Доделать
 export const getCatalogRoute = (pathname: string) => {
   return catalogRoutes.some((route) => pathname === route);
 };

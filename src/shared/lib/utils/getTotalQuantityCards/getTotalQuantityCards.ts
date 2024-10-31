@@ -7,3 +7,11 @@ export const getTotalQuantityCards = (cart: ProductCard[]) => {
     return 0;
   }
 };
+export const getTotalQuantityAmount = (cart: ProductCard[]) => {
+ 
+  if (cart && cart.length) {
+    return cart.reduce((amount, cart) => amount + Number(cart.price )* cart.quantity!, 0);
+  } else {
+    return 0;
+  }
+};

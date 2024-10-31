@@ -1,17 +1,12 @@
-'use client'
+'use client';
 
-import Button from "@/src/shared/ui/Button/Button";
-import Checkbox from "@/src/shared/ui/Checkbox/Checkbox";
-import Textarea from "@/src/shared/ui/Textarea/Textarea";
-import { useState, useRef } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import Button from '@/src/shared/ui/Button/Button';
+import Checkbox from '@/src/shared/ui/Checkbox/Checkbox';
+import Textarea from '@/src/shared/ui/Textarea/Textarea';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
-import { getTotalQuantityCards } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
-import Title from '@/src/shared/ui/Title/Title';
 import Input from '@/src/shared/ui/Input/Input';
 import { showToast } from '@/src/shared/ui/Toast/Toast';
 import User from '/public/svg/user.svg';
@@ -19,16 +14,12 @@ import Phone from '/public/svg/phone.svg';
 import Email from '/public/svg/email.svg';
 import Message from '/public/svg/message.svg';
 import styles from './Middle.module.scss';
-import { IFeedBackResponse200 } from "@/src/app/api/feedback/interfaces";
-import { SendVacancyRespond } from "@/src/app/api/feedback/feedbackAPI";
+import { IFeedBackResponse200 } from '@/src/app/api/feedback/interfaces';
+import { SendVacancyRespond } from '@/src/app/api/feedback/feedbackAPI';
+import { useReCaptcha } from 'next-recaptcha-v3';
 
 export const Middle = () => {
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaError, setCaptchaError] = useState(false);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-
-
-
+  const { executeRecaptcha } = useReCaptcha();
   const {
     register,
     handleSubmit,
@@ -46,13 +37,9 @@ export const Middle = () => {
     },
   });
 
-
   const onSubmit: SubmitHandler<FormValues> = async (form) => {
-    if (!captchaToken) {
-      setCaptchaError(true);
-      return;
-    }
     try {
+      const token = await executeRecaptcha('form_submit');
       const { accept, ...data } = form;
       reset();
       let sendForm = async (): Promise<void> => {
@@ -62,27 +49,20 @@ export const Middle = () => {
           email: data.email,
           Itn: null,
           file: null,
-          message: data.message
+          message: data.message,
+          token: token,
         });
 
         if (result) {
           const r: IFeedBackResponse200 = result as IFeedBackResponse200;
           showToast();
-
         }
-
       };
-      sendForm()
-
+      sendForm();
     } catch (error) {
       console.error(error);
     }
   };
-  const hadleGetToken = (e: string | null) => {
-    setCaptchaToken(e);
-    setCaptchaError(false);
-  };
-
   const formFields = [
     {
       name: 'name',
@@ -94,7 +74,7 @@ export const Middle = () => {
     {
       name: 'phone',
       label: 'Phone number',
-      placeholder: '8 909 124 54 32',
+      placeholder: '+971 12-345-6789',
       error: errors.phone?.message,
       Icon: Phone,
     },
@@ -161,15 +141,9 @@ export const Middle = () => {
 
             <div
               className={cn(styles.recaptchaWrapper, {
-                [styles.error]: captchaError,
+                [styles.error]: false,
               })}
-            >
-              <ReCAPTCHA
-                ref={recaptchaRef}
-                sitekey="6LcOFzgqAAAAAAEVXi3ynRYrG4GXP-lNUybfOnWm"
-                onChange={hadleGetToken}
-              />
-            </div>
+            ></div>
 
             <Button
               className={styles.btn}
@@ -185,5 +159,3 @@ export const Middle = () => {
     </section>
   );
 };
-
-

@@ -8,8 +8,10 @@ import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
 import styles from './Form.module.scss';
 import { IFeedBackResponse200 } from '@/src/app/api/feedback/interfaces';
 import { sendFeedback } from '@/src/app/api/feedback/feedbackAPI';
+import { useReCaptcha } from 'next-recaptcha-v3';
 
 export const Form = () => {
+  const { executeRecaptcha } = useReCaptcha();
   const {
     register,
     handleSubmit,
@@ -26,11 +28,10 @@ export const Form = () => {
       accept: false,
     },
   });
-
   const onSubmit: SubmitHandler<FormValues> = async (form) => {
     try {
       const { accept, ...data } = form;
-      // const response = await FooterService.sendForm(data);
+      const token = await executeRecaptcha('form_submit');
       reset();
       let sendForm = async (): Promise<void> => {
         const result = await sendFeedback({
@@ -39,17 +40,16 @@ export const Form = () => {
           email: data.email,
           Itn: null,
           file: null,
-          message: data.message
+          message: data.message,
+          token: token,
         });
 
         if (result) {
           const r: IFeedBackResponse200 = result as IFeedBackResponse200;
           showToast();
         }
-
       };
-      sendForm()
-
+      sendForm();
     } catch (error) {
       console.error(error);
     }
@@ -77,7 +77,7 @@ export const Form = () => {
     {
       name: 'phone',
       label: 'PHONE NUMBER',
-      placeholder: '8 909 124 54 32',
+      placeholder: '+971 12-345-6789',
       error: errors.phone?.message,
     },
   ];
@@ -95,7 +95,9 @@ export const Form = () => {
           />
         </label>
       ))}
+      <div></div>
 
+      <div></div>
       <Button
         className={styles.btn}
         variant="secondary"

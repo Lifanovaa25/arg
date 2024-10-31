@@ -10,7 +10,7 @@ import { FormProps } from '../../model/types';
 import styles from './Search.module.scss';
 import { getSearchResults } from '@/src/app/api/search/searchAPI';
 import { ISearchResponse2numbernumber } from '@/src/app/api/search/interfaces';
-import { searchStore } from '@/src/app/providers/Store/config/store';
+import { Loading } from '@/src/widgets/Loading';
 
 interface Product {
   id: number;
@@ -27,22 +27,19 @@ interface Product {
 export const Search = () => {
   const { push } = useRouter();
   const searchParams = useSearchParams();
-  const {query, onAddSearchRequest } = searchStore();
-
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pageNumber, setPageNumber] = useState(1)
-  const [searchRequest, setSearchRequest] = useState(query)
+  const [searchRequest, setSearchRequest] = useState('')
+  const [pageSize, setPageSize] = useState(10)
   const { register, handleSubmit, getValues } = useForm<FormProps>({
     defaultValues: {
       search: searchParams.get('q') || '',
     },
   });
   const fetchProducts = async (): Promise<void> => {
-  
-
     const result = await getSearchResults({
-      Page: pageNumber, PageSize: '30', SearchString: searchRequest
+      Page: pageNumber, PageSize: pageSize, SearchString: searchRequest
     });
 
     if (result) {
@@ -53,6 +50,17 @@ export const Search = () => {
     }
   };
 
+
+  const fetchMoreData = () => {
+    setPageSize(pageSize + 10)
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+
+    fetchProducts();
+
+  }
   const handleForm: SubmitHandler<FormProps> = ({ search }) => {
     push(`/search?q=${search}`);
     setSearchRequest(search)
@@ -61,11 +69,11 @@ export const Search = () => {
 
   useEffect(() => {
     const searchQuery = searchParams.get('q') || '';
-  
+
     if (searchQuery) {
-     
+
       setSearchRequest(searchQuery)
-     
+
     }
   }, [searchParams]);
 
@@ -93,9 +101,11 @@ export const Search = () => {
           </div>
 
           <div className={styles.list}>
-            {isLoading ? (
+            {/* {isLoading ? (
               <p className={styles.not_found}>Loading...</p> // Индикация загрузки
-            ) : products.length > 0 ? (
+            ) :  */}
+            {isLoading && <Loading />}
+            {products.length > 0 ? (
               products.map((item) => (
                 <ProductCard
                   key={item.id}
@@ -105,12 +115,26 @@ export const Search = () => {
                   price={item.price}
                   link={item.link}
                   manufacturer={item.props[1][1] ?? ""}
-                  view="list"
-                />
+                  view="list" quantity={0} />
               ))
             ) : (
               <p className={styles.not_found}>No products found</p> // Сообщение, если товары не найдены
             )}
+            {products.length > 0 &&
+              <div className={styles.more_btn}>
+                <Button
+                  variant="golden"
+                  className={styles.btn}
+                  aria-label="More products"
+                  //@ts-ignore
+                  onClick={() => {
+                    fetchMoreData()
+                  }}
+                >
+                  <span>More products</span>
+                </Button>
+              </div>
+            }
           </div>
         </div>
       </div>

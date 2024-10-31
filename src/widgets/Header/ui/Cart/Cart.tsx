@@ -4,23 +4,25 @@
 import Link from 'next/link';
 import cn from 'classnames';
 import Button from '@/src/shared/ui/Button/Button';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
 import { getTotalQuantityCards } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
 import { CartProps } from './types';
 import Bag from '/public/svg/bag.svg';
 import styles from './Cart.module.scss';
+import { useEffect, useState } from 'react';
+import { useCart } from '@/src/app/providers/CartProvider/CartProvider';
 
 export const Cart = (props: CartProps) => {
   const { isCatalogRoute, isScrolledFar } = props;
-  const { cart } = productCartStore();
+  const { totalQuantity, cartItems} = useCart();
+  const totalCartQuantity = totalQuantity();
 
   return (
     <Link className={styles.cart} href="/cart">
       <Button className={styles.cartButton}  aria-label="Cart">
         
         <Bag width="16" height="16" color="var(--white)" />
-        <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>
-        <div className={styles.mobileCount}>{getTotalQuantityCards(cart)}</div>
+        <div className={styles.mobileCount}>{totalCartQuantity}</div>
+        <div className={styles.mobileCount}>{totalCartQuantity}</div>
       </Button>
       <div className={styles.wrapper}>
         <span
@@ -29,8 +31,7 @@ export const Cart = (props: CartProps) => {
             [styles.gray]: !isCatalogRoute || (isCatalogRoute && isScrolledFar),
           })}
         >
-        
-          {getTotalQuantityCards(cart)}
+        {totalCartQuantity}
         </span>
         <span
           className={cn(styles.text, {

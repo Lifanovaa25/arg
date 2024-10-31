@@ -1,11 +1,8 @@
-// types.ts
-
 export interface DropDownProps {
   isDropDown: boolean;
   setIsDropDown: (isDropDown: boolean) => void;
 }
 
-// Типы, полученные от API
 export interface ApiType {
   typeName: string;
   typeUrl: string;
@@ -33,7 +30,6 @@ export interface ApiResponse {
   value: ApiTab[];
 }
 
-// Приведённые для компонента типы
 export interface MenuType {
   typeName: string;
   typeUrl: string;
@@ -49,4 +45,3 @@ export interface MenuTab {
   tabName: string;
   categories: MenuCategory[];
 }
-

@@ -5,17 +5,15 @@ import Input from '@/src/shared/ui/Input/Input';
 import { checkMobileScreen } from '@/src/shared/lib/utils/checkMobileScreen/checkMobileScreen';
 import { SearchProps, FormProps } from './types';
 import styles from './Search.module.scss';
-import { searchStore } from '@/src/app/providers/Store/config/store';
 
 export const Search = (props: SearchProps) => {
   const { isCatalogRoute, isScrolledFar } = props;
-  const {query, onAddSearchRequest } = searchStore();
 
   const { push } = useRouter();
   const { register, handleSubmit } = useForm<FormProps>();
 
   const handleForm: SubmitHandler<FormProps> = ({ search }) => {
-    onAddSearchRequest(search)
+  
     push(`/search?q=${search}`);
   };
 

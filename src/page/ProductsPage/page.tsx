@@ -1,23 +1,23 @@
 'use client'
 
-
+import dynamic from 'next/dynamic';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 import styles from './AllMiningEquipment.module.scss';
 import { getPageProductsItems } from '@/src/app/api/products/productsAPI';
 import { usePathname } from 'next/navigation';
-import { LinkListItem, LinkListProps, ProductFilters } from '@/src/widgets/CategoriesList/LinksBlock';
+import { LinkListItem, LinkListProps } from '@/src/widgets/CategoriesList/LinksBlock';
 import { CardsList } from '@/src/widgets/CardsList/CardsList';
 import { CategoriesList } from '@/src/widgets/CategoriesList/CategoriesList';
-import { Swiper, SwiperSlide } from 'swiper/react';
+const Swiper = dynamic(() => import('swiper/react').then((module) => module.Swiper));
+const SwiperSlide = dynamic(() => import('swiper/react').then((module) => module.SwiperSlide));
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './Carousel.scss';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
 import { Loading } from '@/src/widgets/Loading';
-import DynamicSeoHeader from '@/src/widgets/dinamicSeoHeader';
-import Head from 'next/head';
+import { useCart } from '@/src/app/providers/CartProvider/CartProvider';
+
 interface Product {
   value: {
     category: {
@@ -66,70 +66,54 @@ const AllMining: React.FC = () => {
   const [data, setData] = useState<Product['value'] | null>(null); // Данные из API
   const [pageNum, setPageNum] = useState(1)
   const [activeTab, setActiveTab] = useState(1);
-  const { setParams, sort, onClearParams, params } = productCartStore();
+  const { params } = useCart();
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [pagesCount, setPagesCount] = useState<number[]>([1])
   const [pageSize, setPageSize] = useState(20)
 
-  const [SeoTitle, setSeoTitle] = useState('')
-  const [SeoDescription, setSeoDescription] = useState('')
+  const { sort } = useCart()
 
-
-  const fetchData = async (): Promise<void> => {
-    const result = await getPageProductsItems({
-      Page: pageNum,
-      PageSize: pageSize,
-      PageUrl: pathname,
-      Params: params,
-      Sort: sort
-    });
-    if (result) {
-      const r: Product = result as unknown as Product;
-      setData(r.value);
-      setLoading(false)
-      pages(r.value.totalPages)
-      setSeoTitle(r.value.SeoTitle)
-      setSeoDescription(r.value.SeoDescription)
-
-    }
-  };
 
   useEffect(() => {
+
+    const fetchData = async (): Promise<void> => {
+      const result = await getPageProductsItems({
+        Page: pageNum,
+        PageSize: pageSize,
+        PageUrl: pathname,
+        Params: params,
+        Sort: sort
+      });
+      if (result) {
+        const r: Product = result as unknown as Product;
+        setData(r.value);
+        setLoading(false)
+      }
+    };
     setLoading(true)
     fetchData()
-  }, [pageNum, params, sort, pageSize]);
 
+
+
+  }, [pageNum, params, pageSize, pathname, sort]);
+  useEffect(() => {
+
+    setPagesCount(pagCount(Number(data?.totalPages)))
+    console.log(pagesCount)
+  }, [data]);
+  function pagCount(totalPages: number) {
+    let array: number[] = []
+    for (let i = 0; i < totalPages; i++) {
+      array.push(i)
+    }
+    return array
+  }
   function PageIncrement(p: number) {
-
     setPageNum(p)
     setActiveTab(p)
   }
-  function pages(p: number) {
-    let arr: number[] = []
-    let i = 0
-    while (Number(p) > i) {
-      i++
-      arr.push(i)
-    }
-    console.log(arr)
-    setPagesCount(arr)
-  }
   return (
     <>
-      {/* <DynamicSeoHeader title={SeoTitle} description={SeoDescription} /> */}
-
-      <Head>
-        <title>{SeoTitle}</title>
-        <meta name={SeoDescription}
-          content={SeoDescription} />
-        <meta property="og:title"
-          content={SeoTitle} />
-        <meta property="og:description"
-          content={SeoDescription} />
-        <meta property="og:title"
-          content="My Page Title" />
-
-      </Head>
       {loading && <Loading />}
 
       <section>
@@ -137,45 +121,43 @@ const AllMining: React.FC = () => {
           <div className={styles.wrapper}>
             <CategoriesList category={data?.category} filters={data?.filters} title={data?.category.label} />
             <CardsList subcategories={data?.items} />
-
           </div>
-
           <div className={styles.bottom}>
             <div className={styles.pagination}>
-              {Number(pagesCount) > 1 &&
-                <Swiper
-                  modules={[Navigation]}
-                  navigation
 
-                  slidesPerView="auto"
-                  slidesPerGroup={1}
-                  spaceBetween={14}
-                  speed={500}
-                  breakpoints={{
-                    768: {
-                      centeredSlides: true,
-                      loop: false,
-                    },
-                    0: {
-                      loop: true,
-                      centeredSlides: true,
-                    },
-                  }}
-                >
-                  {pagesCount?.map((item, index) =>
-                    <SwiperSlide key={index} className={styles.pag_wrap}>
+              {/* {pagesCount.length != 1 && */}
+              <Swiper
+                modules={[Navigation]}
+                navigation
+                pagination
+                slidesPerView="auto"
+                slidesPerGroup={1}
+                spaceBetween={14}
+                speed={500}
 
-                      <div
-                        className={cn(styles.pag_btn, {
-                          [styles.active]: activeTab === index + 1,
-                        })}
-                        onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
-                    </SwiperSlide>
-                  )}
-                </Swiper>
+                breakpoints={{
+                  768: {
+                    // centeredSlides: true,
+                    loop: false,
+                  },
+                  0: {
+                    loop: true,
+                    centeredSlides: true,
+                  },
+                }}
+              >
+                {pagesCount?.map((item, index) =>
+                  <SwiperSlide key={index} className={styles.pag_wrap}>
 
-              }
-
+                    <div
+                      className={cn(styles.pag_btn, {
+                        [styles.active]: activeTab === index + 1,
+                      })}
+                      onClick={() => PageIncrement(index + 1)}> {index + 1} </div>
+                  </SwiperSlide>
+                )}
+              </Swiper>
+              {/* } */}
             </div>
             <div className={styles.prodPerPage}>
               Products per page:
@@ -199,7 +181,6 @@ const AllMining: React.FC = () => {
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </>

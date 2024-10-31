@@ -13,8 +13,8 @@
 .pagination {
   display: flex;
   width: calc(100% - 220px - 50px);
-  max-width: 300px;
-  min-width: 300px;
+  // max-width: 300px;
+  // min-width: 300px;
   margin-left: 270px;
   overflow: hidden;
   float: left;
@@ -78,6 +78,7 @@
   color: var(--black);
   gap: 10px;
   float: right;
+  width: 25%;
 
   .span {
     color: #bfbfbf;
@@ -88,13 +89,13 @@
 
     }
   }
-@media (max-width:768px) {
-  display: none;
-}
+
+  @media (max-width:768px) {
+    display: none;
+  }
 
 }
 
 .active_span {
-  color: var(--black);
-
+  color: var(--black) !important;
 }

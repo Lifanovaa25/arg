@@ -1,12 +1,10 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
+
 import { getTotalQuantityCards } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
 import Title from '@/src/shared/ui/Title/Title';
 import Button from '@/src/shared/ui/Button/Button';
@@ -19,13 +17,17 @@ import Phone from '/public/svg/phone.svg';
 import Email from '/public/svg/email.svg';
 import Message from '/public/svg/message.svg';
 import styles from './Order.module.scss';
+import { useReCaptcha } from 'next-recaptcha-v3';
+import { useState } from 'react';
+import { useCart } from '@/src/app/providers/CartProvider/CartProvider';
 
 export const Order = () => {
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaError, setCaptchaError] = useState(false);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { totalQuantity, cartItems } = useCart();
 
-  const { cart } = productCartStore();
+  const { executeRecaptcha } = useReCaptcha();
+  const [cart, setCart] = useState(cartItems || []);
+  const totalCartQuantity = totalQuantity();
+
 
   const {
     register,
@@ -45,26 +47,22 @@ export const Order = () => {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (form) => {
-    if (!captchaToken) {
-      setCaptchaError(true);
-      return;
-    }
-
     try {
       const { accept, ...data } = form;
-
+      const token = await executeRecaptcha('form_submit');
       const payload = {
         name: data.name,
         phone: data.phone,
         email: data.email,
         message: data.message,
-        items: cart.map((item) => ({
+        items: cart.map((item: { id: any; quantity: any; }) => ({
           id: item.id,
           quantity: item.quantity,
         })),
+        token: token,
       };
 
-      const response = await fetch('https://royal-equipment.ae/api/SubmitCart', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/SubmitCart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,18 +75,10 @@ export const Order = () => {
       }
 
       reset();
-      recaptchaRef.current?.reset();
-      setCaptchaToken(null);
-      setCaptchaError(false);
-      showToast(); 
+      showToast();
     } catch (error) {
       console.error('Ошибка отправки формы:', error);
     }
-  };
-
-  const hadleGetToken = (e: string | null) => {
-    setCaptchaToken(e);
-    setCaptchaError(false);
   };
 
   const formFields = [
@@ -102,7 +92,7 @@ export const Order = () => {
     {
       name: 'phone',
       label: 'Phone number',
-      placeholder: '8 909 124 54 32',
+      placeholder: '+971 12-345-6789',
       error: errors.phone?.message,
       Icon: Phone,
     },
@@ -121,10 +111,12 @@ export const Order = () => {
         <Title className={styles.title} size="h2" variant="secondary">
           Your order
         </Title>
-        <div className={styles.items}>
-          <span className={styles.count}>({getTotalQuantityCards(cart)}</span>
-          <span>items)</span>
-        </div>
+        {totalCartQuantity > 0 &&
+          <div className={styles.items}>
+            <span className={styles.count}>({totalCartQuantity}</span>
+            <span>items)</span>
+          </div>
+        }
       </div>
 
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -177,22 +169,16 @@ export const Order = () => {
 
         <div
           className={cn(styles.recaptchaWrapper, {
-            [styles.error]: captchaError,
+            [styles.error]: false,
           })}
-        >
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey="6LcOFzgqAAAAAAEVXi3ynRYrG4GXP-lNUybfOnWm"
-            onChange={hadleGetToken}
-          />
-        </div>
+        ></div>
 
         <Button
           className={styles.btn}
           variant="golden"
           isLoading={isSubmitting}
           type="submit"
-          aria-label=""
+          aria-label=" Сreate an order"
         >
           Сreate an order
         </Button>

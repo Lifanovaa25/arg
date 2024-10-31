@@ -6,11 +6,15 @@
   font-size: 16px;
   line-height: 21px;
   color: var(--black);
+
   p{
     padding: 10px;
   }
 }
-
+.column{
+  column-count: 2;
+  column-gap: 30px;
+  }
 .left,
 .right {
   max-width: 590px;

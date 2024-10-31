@@ -25,7 +25,6 @@
     font-weight: 700 !important;
     color: var(--black) !important;
   }
-
   &__option {
     cursor: pointer !important;
     white-space: nowrap;
@@ -36,6 +35,6 @@
   }
 
   &__menu {
-    width: 172px !important;
+    width: fit-content !important;
   }
 }

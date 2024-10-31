@@ -6,8 +6,6 @@ import { Top } from './Top/Top';
 import { Description } from './Description/Description';
 import { CardsList } from './CardsList/CardsList';
 import { getCategory } from '@/src/app/api/categories/categoriesAPI';
-import DynamicSeoHeader from '@/src/widgets/dinamicSeoHeader';
-import { NextPage } from 'next';
 
 // Описание типов для данных, возвращаемых API
 interface Subcategory {
@@ -35,14 +33,12 @@ interface ApiResponse {
 }
 
 
-  export const CategoryPage = () => {
+export const CategoryPage = () => {
   const pathname = usePathname(); // Получаем путь
   const [data, setData] = useState<ApiResponse['value'] | null>(null); // Данные из API
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
   const [error, setError] = useState<string | null>(null); // Сообщение об ошибке
 
-  const [SeoTitle, setSeoTitle] = useState('')
-  const [SeoDescription, setSeoDescription] = useState('')
   useEffect(() => {
     setLoading(true)
     const fetchData = async (): Promise<void> => {
@@ -50,23 +46,18 @@ interface ApiResponse {
       if (result) {
         const r: ApiResponse = result as ApiResponse;
         setData(r.value);
-        setLoading(false); // Выключаем состояние загрузки
-        setSeoTitle(r.SeoTitle)
-        setSeoDescription(r.SeoDescription)
+        setLoading(false);
       }
     };
-
     fetchData();
   }, [pathname]);
 
- 
+
   return (
     <>
-      <DynamicSeoHeader title={SeoTitle} description={SeoDescription} />
       {data && (
         <>
-
-          <Top title={data.label}  />
+          <Top title={data.label} />
           <Description text={data.text} />
           <CardsList subcategories={data.subcategories} />
         </>

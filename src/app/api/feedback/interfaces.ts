@@ -7,6 +7,7 @@ export interface IFeedBackParams {
   Itn: string | null;
   file: string | null;
   message: string | undefined;
+  token:string
 }
 export interface IFeedBackResponse200 {
   IsSuccess: boolean;

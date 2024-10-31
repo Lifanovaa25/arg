@@ -19,8 +19,8 @@ const getPageProductsItems = async ({
       PageUrl = `${PageUrl}/`;
     }
     let url = `${process.env.NEXT_PUBLIC_API_URL}/GetPageWithProducts?Page=${Page}&PageSize=${PageSize}&PageUrl=${PageUrl}&Sort=${Sort}`;
-    if (Params) {
-      url = `${url}&Params=${JSON.stringify(Params[Params.length-1])}`;
+    if (Params !== undefined) {
+      url = `${url}&Params=${Params}`;
     
     }
     const response = await axios.get(url);

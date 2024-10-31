@@ -1,5 +1,3 @@
-// DropDown.tsx
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import cn from 'classnames';
@@ -8,7 +6,7 @@ import { useBodyOverflow } from '@/src/shared/lib/hooks/useBodyOverflow/useBodyO
 import { DropDownProps, MenuTab, MenuCategory, MenuType, ApiResponse } from './types';
 import Close from '/public/svg/close.svg';
 import Chevron from '/public/svg/chevron.svg';
-import styles from './DropDown.module.scss'; // Исправлено название файла
+import styles from './DropDown.module.scss'; 
 import { Loading } from '@/src/widgets/Loading';
 
 export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
@@ -19,15 +17,11 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [menuData, setMenuData] = useState<MenuTab[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
-
-
+  const [loading, setLoading] = useState<boolean>(true); 
   useBodyOverflow(isDropDown);
-
-  // Функция для запроса данных из API
   const fetchMenuItems = async () => {
     try {
-      const response = await fetch('https://royal-equipment.ae/api/GetMenuItems');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/GetMenuItems`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -65,7 +59,6 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
     }
   };
 
-  // Запрашиваем данные при первом рендере
   useEffect(() => {
     fetchMenuItems();
   }, []);
@@ -81,7 +74,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
         setActiveName('');
         setActiveTypes([]);
       }
-      setShowTypes(false); // Скрываем подкатегории при смене вкладки
+      setShowTypes(false);
     }
   };
   function handlerMenuClose() {
@@ -100,12 +93,7 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
   const handleMobileBackToCategories = () => {
     setShowTypes(false);
   };
-  function capitalizeFirstLetter(string: string) {
-    string = string.replace("/catalog/industry", '');
-    string = string.replace("/catalog/equipment", '');
-    string = string.replace(" ", '-');
-    return string.charAt(0).toLowerCase() + string.slice(1);
-  }
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -119,7 +107,6 @@ export const DropDown = ({ isDropDown, setIsDropDown }: DropDownProps) => {
     };
   }, []);
 
-  // Получаем категории для активной вкладки
   const currentTabData = menuData.find((tab) => tab.tabName === activeTab);
   const currentCategories: MenuCategory[] = currentTabData
     ? currentTabData.categories

@@ -6,9 +6,7 @@ export interface IPageCartsRequestParams {
 }
 
 export interface ICartRequestParams {
-  Id: {
-    id: number;
-  }[];
+  Id:number[];
 }
 
 export interface ICartItem {

@@ -15,8 +15,8 @@ const getCart = async ({
     let url = `${process.env.NEXT_PUBLIC_API_URL}/GetCart?`;
   
     Id.forEach((item) => {
-      if (item.id != undefined) {
-        url = `${url}cartIds=${item.id}&`;
+      if (item != undefined) {
+        url = `${url}cartIds=${item}&`;
       }
    
 

@@ -1,13 +1,11 @@
 import Title from '@/src/shared/ui/Title/Title';
 import styles from './CategoriesList.module.scss';
-import Link from 'next/link';
 import cn from 'classnames';
 import Settings from '/public/svg/settings.svg';
 import Close from '/public/svg/close.svg';
 
 import { useState } from 'react';
 import { LinkListProps, LinksBlock } from './LinksBlock';
-import { MobileMenu } from '../MobileMenu/MobileMenu';
 import { useBodyOverflow } from '@/src/shared/lib/hooks/useBodyOverflow/useBodyOverflow';
 
 interface CatListProps {
@@ -23,13 +21,11 @@ export const CategoriesList = (props: CatListProps) => {
 
   if (category !== undefined) {
     category.items?.forEach((item) => {
-      item.link = item.link.replace('http://royal-equipment.ae', '');
+      item.link = item.link.replace('http://api.royal-equipment.ae', '');
     });
   }
   useBodyOverflow(isOpenSettings);
-
   return (
-
     <div className={cn(styles.wrapper, {
       [styles.menuOpen]: isOpenSettings,
     })}

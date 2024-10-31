@@ -3,7 +3,7 @@ import type { IResponseError } from "../interfaces";
 export interface ISearchRequestParams {
   SearchString: string;
   Page: number;
-  PageSize: string;
+  PageSize: string | number ;
 }
 
 export interface ISearchResponse2numbernumber {

@@ -127,7 +127,29 @@
   max-width: 200px;
   min-width: 200px;
 }
+.btnIncrease {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.btnCount,
+.btnIncrease {
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 22px;
+  color: var(--black);
+}
+.btnIncrease {
+  .btnCount:first-child {
+    padding-right: 5px;
+  }
 
+  .btnCount:last-child {
+    padding-left: 5px;
+    transform: translateY(1px);
+  }
+}
 @media (max-width:1020px) {
   .details {
     display: flex;

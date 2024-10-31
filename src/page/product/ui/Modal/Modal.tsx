@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -6,7 +6,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema, FormValues } from '@/src/shared/lib/validation/formSchema';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
+
 import { getTotalQuantityCards } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
 import Title from '@/src/shared/ui/Title/Title';
 import Button from '@/src/shared/ui/Button/Button';
@@ -25,33 +25,21 @@ import Close from '/public/svg/close.svg';
 import styles from './Modal.module.scss';
 import { IFeedBackResponse200 } from '@/src/app/api/feedback/interfaces';
 import { sendFeedback } from '@/src/app/api/feedback/feedbackAPI';
-
-
-
+import { useReCaptcha } from 'next-recaptcha-v3';
 
 export interface ContactModalProps {
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
 }
 export const ContactModal = (props: ContactModalProps) => {
-  const {
-    isModalOpen,
-    setIsModalOpen
-  } = props;
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaError, setCaptchaError] = useState(false);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { executeRecaptcha } = useReCaptcha();
+  const { isModalOpen, setIsModalOpen } = props;
 
   useBodyOverflow(isModalOpen);
-
-
 
   const hadnelCloseModal = () => {
     setIsModalOpen(false);
   };
-
-
-
 
   const {
     register,
@@ -70,7 +58,6 @@ export const ContactModal = (props: ContactModalProps) => {
     },
   });
 
-
   const onSubmit: SubmitHandler<FormValues> = async (form) => {
     // if (!captchaToken) {
     //   setCaptchaError(true);
@@ -78,7 +65,7 @@ export const ContactModal = (props: ContactModalProps) => {
     // }
     try {
       const { accept, ...data } = form;
-      // const response = await FooterService.sendForm(data);
+      const token = await executeRecaptcha('form_submit');
       reset();
       let sendForm = async (): Promise<void> => {
         const result = await sendFeedback({
@@ -87,25 +74,19 @@ export const ContactModal = (props: ContactModalProps) => {
           email: data.email,
           Itn: null,
           file: null,
-          message: data.message
+          message: data.message,
+          token: token,
         });
 
         if (result) {
           const r: IFeedBackResponse200 = result as IFeedBackResponse200;
           showToast();
-
         }
-
       };
-      sendForm()
-
+      sendForm();
     } catch (error) {
       console.error(error);
     }
-  };
-  const hadleGetToken = (e: string | null) => {
-    setCaptchaToken(e);
-    setCaptchaError(false);
   };
 
   const formFields = [
@@ -119,7 +100,7 @@ export const ContactModal = (props: ContactModalProps) => {
     {
       name: 'phone',
       label: 'Phone number',
-      placeholder: '8 909 124 54 32',
+      placeholder: '+971 12-345-6789',
       error: errors.phone?.message,
       Icon: Phone,
     },
@@ -202,7 +183,7 @@ export const ContactModal = (props: ContactModalProps) => {
           >
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6LcOFzgqAAAAAAEVXi3ynRYrG4GXP-lNUybfOnWm"
+              sitekey="6LdU9GgqAAAAAAJiU_oxCNnUTR4HkG_0tCuHHlCz"
               onChange={hadleGetToken}
             />
           </div>

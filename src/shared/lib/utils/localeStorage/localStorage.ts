@@ -1,3 +1,5 @@
+import { CardProps } from "@/src/widgets/ProductCard/model/types";
+
 export const getLocalStore = (name: string) => {
   if (typeof localStorage !== 'undefined') {
     const ls = localStorage.getItem(name);
@@ -17,3 +19,4 @@ export const removeLocalStore = (name: string) => {
     localStorage.removeItem(name);
   }
 };
+

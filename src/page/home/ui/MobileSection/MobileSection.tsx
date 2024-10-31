@@ -2,8 +2,12 @@ import Link from 'next/link';
 import Button from '@/src/shared/ui/Button/Button';
 import Contact from '/public/svg/contact.svg';
 import styles from './MobileSection.module.scss';
-import { ContactModal } from '@/src/page/product/ui/Modal/Modal';
+const ContactModal = dynamic(
+  () => import('@/src/page/product/ui/Modal/Modal').then((m) => m.ContactModal),
+  { ssr: false }
+);
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 export const MobileSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +26,12 @@ export const MobileSection = () => {
         </p>
 
         <div className={styles.wrapper}>
-          <Button className={styles.btn} variant="outline" onClick={() => setIsModalOpen(true)}
-            aria-label="FeedBack">
+          <Button
+            className={styles.btn}
+            variant="outline"
+            onClick={() => setIsModalOpen(true)}
+            aria-label="FeedBack"
+          >
             Feedback
           </Button>
 
@@ -35,12 +43,9 @@ export const MobileSection = () => {
           </Link>
         </div>
       </div>
-      {isModalOpen &&
-        <ContactModal isModalOpen={isModalOpen}
-
-          setIsModalOpen={setIsModalOpen}
-        />
-      }
+      {isModalOpen && (
+        <ContactModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      )}
     </section>
   );
 };

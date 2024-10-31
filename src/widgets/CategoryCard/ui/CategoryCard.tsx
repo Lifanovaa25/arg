@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Title from '@/src/shared/ui/Title/Title';
 import Arrow from '/public/svg/arrow-long.svg';
-import test from '/public/images/test.png';
+import noimage from '/public/images/no-image.png';
 import styles from './CategoryCard.module.scss';
 import cn from 'classnames';
 
@@ -21,7 +21,7 @@ export const CategoryCard = (props: CategoryProps) => {
   return (
     <div className={styles.wrapper}>
       <Link className={styles.link} href={url ?? ""}>
-        <Image className={cn(styles.img, className)} width={100} height={100} src={image ? 'https://royal-equipment.ae' + image : test} alt={name + " image"} />
+        <Image className={cn(styles.img, className)} width={100} height={100} src={image ? 'https://api.royal-equipment.ae' + image : noimage} alt={name + " image"} />
 
         <div className={styles.contentWrapper}>
           <Title

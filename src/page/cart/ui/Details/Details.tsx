@@ -1,43 +1,45 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import Title from '@/src/shared/ui/Title/Title';
 import { Card } from '../Card/Card';
 import { CartModal } from '../Modal/Modal';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './Details.module.scss';
-import { getCart } from '@/src/app/api/cart/cartApi';
 import { ICartResponse200 } from '@/src/app/api/cart/interfaces';
 import { Loading } from '@/src/widgets/Loading';
+import { getCart } from '@/src/app/api/cart/cartApi';
+import { getTotalQuantityAmount } from '@/src/shared/lib/utils/getTotalQuantityCards/getTotalQuantityCards';
+import { useCart } from '@/src/app/providers/CartProvider/CartProvider';
+import Link from 'next/link';
 
 export const Details = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idProduct, setIdProduct] = useState<number | null>(null);
+  const { cartItems, onRemoveCard, onClearCart, onChangeOpenId } = useCart();
   const [loading, setLoading] = useState<boolean>(true); // Статус загрузки
+  const [cart, setCart] = useState(cartItems || []);
+  const [data, setData] = useState<ICartResponse200['value'] | null>(null);
 
-  const { CartIds, cart, getCartIds, onRemoveCard, onClearCart } = productCartStore();
-
-  const [IdsItem, setdsItem] = useState([]);
-  const Ids = getCartIds();
-
-  const [data, setData] = useState<ICartResponse200['value'] | null>(null); 
-
-  const fetchData = async (): Promise<void> => {
-    const result = await getCart({ Id: CartIds });
-    if (result) {
-      const r: ICartResponse200 = result as unknown as ICartResponse200;
-      setData(r.value);
-      setLoading(false); // Выключаем состояние загрузки
-    }
-  };
   useEffect(() => {
-
-    getCartIds();
+    function getCartIds() {
+      const ids: number[] = [];
+      cartItems.forEach((item: { id: string | number }) => {
+        ids.push(Number(item.id));
+      });
+      return ids;
+    }
+    let IdsItem = getCartIds();
+    const fetchData = async (): Promise<void> => {
+      const result = await getCart({ Id: IdsItem });
+      if (result) {
+        const r: ICartResponse200 = result as unknown as ICartResponse200;
+        setData(r.value);
+        setLoading(false); // Выключаем состояние загрузки
+      }
+    };
     if (data === null) {
-      setLoading(true)
+      setLoading(true);
       fetchData();
-
-
     } else {
       for (const item of data.items) {
         for (const cart_item of cart) {
@@ -51,12 +53,28 @@ export const Details = () => {
         }
       }
     }
-
-  }, [data]);
+  }, [cart, cartItems, data]);
   useEffect(() => {
-    getCartIds();
+    function getCartIds() {
+      const ids: number[] = [];
+      cartItems.forEach((item: { id: string | number }) => {
+        ids.push(Number(item.id));
+      });
+      return ids;
+    }
+    setCart(cartItems);
+    let IdsItem = getCartIds();
+    const fetchData = async (): Promise<void> => {
+      const result = await getCart({ Id: IdsItem });
+      if (result) {
+        const r: ICartResponse200 = result as unknown as ICartResponse200;
+        setData(r.value);
+
+        setLoading(false); // Выключаем состояние загрузки
+      }
+    };
     fetchData();
-  }, [cart, CartIds]);
+  }, [cart, cartItems]);
 
   const handleOpenModal = (id: number) => {
     setIsModalOpen(true);
@@ -80,39 +98,49 @@ export const Details = () => {
   return (
     <div className={styles.wrapper}>
       {loading && <Loading />}
-
       <div className={styles.top}>
         <Title size="h1" variant="secondary">
           Checkout details
         </Title>
-
         {cart && cart.length > 0 && (
-          <button className={styles.btn} onClick={() => setIsModalOpen(true)}
-          aria-label="Clear cart" >
+          <button
+            className={styles.btn}
+            onClick={() => setIsModalOpen(true)}
+            aria-label="Clear cart"
+          >
             Clear cart
           </button>
         )}
       </div>
-
       {cart && cart.length < 1 && <p className={styles.empty}>Cart is empty</p>}
-
       <div className={styles.list}>
         {cart &&
           cart.length > 0 &&
           cart.map((card) => (
+          //   <Link
+          //   className={styles.link}
+          //   href={card.link}
+          //   as={card.link}
+          //   onClick={() => onChangeOpenId(card.id)}
+          // >
             <Card
+              //@ts-ignore
               view={'list'}
               key={card.id}
               {...card}
               handleOpenModal={handleOpenModal}
             />
+            // </Link>
           ))}
       </div>
 
       {cart && cart.length > 0 && (
         <div className={styles.total}>
           <span className={styles.price}>Total price:</span>
-          <span className={styles.request}>On request</span>
+          <span className={styles.request}>
+            {getTotalQuantityAmount(cart)}
+            {/* On request */}
+          </span>
         </div>
       )}
 
@@ -124,8 +152,6 @@ export const Details = () => {
         handleClearCart={handleClearCart}
         idProduct={idProduct}
       />
-
-
     </div>
   );
 };

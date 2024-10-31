@@ -1,49 +1,72 @@
 'use client';
 
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import cn from 'classnames';
 import Title from '@/src/shared/ui/Title/Title';
-import test from '/public/images/test.png';
+import noimage from '/public/images/no-image.png';
 import { CardProps } from '../model/types';
-import { productCartStore } from '@/src/app/providers/Store/config/store';
 import styles from './ProductCard.module.scss';
+import { useCart } from '@/src/app/providers/CartProvider/CartProvider';
+import { usePathname } from 'next/navigation';
 
 export const ProductCard = (props: CardProps) => {
+  const pathname = usePathname()
+  const [path,setPath] = useState(
+    pathname.includes('/equipment/') ? 'equipment' :'industry'
+  )
+  console.log(pathname)
   const { id, title: text, price, view } = props;
-  const { cart, onAddCard, onPlusCard, onRemoveCard, onMinusCard } = productCartStore();
+  const { addToCart, onMinusCard, onPlusCard, onRemoveCard, cartItems, onChangeOpenId } =
+    useCart();
+
   const pageUrl = String(props.cardPageLink);
-  const prodUrl = String(props.link);
-  const card = cart && cart.length && cart.find((obj) => obj.id === id);
+  const cart = Array.isArray(cartItems) ? cartItems : [];
+  const card = cart.find((obj: { id: number }) => obj.id === id) || null;
+
+  const [count, setCount] = useState(card && card.quantity > 0 ? card.quantity : 0);
+
   const handleAddCard = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    onAddCard(props);
+    setCount(count + 1);
+    addToCart(props);
   };
 
   const handleIncreaseCount = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    onPlusCard(id);
+    onPlusCard(Number(id));
+    setCount(count + 1);
   };
 
   const handleDecreaseCount = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
+    setCount(count - 1);
     if (card) {
       if (card.quantity === 1) {
-        onRemoveCard(id);
+        onRemoveCard(Number(id));
       } else {
-        onMinusCard(id);
+        onMinusCard(Number(id));
       }
     }
   };
-
+  console.log({props})
   return (
     <div className={cn(styles.wrapper, styles[view])}>
-      {pageUrl ?
-        <Link className={styles.link} href={`/catalog/equipment/product/[product]/${props.link}`} as={`/catalog/equipment/product/${props.link}`}
-          onClick={() => localStorage.setItem("lastProductId",id.toString())}>
-          <Image className={cn(styles.img, styles[view])} src={props.image ?  'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+      {pageUrl ? (
+        <Link
+          className={styles.link}
+          href={`/catalog/${path}/product/${props.link}/`}
+          as={`/catalog/${path}/product/${props.link}/`}
+          onClick={() => onChangeOpenId(id)}
+        >
+          <Image
+            className={cn(styles.img, styles[view])}
+            src={props.image ? 'https://api.royal-equipment.ae' + props.image : noimage}
+            width={100}
+            height={100}
+            alt={text}
+          />
 
           <div className={cn(styles.contentWrapper, styles[view])}>
             <div>
@@ -59,7 +82,6 @@ export const ProductCard = (props: CardProps) => {
                 weight="bold"
               >
                 {props.title}
-                
               </Title>
             </div>
 
@@ -69,18 +91,33 @@ export const ProductCard = (props: CardProps) => {
                 <span>{props.price}</span>
               </div>
               <div className={styles.btnsWrapper}>
-                {!card ? (
-                  <button className={styles.btnAdd} onClick={handleAddCard} aria-label="add to cart">
+                {!card && count < 1 ? (
+                  <button
+                    className={styles.btnAdd}
+                    onClick={handleAddCard}
+                    aria-label="add to cart"
+                  >
                     <span className={styles.spanIncrease}>+</span>
                     <span className={styles.spanAdd}>add to cart</span>
                   </button>
                 ) : (
                   <div className={styles.btnIncrease}>
-                    <button className={styles.btnCount} onClick={handleDecreaseCount} aria-label='Minus'>
+                    <button
+                      className={styles.btnCount}
+                      onClick={handleDecreaseCount}
+                      aria-label="Minus"
+                    >
                       -
                     </button>
-                    <span className={styles.spanQuantity}>{card.quantity}</span>
-                    <button className={styles.btnCount} onClick={handleIncreaseCount} aria-label='Plus'>
+                    <span className={styles.spanQuantity}>
+                      {/* {card.quantity} */}
+                      {count}
+                    </span>
+                    <button
+                      className={styles.btnCount}
+                      onClick={handleIncreaseCount}
+                      aria-label="Plus"
+                    >
                       +
                     </button>
                   </div>
@@ -93,16 +130,21 @@ export const ProductCard = (props: CardProps) => {
             )}
           </div>
         </Link>
-        :
-
-        <Link className={styles.link} href={props.link}>
-          <Image className={cn(styles.img, styles[view])} src={props.image ? 'https://royal-equipment.ae' + props.image : test} width={100} height={100} alt={text} />
+      ) : (
+        <Link className={styles.link} href={`/${props.link}/`}>
+          <Image
+            className={cn(styles.img, styles[view])}
+            src={props.image ? 'https://api.royal-equipment.ae' + props.image : noimage}
+            width={100}
+            height={100}
+            alt={text}
+          />
 
           <div className={cn(styles.contentWrapper, styles[view])}>
             <div>
               <div className={styles.manufacturers}>
                 <span>Manufacturers: </span>
-                <span>{'GRUNDFOS'}</span>
+                <span>{props.manufacturer}</span>
               </div>
               <Title
                 className={cn(styles.title, styles[view])}
@@ -121,20 +163,26 @@ export const ProductCard = (props: CardProps) => {
                 <span>{props.price}</span>
               </div>
               <div className={styles.btnsWrapper}>
-                {!card ? (
+                {!card || count < 1 ? (
                   <button className={styles.btnAdd} onClick={handleAddCard}>
                     <span className={styles.spanIncrease}>+</span>
                     <span className={styles.spanAdd}>add to cart</span>
                   </button>
                 ) : (
                   <div className={styles.btnIncrease}>
-                    <button className={styles.btnCount} onClick={handleDecreaseCount}
-                    aria-label='Minus'>
+                    <button
+                      className={styles.btnCount}
+                      onClick={handleDecreaseCount}
+                      aria-label="Minus"
+                    >
                       -
                     </button>
-                    <span className={styles.spanQuantity}>{card.quantity}</span>
-                    <button className={styles.btnCount} onClick={handleIncreaseCount}
-                    aria-label='Plus'>
+                    <span className={styles.spanQuantity}>{count}</span>
+                    <button
+                      className={styles.btnCount}
+                      onClick={handleIncreaseCount}
+                      aria-label="Plus"
+                    >
                       +
                     </button>
                   </div>
@@ -147,7 +195,7 @@ export const ProductCard = (props: CardProps) => {
             )}
           </div>
         </Link>
-      }
+      )}
     </div>
   );
 };
